@@ -1,8 +1,6 @@
 import axios from 'axios';
 import type { NextPage, GetServerSideProps } from 'next';
 import Head from 'next/head';
-import { ReactNode } from 'react';
-import { getUser } from 'redux/actions/userActions';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 
 //define type for data
