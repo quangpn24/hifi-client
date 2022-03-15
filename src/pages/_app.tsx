@@ -1,5 +1,5 @@
 import type { AppProps } from 'next/app';
-import 'tailwindcss/tailwind.css';
+import 'styles/global.css';
 import 'antd/dist/antd.css';
 import { store } from 'redux/store';
 import { Provider } from 'react-redux';
