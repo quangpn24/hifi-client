@@ -3,7 +3,7 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { Col, Row } from 'antd';
 import { HeroIcon } from 'components/commons/HeroIcon';
 
-const key = 'AIzaSyALuvPHHDu45XSSSRcDH-pnARO99PfntMs';
+const key = '';
 
 interface Props {
   center: google.maps.LatLngLiteral;
