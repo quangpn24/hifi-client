@@ -3,6 +3,7 @@ import 'tailwindcss/tailwind.css';
 import 'antd/dist/antd.css';
 import { store } from 'redux/store';
 import { Provider } from 'react-redux';
+require('../styles/App.less');
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
