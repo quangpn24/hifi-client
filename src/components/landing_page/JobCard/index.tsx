@@ -6,6 +6,8 @@ import Image from 'next/image';
 import Jobhunt from '/public/images/Job-hunt.svg';
 import Title from 'antd/lib/typography/Title';
 import Text from 'antd/lib/typography/Text';
+import { useRouter } from 'next/router';
+import { Router } from 'react-router-dom';
 
 interface jobData {
   id: number;
@@ -21,7 +23,8 @@ interface Props {
   job: jobData;
 }
 
-const FeatureJob: NextPage<Props> = (props) => {
+const JobCard: NextPage<Props> = (props) => {
+  const router = useRouter();
   const { job } = props;
   return (
     <Card
@@ -37,6 +40,9 @@ const FeatureJob: NextPage<Props> = (props) => {
         </Col>
         <Col span={12} className='text-right'>
           <Button
+            onClick={() => {
+              router.push(`/jobs/${job.id}`);
+            }}
             style={{
               borderRadius: '10px',
               overflow: 'hidden',
@@ -68,4 +74,4 @@ const FeatureJob: NextPage<Props> = (props) => {
   );
 };
 
-export default FeatureJob;
+export default JobCard;

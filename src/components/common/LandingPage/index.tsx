@@ -1,18 +1,16 @@
-import Icon, { ArrowRightOutlined } from '@ant-design/icons';
-import { Row, Col, Button, Avatar, Divider, Input } from 'antd';
+import { ArrowRightOutlined } from '@ant-design/icons';
+import { Button, Col, Image as AntImage, Input, Row, Tabs } from 'antd';
+import JobCard from 'components/landing_page/JobCard';
 import type { NextPage } from 'next';
-import logo from '/public/images/Logo.svg';
 import Image from 'next/image';
-import { Typography, Image as AntImage } from 'antd';
-import Text from 'antd/lib/typography/Text';
+import { useRouter } from 'next/router';
+import CategoryCard from '../../landing_page/CategoryCard';
 import Jobhunt from '/public/images/Job-hunt.svg';
-import Category from '../../LandingPage/Category';
-import { Tabs } from 'antd';
-import FeatureJob from 'components/LandingPage/FeatureJob';
 const { TabPane } = Tabs;
 const { Search } = Input;
 
 const LandingPage: NextPage = (props) => {
+  const router = useRouter();
   const categories = [
     {
       id: 1,
@@ -171,7 +169,7 @@ const LandingPage: NextPage = (props) => {
           <h3 className='font-bold text-3xl text-text-primary'>Categories!</h3>
         </Col>
         <Col>
-          <Button type='link'>
+          <Button type='link' href='categories'>
             <span className='text-text-tertiary'>All categories</span>
             <ArrowRightOutlined style={{ color: '#8B7A9F' }} />
           </Button>
@@ -180,7 +178,7 @@ const LandingPage: NextPage = (props) => {
       <Row gutter={[20, 20]}>
         {categories.map((category) => (
           <Col lg={8} md={12} key={category.id}>
-            <Category category={category}></Category>
+            <CategoryCard category={category} />
           </Col>
         ))}
       </Row>
@@ -198,7 +196,7 @@ const LandingPage: NextPage = (props) => {
             <Row gutter={[20, 20]}>
               {jobs.map((job) => (
                 <Col md={12} lg={6} key={category.id}>
-                  <FeatureJob job={job} key={job.id} />
+                  <JobCard job={job} key={job.id} />
                 </Col>
               ))}
             </Row>
@@ -206,7 +204,7 @@ const LandingPage: NextPage = (props) => {
         ))}
       </Tabs>
       <Row justify='center' className='pt-8'>
-        <Button type='primary' size='large'>
+        <Button type='primary' size='large' href='/jobs'>
           Explore more jobs
         </Button>
       </Row>
@@ -218,15 +216,18 @@ const LandingPage: NextPage = (props) => {
           {`Find your future. Let't go to discover the world!. Your oppornities are in your hand ^^`}
         </h5>
       </Row>
-      <Row className='p-8'>
+      <Row className='p-8' gutter={[32, 16]}>
         {companies.map((company) => (
-          <Col
-            span={8}
-            key={company.id}
-            className='text-center h-44'
-            style={{ lineHeight: '176px' }}
-          >
-            <AntImage preview={false} src={company.logo} className='max-h-44' alt=''></AntImage>
+          <Col span={8} key={company.id} className='text-center h-44'>
+            <AntImage
+              preview={false}
+              src={company.logo}
+              className='max-h-44  cursor-pointer'
+              alt=''
+              onClick={() => {
+                router.push('/companies/id');
+              }}
+            ></AntImage>
           </Col>
         ))}
       </Row>

@@ -1,5 +1,5 @@
 import { HomeOutlined } from '@ant-design/icons';
-import { Button, Row, Col, PageHeader } from 'antd';
+import { Button, Row, Col, PageHeader, Menu } from 'antd';
 import axios from 'axios';
 import Header from 'components/common/Header';
 import Footer from 'components/common/Footer';
@@ -7,7 +7,6 @@ import LandingPage from 'components/common/LandingPage';
 import type { NextPage, GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-
 //define type for data
 interface Data {
   userId: Number;
@@ -28,24 +27,18 @@ const Home: NextPage<Props> = (props) => {
   const menu = [
     {
       id: 1,
-      name: 'Home',
-      url: './',
-      icon: <HomeOutlined />,
-    },
-    {
-      id: 2,
       name: 'Jobs',
       url: './jobs',
       icon: <HomeOutlined />,
     },
     {
-      id: 3,
+      id: 2,
       name: 'Companies',
       url: './companies',
       icon: <HomeOutlined />,
     },
   ];
-  // dispatch(getUser);
+
   return (
     <>
       <Head>

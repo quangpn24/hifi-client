@@ -5,6 +5,7 @@ import logo from '/public/images/Logo.svg';
 import Image from 'next/image';
 import Jobhunt from '/public/images/Job-hunt.svg';
 import Title from 'antd/lib/typography/Title';
+import { useRouter } from 'next/router';
 
 interface categoryData {
   id: number;
@@ -17,13 +18,14 @@ interface Props {
   category: categoryData;
 }
 
-const Category: NextPage<Props> = (props) => {
+const CategoryCard: NextPage<Props> = (props) => {
+  const router = useRouter();
   const { category } = props;
   return (
     <Card
-      style={{
-        borderRadius: '20px',
-        overflow: 'hidden',
+      className='cursor-pointer overflow-hidden'
+      onClick={() => {
+        router.push(`/categories/${category.id}`);
       }}
     >
       <Row>
@@ -39,4 +41,4 @@ const Category: NextPage<Props> = (props) => {
   );
 };
 
-export default Category;
+export default CategoryCard;
