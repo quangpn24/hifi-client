@@ -10,6 +10,7 @@ interface IProps {
   onChange?: (value: string) => void;
 }
 const DescriptionRichInput: React.FC<IProps> = ({ value, onChange }) => {
+  console.log(value);
   return (
     <div>
       <Label text='Job Description' />

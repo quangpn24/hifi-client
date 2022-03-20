@@ -2,6 +2,7 @@ import { Button, Col, Form, message, Row, Select } from 'antd';
 import postApi from 'api/recruiter/postApi';
 import { deteteImage, uploadImage } from 'firebase/services';
 import React, { useState } from 'react';
+import { Post } from 'types';
 import DescriptionRichInput from '../DescriptionRichInput';
 import ImageFileUpload from '../ImageFileUpload';
 import JobCategory from '../JobCategory';
@@ -10,7 +11,6 @@ import LabelInput from '../LabelInput';
 import PreferedLangSelect from '../PreferedLangSelect';
 import SalaryRange from '../SalaryRange';
 import SkillSearchSelect from '../SkillsSearchInput';
-import { Post } from '../types';
 import WorkLocationSelect from '../WorkLocationSelect';
 
 type Props = {};
@@ -36,7 +36,6 @@ const defaultFormValue: Post = {
 const JobPostForm = (props: Props) => {
   const [loading, setLoading] = useState(false);
   const onFinish = async (post: Post) => {
-    console.log('Success:', post);
     setLoading(true);
     const { error, url } = await uploadImage(post.photoFile[0]);
     if (error) {
@@ -48,7 +47,7 @@ const JobPostForm = (props: Props) => {
     try {
       const { data } = await postApi.createPost(post);
       message.info('Create job hirement post successfully!');
-      console.log('res:', data);
+      console.log('Success:', data);
     } catch (error: any) {
       await deteteImage(url);
       message.error(error.message);
@@ -60,7 +59,6 @@ const JobPostForm = (props: Props) => {
     console.log('Failed:', errorInfo);
   };
 
-  const options = ['Mic check', 'Cool'];
   return (
     <Form
       {...layout}

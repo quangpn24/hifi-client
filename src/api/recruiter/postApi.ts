@@ -6,7 +6,7 @@ const postApi = {
   },
   createPost: (post: any) => {
     return axiosClient.post('/recruiter/posts', {
-      post,
+      ...post,
     });
   },
 };

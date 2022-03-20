@@ -1,5 +1,7 @@
 import { Select, Typography } from 'antd';
-import React from 'react';
+import suggestionApi from 'api/recruiter/suggestionApi';
+import React, { useEffect, useState } from 'react';
+import { Category } from 'types';
 
 const { Option, OptGroup } = Select;
 const { Title } = Typography;
@@ -7,39 +9,30 @@ interface IProps {
   value?: string;
   onChange?: (value: string) => void;
 }
-const categories = [
-  {
-    id: 1,
-    name: 'Financial Services',
-    subcategories: [
-      { id: 14, name: 'Auditing' },
-      { id: 25, name: 'Banking' },
-      { id: 36, name: 'Insurance' },
-    ],
-  },
-  {
-    id: 2,
-    name: 'Technology',
-    subcategories: [
-      { id: 13, name: 'IT - Hardware/Networking' },
-      { id: 23, name: 'IT - Software' },
-    ],
-  },
-  {
-    id: 3,
-    name: 'Front Office',
-    subcategories: [
-      { id: 11, name: 'Marketing' },
-      { id: 21, name: 'Sales' },
-      { id: 31, name: 'Sales Technical' },
-      { id: 41, name: 'Customer Service' },
-    ],
-  },
-];
+
 const JobCategory: React.FC<IProps> = ({ value, onChange }) => {
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  console.log(value);
+  useEffect(() => {
+    let mounted = true;
+    (() => {
+      suggestionApi.getAllCategories().then((data) => {
+        if (mounted) {
+          setCategories(data);
+          console.log(data);
+        }
+      });
+    })();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
   return (
     <div>
-      <Title level={5}>Job catgory</Title>
+      <Title level={5}>Job category</Title>
       <Select
         mode='multiple'
         allowClear
@@ -49,9 +42,9 @@ const JobCategory: React.FC<IProps> = ({ value, onChange }) => {
         onChange={onChange}
       >
         {categories.map((cat) => (
-          <OptGroup key={cat.id} label={cat.name}>
+          <OptGroup key={cat._id} label={cat.name}>
             {cat.subcategories.map((sub) => (
-              <Option key={sub.id} value={sub.name}>
+              <Option key={sub._id} value={sub._id}>
                 {sub.name}
               </Option>
             ))}

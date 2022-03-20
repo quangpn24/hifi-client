@@ -1,4 +1,4 @@
-import { WorkLocation } from './types';
+import { WorkLocation } from 'types';
 
 const locationList: WorkLocation[] = [
   { id: '1', name: 'Zalo Head', address: 'Bình Thạnh', city: 'TP.HCM' },

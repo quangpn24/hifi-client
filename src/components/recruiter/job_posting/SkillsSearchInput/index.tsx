@@ -1,50 +1,83 @@
-import { Select, Typography } from 'antd';
-import skillApi from 'api/recruiter/skillApi';
-import React, { useRef, useState } from 'react';
+import { message, Select, Typography } from 'antd';
+import suggestionApi from 'api/recruiter/suggestionApi';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Skill } from '../types';
+import _debounce from 'lodash.debounce';
+import Content from './Content';
 const { Title } = Typography;
 const { Option } = Select;
 
 interface IProps {
   style?: React.CSSProperties;
-  value?: Skill;
-  onChange?: (value: Skill) => void;
+  value?: string[];
+  onChange?: (value: string[]) => void;
 }
-
+export type messageType = 'NotFound' | 'Loading' | 'Default';
 const SkillsSearchSelect: React.FC<IProps> = (props: IProps) => {
   const { value, onChange } = props;
   const [data, setData] = useState<Skill[]>([]);
+  const [messageType, setMessageType] = useState<messageType>('Default');
   const skillSelectRef = useRef<any>(null);
+
+  const searchSkillCallApi = useMemo(
+    () =>
+      _debounce((keyword, selectedSkills) => {
+        if (!keyword || keyword.length < 2) {
+          setMessageType('Default');
+          setData([]);
+          return;
+        }
+        setMessageType('Loading');
+        suggestionApi
+          .searchSkills(keyword, selectedSkills)
+          .then((data) => {
+            if (data.length === 0) {
+              setMessageType('NotFound');
+            }
+            setData(data);
+          })
+          .catch((err) => {
+            message.error(err.message);
+            setMessageType('Default');
+          });
+      }, 1000),
+    []
+  );
+
   const handleSearch = async (keyword: string) => {
-    if (keyword) {
-      const matchSkills = await skillApi.fetchSkills(keyword);
-      setData(matchSkills);
-    } else {
-      setData([]);
-    }
+    if (!keyword || keyword.length < 2) setData([]);
+    setMessageType('Loading');
+    console.log('value:', value);
+    searchSkillCallApi(keyword, value);
   };
-  const handleChange = (selectedValue: Skill) => {
-    if (!value) return;
-    console.log(selectedValue);
+  const handleChange = (selectedValue: string[]) => {
+    if (!selectedValue) return;
+
     onChange?.(selectedValue);
     skillSelectRef.current.blur();
+    setData([]);
+    setMessageType('Default');
   };
   return (
     <div>
       <Title level={5}>Skill Tags</Title>
       <Select
+        loading={messageType === 'Loading'}
         showSearch
         mode='multiple'
         ref={(select) => (skillSelectRef.current = select)}
         placeholder={'Please choose 2 skills'}
         onSearch={handleSearch}
         onChange={handleChange}
-        value={value}
         size='large'
-        notFoundContent={<p>Not found</p>}
+        onBlur={() => {
+          setMessageType('Default');
+        }}
+        filterOption={false}
+        notFoundContent={<Content messageType={messageType} />}
       >
         {data.map((d) => (
-          <Option key={d.id}>{d.text}</Option>
+          <Option key={d._id}>{d.text}</Option>
         ))}
       </Select>
     </div>

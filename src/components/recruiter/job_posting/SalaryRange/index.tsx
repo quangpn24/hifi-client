@@ -1,6 +1,6 @@
 import { InputNumber, Select, Space, Switch, Typography } from 'antd';
 import React from 'react';
-import { Salary } from '../types';
+import { Salary } from 'types';
 
 type Props = {};
 
