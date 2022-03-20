@@ -26,3 +26,24 @@ a {
 .items-center {
   align-items: center !important;
 }
+
+.quill {
+  border-radius: 6px;
+}
+.ql-toolbar {
+  border-radius: 6px 6px 0 0;
+}
+.ql-container {
+  border-radius: 0 0 6px 6px;
+}
+.ql-editor {
+  min-height: 200px;
+}
+
+.rounded-md {
+  border-radius: 0.375rem !important;
+}
+
+.font-bold {
+  font-weight: 700 !important;
+}
