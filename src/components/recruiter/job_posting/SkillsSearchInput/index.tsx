@@ -1,8 +1,8 @@
 import { message, Select, Typography } from 'antd';
 import suggestionApi from 'api/recruiter/suggestionApi';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Skill } from '../types';
 import _debounce from 'lodash.debounce';
+import React, { useMemo, useRef, useState } from 'react';
+import { Skill } from 'types';
 import Content from './Content';
 const { Title } = Typography;
 const { Option } = Select;
