@@ -2,11 +2,6 @@ import React from 'react';
 import { Select } from 'antd';
 const { Option } = Select;
 
-type Option = {
-  value: string | number;
-  label: string;
-};
-
 type Props = {
   defaultValue?: string | number;
   onChange?: Function;

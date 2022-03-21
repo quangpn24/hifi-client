@@ -1,8 +1,6 @@
-import { Col, Row, Input, Select } from 'antd';
+import { Col, Input, Row } from 'antd';
 import AppHeading from 'components/commons/AppHeading';
 import CheckboxMenu from 'components/commons/CheckboxMenu';
-import Filter from 'components/commons/Filter';
-import MultiSelection from 'components/commons/MultiSelection';
 import JobCardItem from 'components/JobSeeker/JobList/JobCardItem';
 import JobDetails from 'components/JobSeeker/JobList/JobDetails';
 import React from 'react';
