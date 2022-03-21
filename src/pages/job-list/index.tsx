@@ -1,35 +1,70 @@
 import { Col, Row, Input, Select } from 'antd';
+import AppHeading from 'components/commons/AppHeading';
+import CheckboxMenu from 'components/commons/CheckboxMenu';
+import Filter from 'components/commons/Filter';
+import MultiSelection from 'components/commons/MultiSelection';
 import JobCardItem from 'components/JobSeeker/JobList/JobCardItem';
 import JobDetails from 'components/JobSeeker/JobList/JobDetails';
 import React from 'react';
 
 const { Search } = Input;
 type Props = {};
-
+type Option = {
+  label: string;
+  value: string | number;
+};
 const Jobs = (props: Props) => {
-  const options = [
+  const options: Array<Option> = [
     {
-      lable: '123',
+      label: 'abc',
       value: 1,
     },
     {
-      lable: '1234',
+      label: 'abc',
       value: 2,
     },
     {
-      lable: '12s3',
+      label: 'abc',
       value: 3,
     },
     {
-      lable: 'ds123',
+      label: 'abc',
       value: 4,
+    },
+    {
+      label: 'abc',
+      value: 5,
+    },
+    {
+      label: 'abc',
+      value: 5,
+    },
+    {
+      label: 'abc',
+      value: 5,
+    },
+    {
+      label: 'abc',
+      value: 5,
+    },
+    {
+      label: 'abc',
+      value: 5,
+    },
+    {
+      label: 'abc',
+      value: 5,
+    },
+    {
+      label: 'abc',
+      value: 5,
     },
   ];
   return (
     <Row>
       <Row gutter={20} className='w-full px-[100px]'>
-        <Col span={24}>
-          <h1 className='text-[2rem] my-[20px]'>Search jobs, companies, ...</h1>
+        <Col span={24} className='my-[20px]'>
+          <AppHeading text={'Search jobs, companies, ....'} />
         </Col>
         <Col span={24}>
           <div className=' w-2/5 mb-[20px]'>
@@ -42,8 +77,23 @@ const Jobs = (props: Props) => {
             />
           </div>
         </Col>
-        <Col span={3}>
-          <Select placeholder='filter' options={options} onChange={() => {}} />
+        <Col>
+          <div className='flex w-auto'>
+            <Input.Group compact className='!mr-[20px]'>
+              <CheckboxMenu
+                options={options}
+                onChange={() => {}}
+                keyword='Tất cả ngành nghề'
+                defaultValue={[1, 2, 3]}
+              />
+            </Input.Group>
+            <Input.Group compact className='!mr-[20px]'>
+              <CheckboxMenu options={options} onChange={() => {}} keyword='Tất cả cấp bậc' />
+            </Input.Group>
+            <Input.Group compact>
+              <CheckboxMenu options={options} onChange={() => {}} keyword='Tất cả mức lương' />
+            </Input.Group>
+          </div>
         </Col>
       </Row>
       <Row className='w-full mt-[20px] px-[100px] pt-[20px] bg-[#FAFAFC]'>

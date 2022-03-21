@@ -35,12 +35,12 @@ const JobDetails = (props: Props) => {
             <HeroIcon
               icon='ShareIcon'
               outline={true}
-              className='h-[24px] mr-[10px] border-[1px] border-[#8B7A9F] rounded-[4px] p-[2px]'
+              className='h-[24px] w-[24px] mr-[10px] border-[1px] border-[#8B7A9F] rounded-[4px] p-[2px]'
             />
             <HeroIcon
               icon='HeartIcon'
               outline={true}
-              className='h-[24px] mr-[10px] border-[1px] border-[#8B7A9F] rounded-[4px] p-[2px]'
+              className='h-[24px] w-[24px] mr-[10px] border-[1px] border-[#8B7A9F] rounded-[4px] p-[2px]'
             />
           </Col>
           <Col span={10}>
