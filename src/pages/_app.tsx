@@ -1,13 +1,15 @@
-import type { AppProps } from 'next/app';
-import 'tailwindcss/tailwind.css';
 import 'antd/dist/antd.css';
-import { store } from 'redux/store';
+import type { AppProps } from 'next/app';
+// import 'react-quill/dist/quill.snow.css';
 import { Provider } from 'react-redux';
 import Head from 'next/head';
 import Header from 'components/layouts/Header';
 import Footer from 'components/layouts/Footer';
 import { HomeOutlined } from '@ant-design/icons';
+import { store } from 'redux/store';
+import 'tailwindcss/tailwind.css';
 require('../styles/App.less');
+require('../styles/global.less');
 
 function MyApp({ Component, pageProps }: AppProps) {
   const menu = [
