@@ -14,13 +14,14 @@ interface categoryData {
   jobs: number;
 }
 
-interface Props {
+interface IProps {
   category: categoryData;
 }
 
-const CategoryCard: NextPage<Props> = (props) => {
+const CategoryCard: React.FC<IProps> = (props) => {
   const router = useRouter();
   const { category } = props;
+
   return (
     <Card
       className='cursor-pointer overflow-hidden'

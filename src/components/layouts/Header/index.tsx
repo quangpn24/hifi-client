@@ -50,7 +50,7 @@ const Header: NextPage<Props> = (props) => {
   );
 
   return (
-    <div className='fixed inset-x-0 top-0 bg-white z-10 drop-shadow-xl'>
+    <div className='sticky inset-x-0 top-0 bg-white z-10 drop-shadow-xl'>
       <Row justify='space-between' className='px-16 py-4 '>
         <Col className='items-center'>
           <div className='mobileVisible'>

@@ -7,7 +7,6 @@ import Jobhunt from '/public/images/Job-hunt.svg';
 import Title from 'antd/lib/typography/Title';
 import Text from 'antd/lib/typography/Text';
 import { useRouter } from 'next/router';
-import { Router } from 'react-router-dom';
 
 interface jobData {
   id: number;
@@ -19,13 +18,14 @@ interface jobData {
   time: string;
 }
 
-interface Props {
+interface IProps {
   job: jobData;
 }
 
-const JobCard: NextPage<Props> = (props) => {
+const JobCard: React.FC<IProps> = (props) => {
   const router = useRouter();
   const { job } = props;
+
   return (
     <Card
       className='h-full'

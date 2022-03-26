@@ -6,13 +6,13 @@ import Image from 'next/image';
 
 const Footer: NextPage = (props) => {
   return (
-    <div className='bg-white z-10 px-16 py-4'>
+    <div className='bg-white px-16 py-4 sticky  w-full'>
       <Row>
         <Col span={8}>
           <Row className='items-center'>
             <Button
               type='link'
-              className='w-16'
+              className='w-16px h-16px'
               href='./'
               icon={<Image alt='' src={logo} />}
             ></Button>
@@ -20,7 +20,7 @@ const Footer: NextPage = (props) => {
           </Row>
         </Col>
       </Row>
-      <Divider className='bg-tertiary'></Divider>
+      <Divider className='bg-tertiary m-4'></Divider>
       <h5 className='text-text-tertiary inline-block'>
         {`Copyright @ 2022. All right Reservered`}
       </h5>

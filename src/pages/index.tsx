@@ -154,7 +154,7 @@ const Home: NextPage<Props> = (props) => {
 
   const handleSearch = () => {};
   return (
-    <div className='px-16 py-8 mt-16 bg-[#EBEFF7]'>
+    <div className='px-16 py-8'>
       <Row justify='space-between' gutter={[20, 20]}>
         <Col md={8} xs={24}>
           <h3 className='font-bold text-3xl text-text-primary'>
@@ -182,7 +182,7 @@ const Home: NextPage<Props> = (props) => {
           </div>
         </Col>
       </Row>
-      <Row justify='space-between'>
+      <Row justify='space-between' className='mb-4'>
         <Col>
           <h3 className='font-bold text-3xl text-text-primary'>Categories!</h3>
         </Col>
