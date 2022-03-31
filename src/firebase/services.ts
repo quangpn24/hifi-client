@@ -1,7 +1,9 @@
 import { deleteObject, getStorage } from 'firebase/storage';
-import { storage } from './';
+import { auth, googleProvider, storage } from './';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { RcFile } from 'antd/lib/upload';
+import { signInWithPopup } from 'firebase/auth';
+import userApi from 'api/userApi';
 
 const uploadImage = async (file: RcFile) => {
   try {
@@ -32,4 +34,18 @@ const deteteImage = async (url: string | undefined) => {
   }
 };
 
-export { uploadImage, deteteImage };
+const signInWithGoogle = async () => {
+  try {
+    const user = await signInWithPopup(auth, googleProvider);
+    const _id = user.user.uid;
+
+    const response = await userApi.login(_id);
+
+    console.log({ response });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export { uploadImage, deteteImage, signInWithGoogle };
