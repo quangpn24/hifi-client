@@ -1,13 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { getUser } from 'redux/actions/userActions';
 
-export type userState = {
+export type AuthState = {
   data: object;
   pending: boolean;
   error: boolean;
 };
 
-const initialState: userState = {
+const initialState: AuthState = {
   data: {},
   pending: false,
   error: false,

@@ -1,26 +1,48 @@
-import { Button, Col, Form, Input, Radio, Row } from 'antd';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { Button, Col, Form, Input, message, Radio, Row } from 'antd';
 import { validateMessages } from 'constant/validateMessages';
-import { signInWithGoogle } from 'firebase/services';
-import React from 'react';
+import { signInWithEmailPassword, signInWithGoogle } from 'firebase/services';
+import React, { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
+import { useAppDispatch } from 'redux/hooks';
+import { authActions } from 'redux/reducers/authSlice';
 
-type Props = {};
-
-export const LoginForm = ({}: Props) => {
-  const [form] = Form.useForm();
-
-  const handleLogin = (data: any) => {
-    console.log({ data });
+const defaultFormValue = {
+  email: '',
+  password: '',
+};
+const LoginForm = () => {
+  const dispatch = useAppDispatch();
+  const [loading, setLoading] = useState(false);
+  const handleLogin = async ({ email, password }: any) => {
+    setLoading(true);
+    const { user, error } = await signInWithEmailPassword(email, password);
+    if (!error && user) {
+      try {
+        const result = await dispatch(authActions.login(user.uid));
+        await unwrapResult(result);
+      } catch (errorLogin: any) {
+        message.error(errorLogin.message);
+      }
+    } else {
+      message.error(error);
+    }
+    setLoading(false);
+  };
+  const onFinishFailed = (data: any) => {
+    console.log('Errror: ', data);
   };
 
   return (
     <div className='bg-white-color h-screen'>
       <Row justify='center' align='middle' className='h-full'>
         <Form
-          form={form}
           onFinish={handleLogin}
           layout='vertical'
+          onFinishFailed={onFinishFailed}
           validateMessages={validateMessages}
+          initialValues={defaultFormValue}
+          validateTrigger={'onBlur'}
         >
           <div className='mb-8'>
             <p className='text-base font-normal mb-1'>Welcome back</p>
@@ -28,14 +50,18 @@ export const LoginForm = ({}: Props) => {
           </div>
 
           <Col span={24}>
-            <Form.Item label='Email' name='email' rules={[{ required: true }]}>
-              <Input placeholder='John.snow@gmail.com' />
+            <Form.Item
+              label='Email'
+              name='email'
+              rules={[{ required: true }, { type: 'email', message: 'Invalid email' }]}
+            >
+              <Input placeholder='John.snow@gmail.com' type={'email'} />
             </Form.Item>
           </Col>
 
           <Col span={24}>
             <Form.Item label='Password' name='password' rules={[{ required: true }]}>
-              <Input placeholder='******' />
+              <Input placeholder='******' type={'password'} />
             </Form.Item>
           </Col>
 
@@ -45,7 +71,7 @@ export const LoginForm = ({}: Props) => {
           </div>
 
           <div className='flex flex-col justify-between'>
-            <Button size='large' block className='mb-8' htmlType='submit'>
+            <Button size='large' block className='mb-8' htmlType='submit' loading={loading}>
               Login
             </Button>
             <Button
@@ -63,3 +89,5 @@ export const LoginForm = ({}: Props) => {
     </div>
   );
 };
+
+export default LoginForm;

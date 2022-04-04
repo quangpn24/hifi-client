@@ -1,25 +1,36 @@
-import { Button, Col, Form, Input, Row } from 'antd';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { Button, Col, Form, Input, message, Row } from 'antd';
 import { validateMessages } from 'constant/validateMessages';
-import { signInWithGoogle } from 'firebase/services';
-import React from 'react';
+import { signInWithGoogle, signUpWithEmailPassword } from 'firebase/services';
+import React, { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
+import { useAppDispatch } from 'redux/hooks';
+import { authActions } from 'redux/reducers/authSlice';
 
 const SignUpForm = () => {
-  const [form] = Form.useForm();
-
-  const handleSignUp = (data: any) => {
-    console.log({ data });
+  const dispatch = useAppDispatch();
+  const [loading, setLoading] = useState(false);
+  const handleSignUp = async (data: any) => {
+    const { email, password, name } = data;
+    setLoading(true);
+    const { user, error } = await signUpWithEmailPassword(email, password);
+    if (!error && user) {
+      try {
+        const result = await dispatch(authActions.register({ ...user, displayName: name }));
+        await unwrapResult(result);
+      } catch (errorLogin: any) {
+        message.error(errorLogin.message);
+      }
+    } else {
+      message.error(error);
+    }
+    setLoading(false);
   };
 
   return (
     <div className='bg-white-color h-screen'>
       <Row justify='center' align='middle' className='h-full'>
-        <Form
-          onFinish={handleSignUp}
-          form={form}
-          layout='vertical'
-          validateMessages={validateMessages}
-        >
+        <Form onFinish={handleSignUp} layout='vertical' validateMessages={validateMessages}>
           <div className='mb-8'>
             <p className='text-base font-normal mb-1'>Welcome to Hifi</p>
             <h3 className='text-3xl font-bold'>Sign Up Your Account</h3>
@@ -32,14 +43,18 @@ const SignUpForm = () => {
           </Col>
 
           <Col span={24}>
-            <Form.Item label='Email' name='email' rules={[{ required: true }]}>
+            <Form.Item
+              label='Email'
+              name='email'
+              rules={[{ required: true }, { type: 'email', message: 'Invalid email' }]}
+            >
               <Input placeholder='John.snow@gmail.com' />
             </Form.Item>
           </Col>
 
           <Col span={24}>
             <Form.Item label='Password' name='password' rules={[{ required: true }]}>
-              <Input placeholder='******' />
+              <Input placeholder='******' type={'password'} />
             </Form.Item>
           </Col>
 

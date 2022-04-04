@@ -1,9 +1,13 @@
-import { deleteObject, getStorage } from 'firebase/storage';
-import { auth, googleProvider, storage } from './';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { RcFile } from 'antd/lib/upload';
-import { signInWithPopup } from 'firebase/auth';
 import userApi from 'api/userApi';
+import {
+  AuthErrorCodes,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from 'firebase/auth';
+import { deleteObject, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { auth, googleProvider, storage } from './';
 
 const uploadImage = async (file: RcFile) => {
   try {
@@ -36,16 +40,45 @@ const deteteImage = async (url: string | undefined) => {
 
 const signInWithGoogle = async () => {
   try {
-    const user = await signInWithPopup(auth, googleProvider);
-    const _id = user.user.uid;
+    const credential = await signInWithPopup(auth, googleProvider);
 
-    const response = await userApi.login(_id);
-
-    console.log({ response });
-    return response;
+    return { user: credential.user };
   } catch (error) {
-    return error;
+    return { error };
   }
 };
 
-export { uploadImage, deteteImage, signInWithGoogle };
+const signInWithEmailPassword = async (email: string, password: string) => {
+  try {
+    const credential = await signInWithEmailAndPassword(auth, email, password);
+
+    return { user: credential.user };
+  } catch (error: any) {
+    let errorMessage: string = error?.message ?? 'Something went wrong!';
+    if (error.code === AuthErrorCodes.USER_DELETED) {
+      errorMessage = 'Email is not registered';
+    }
+    return { error: errorMessage };
+  }
+};
+const signUpWithEmailPassword = async (email: string, password: string) => {
+  try {
+    const credential = await createUserWithEmailAndPassword(auth, email, password);
+
+    return { user: credential.user };
+  } catch (error: any) {
+    let errorMessage: string = error?.message ?? 'Something went wrong!';
+    if (error.code === AuthErrorCodes.USER_DELETED) {
+      errorMessage = 'Email is not registered';
+    }
+    return { error: errorMessage };
+  }
+};
+
+export {
+  uploadImage,
+  deteteImage,
+  signInWithGoogle,
+  signInWithEmailPassword,
+  signUpWithEmailPassword,
+};
