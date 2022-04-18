@@ -1,4 +1,4 @@
-import { Button, Card, Checkbox, Form, InputNumber } from 'antd';
+import { Button, Card, Checkbox, Col, Form, InputNumber, Row } from 'antd';
 import {
   FamilyAllowances,
   Insurance,
@@ -45,6 +45,7 @@ export interface SalaryDetail {
 const PayrollPage: NextPage = () => {
   const [form] = Form.useForm();
   const [isUnion, setIsUnion] = useState(true);
+  const [union, setUnion] = useState(1);
   const [salaryDetail, setSalaryDetail] = useState<SalaryDetail>();
   const [isVisible, setIsVisible] = useState(false);
 
@@ -114,7 +115,7 @@ const PayrollPage: NextPage = () => {
   };
 
   useEffect(() => {
-    isUnion ? form.setFieldsValue({ union: 1 }) : form.setFieldsValue({ union: 0 });
+    isUnion ? setUnion(1) : setUnion(0);
   }, [form, isUnion]);
 
   return (
@@ -135,23 +136,33 @@ const PayrollPage: NextPage = () => {
 
           <Insurance />
 
-          <div className='flex items-center mb-4 ml-44'>
-            <Checkbox checked={isUnion} onChange={() => setIsUnion(!isUnion)}>
-              Union
-            </Checkbox>
+          <Form.Item noStyle>
+            <Row>
+              <Col span={6}>
+                <div className='flex justify-end'>
+                  <Form.Item>
+                    <Checkbox checked={isUnion} onChange={() => setIsUnion(!isUnion)}>
+                      Union
+                    </Checkbox>
+                  </Form.Item>
+                </div>
+              </Col>
 
-            <Form.Item name='union' initialValue={isUnion ? 1 : 0} className='!mb-0'>
-              <InputNumber
-                className='!w-full'
-                disabled={!isUnion}
-                min={0}
-                max={100}
-                step={0.1}
-                formatter={(value) => `${value}%`}
-                parser={(value: any) => value.replace('%', '')}
-              />
-            </Form.Item>
-          </div>
+              <Col span={14}>
+                <InputNumber
+                  className='!w-full'
+                  disabled={!isUnion}
+                  defaultValue={1.0}
+                  value={union}
+                  min={0}
+                  max={100}
+                  step={0.1}
+                  formatter={(value) => `${value}%`}
+                  parser={(value: any) => value.replace('%', '')}
+                />
+              </Col>
+            </Row>
+          </Form.Item>
 
           <Regions form={form} />
 
