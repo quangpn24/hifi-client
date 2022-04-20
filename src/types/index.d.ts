@@ -1,3 +1,45 @@
+type User = {
+  _id: string;
+  uid: string;
+  signInProvider: string;
+  type: string;
+  email: string;
+  name: string;
+  photoUrl: string;
+  isVerified: boolean;
+  phoneNumber: string;
+  location: string;
+  age: number;
+  gender: Gender;
+  nationality: string;
+  about: string;
+  skills: Skill[];
+  resume: {
+    fileName: string;
+    url: string;
+  };
+  socialNetwork: {
+    facebook: string;
+    linkedIn: string;
+    github: string;
+    twitter: string;
+  };
+};
+type Gender = 'Male' | 'Female';
+type Company = {
+  _id: string;
+  email: string;
+  name: string;
+  phoneNumber: string;
+  industries: Subcategory[];
+  address: string;
+  locations: WorkLocation[];
+  size: string;
+  contactName: string;
+  summary: string;
+  accountStatus: 'pending' | 'rejected' | 'fullfilled';
+};
+
 type Post = Partial<{
   title: string;
   jobType: string;
@@ -37,4 +79,11 @@ type WorkLocation = {
   city?: string;
   address?: string;
 };
-export type { Post, Salary, Skill, WorkLocation, Category, Subcategory };
+type Award = {
+  userId: string;
+  title: string;
+  achievement: string;
+  year: number;
+  notes: string;
+};
+export type { User, Company, Post, Salary, Skill, WorkLocation, Category, Subcategory, Award };

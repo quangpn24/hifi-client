@@ -1,0 +1,11 @@
+.chip {
+  display: inline-flex;
+  border-radius: 20px;
+  border-width: 1px;
+  border-style: solid;
+  font-size: 14px;
+  color: rgb(0, 0, 0);
+  background: rgb(243, 243, 243);
+  border-color: rgb(198, 198, 198);
+  @apply px-3 py-1;
+}

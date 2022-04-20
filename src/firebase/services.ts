@@ -1,7 +1,14 @@
-import { deleteObject, getStorage } from 'firebase/storage';
-import { storage } from './';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { RcFile } from 'antd/lib/upload';
+import userApi from 'api/userApi';
+import { FirebaseError } from 'firebase/app';
+import {
+  AuthErrorCodes,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from 'firebase/auth';
+import { deleteObject, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { auth, googleProvider, storage } from './';
 
 const uploadImage = async (file: RcFile) => {
   try {
@@ -32,4 +39,58 @@ const deteteImage = async (url: string | undefined) => {
   }
 };
 
-export { uploadImage, deteteImage };
+const signInWithGoogle = async () => {
+  try {
+    const credential = await signInWithPopup(auth, googleProvider);
+
+    return { user: credential.user };
+  } catch (error: any) {
+    let errorMessage: string | undefined = error?.message ?? 'Something went wrong!';
+    const firebaseError = error as FirebaseError;
+    if (firebaseError.code === AuthErrorCodes.POPUP_CLOSED_BY_USER) {
+      errorMessage = undefined;
+    }
+    return { error: errorMessage };
+  }
+};
+
+const signInWithEmailPassword = async (email: string, password: string) => {
+  try {
+    const credential = await signInWithEmailAndPassword(auth, email, password);
+
+    return { user: credential.user };
+  } catch (error: any) {
+    let errorMessage: string = error?.message ?? 'Something went wrong!';
+    const firebaseError = error as FirebaseError;
+    if (firebaseError.code === AuthErrorCodes.USER_DELETED) {
+      errorMessage = 'Email is not registered';
+    } else if (firebaseError.code === AuthErrorCodes.INVALID_PASSWORD) {
+      errorMessage = 'Wrong email or password';
+    }
+
+    return { error: errorMessage };
+  }
+};
+const signUpWithEmailPassword = async (email: string, password: string) => {
+  try {
+    const credential = await createUserWithEmailAndPassword(auth, email, password);
+
+    return { user: credential.user };
+  } catch (error: any) {
+    let errorMessage: string = error?.message ?? 'Something went wrong!';
+    if (error.code === AuthErrorCodes.EMAIL_EXISTS) {
+      errorMessage = 'Email is already used!';
+    } else if (error.code === AuthErrorCodes.USER_DELETED) {
+      errorMessage = 'Email is not registered!';
+    }
+    return { error: errorMessage };
+  }
+};
+
+export {
+  uploadImage,
+  deteteImage,
+  signInWithGoogle,
+  signInWithEmailPassword,
+  signUpWithEmailPassword,
+};

@@ -1,6 +1,10 @@
 // next.config.js
 const withAntdLess = require('next-plugin-antd-less');
+// @ts-check
 
+/**
+ * @type {import('next').NextConfig}
+ **/
 module.exports = withAntdLess({
   modifyVars: {
     '@primary-color': '#514CDD',
@@ -22,8 +26,14 @@ module.exports = withAntdLess({
     localIdentNameFollowDev: true, // default false, for easy to debug on PROD mode
   },
   reactStrictMode: true,
-
+  images: {
+    domains: ['picsum.photos'],
+  },
+  rewrites: () => [{ source: '/api/proxy/:path*', destination: 'http://localhost:5000/:path*' }],
   webpack(config) {
     return config;
+  },
+  experimental: {
+    esmExternals: false,
   },
 });
