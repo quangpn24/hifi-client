@@ -12,8 +12,6 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
     const cookies = new Cookies(req, res);
 
     const authToken = cookies.get('accessToken');
-    console.log('Cookies mic check', authToken);
-
     resolve(undefined);
   });
 };

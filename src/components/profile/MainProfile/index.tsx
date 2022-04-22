@@ -1,7 +1,7 @@
 import { EditOutlined } from '@ant-design/icons';
 import { Button, Col, Row } from 'antd';
 import React from 'react';
-import Avatar from '../Avatar';
+import Avatar from '../PersonalInfo/Avatar';
 import InfoDetails from '../InfoDetails';
 import InfoItem from '../InfoItem';
 import PersonalInfo from '../PersonalInfo';
@@ -13,7 +13,7 @@ const MainProfile = (props: Props) => {
   return (
     <div>
       <PersonalInfo />
-      <ViewStatistic />
+      {/* <ViewStatistic /> */}
       <InfoDetails />
     </div>
   );

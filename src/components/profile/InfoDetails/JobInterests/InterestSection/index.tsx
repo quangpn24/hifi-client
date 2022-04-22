@@ -1,7 +1,6 @@
 import { Row } from 'antd';
 import React from 'react';
 import Interest from '../Interest';
-import Item from '../Item';
 import ListItems from '../ListItems';
 
 type Props = {

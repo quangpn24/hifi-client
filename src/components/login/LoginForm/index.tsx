@@ -30,22 +30,19 @@ const LoginForm = () => {
         await unwrapResult(result);
         message.success('Login successfully!');
       } catch (errorLogin: any) {
+        setLoading(false);
         console.log('Error: ', errorLogin);
         message.error(errorLogin.message);
       }
     } else {
       message.error(error);
     }
-    setLoading(false);
   };
-  const onFinishFailed = (data: any) => {
-    console.log('Errror: ', data);
-  };
+  const onFinishFailed = (data: any) => {};
 
   const handleGoogleLogin = async () => {
     setLoading(true);
     const { error, user } = await signInWithGoogle();
-    console.log('Data: ', { error, user });
     if (error || !user) {
       error && message.error(error);
       return;
@@ -55,7 +52,6 @@ const LoginForm = () => {
       await unwrapResult(result);
       message.success('Login successfully!');
     } catch (errorLogin: any) {
-      console.log('Error: ', errorLogin);
       message.error(errorLogin.message);
     }
     setLoading(false);
@@ -112,14 +108,14 @@ const LoginForm = () => {
               Sign in with google
             </Button>
           </div>
+          <p className='mt-4'>
+            {"Don't"} have an account?{' '}
+            <Link href={'/auth/register'}>
+              <a className='text-blue-600'>Join free today</a>
+            </Link>
+          </p>
         </Form>
       </Row>
-      <p>
-        {"Don't"} have an account?{' '}
-        <Link href={'/auth/register'}>
-          <a>Join free today</a>
-        </Link>
-      </p>
     </div>
   );
 };

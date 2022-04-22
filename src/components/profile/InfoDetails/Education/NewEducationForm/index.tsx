@@ -3,6 +3,9 @@ import { validateMessages } from 'constant/validateMessages';
 import React, { useEffect, useImperativeHandle, useState } from 'react';
 import Utils from 'utils';
 import MonthYearSelect from '../../MonthYearSelect';
+import DegreeSelect from '../DegreeSelect';
+import MajorSelect from '../MajorSelect';
+import UniversitySelect from '../UniversitySelect';
 
 const { TextArea } = Input;
 const layout = {
@@ -11,14 +14,12 @@ const layout = {
 };
 interface IProps {
   education?: Education;
-  formType?: 'update' | 'create';
   onSubmit?: (values: Education) => void;
 }
-const { Option } = Select;
-const NewEducationForm = React.forwardRef<any, IProps>(({ onSubmit, education, formType }, ref) => {
+const NewEducationForm = React.forwardRef<any, IProps>(({ onSubmit, education }, ref) => {
   const [form] = Form.useForm();
+
   const [isPresent, setIsPresent] = useState(education?.isPresent);
-  const [schools, setSchools] = useState<string[]>([]);
   useImperativeHandle(ref, () => ({
     submit() {
       form.submit();
@@ -30,20 +31,16 @@ const NewEducationForm = React.forwardRef<any, IProps>(({ onSubmit, education, f
   useEffect(() => form.resetFields(), [education]);
   useEffect(() => {
     setIsPresent(education?.isPresent);
-    // form.setFieldsValue({ isPresent: education?.isPresent });
   }, [education?.isPresent]);
   const onFinish = (data: any) => {
-    form.submit;
     data.startDate = Utils.convertMonthYearToDate(data.startDate);
     data.endDate = !data.isPresent ? Utils.convertMonthYearToDate(data.endDate) : undefined;
     onSubmit?.(data);
-    form.resetFields();
   };
   const onIsPresentChange = (value: boolean) => {
     setIsPresent(value);
   };
 
-  const handleSchoolSearch = () => {};
   return (
     <Form
       {...layout}
@@ -67,18 +64,7 @@ const NewEducationForm = React.forwardRef<any, IProps>(({ onSubmit, education, f
         ]}
         required={false}
       >
-        <Select
-          showSearch
-          placeholder={'Instituation'}
-          defaultActiveFirstOption={false}
-          filterOption={false}
-          onSearch={handleSchoolSearch}
-          notFoundContent={null}
-        >
-          {schools.map((s) => (
-            <Option key={s}>{s}</Option>
-          ))}
-        </Select>
+        <UniversitySelect />
       </Form.Item>
 
       <Form.Item
@@ -91,7 +77,7 @@ const NewEducationForm = React.forwardRef<any, IProps>(({ onSubmit, education, f
         ]}
         required={false}
       >
-        <Input placeholder='Degree' />
+        <DegreeSelect />
       </Form.Item>
       <Form.Item
         label='Field of Study'
@@ -103,7 +89,7 @@ const NewEducationForm = React.forwardRef<any, IProps>(({ onSubmit, education, f
         ]}
         required={false}
       >
-        <Input placeholder='Field of Study' />
+        <MajorSelect />
       </Form.Item>
       <Form.Item
         label='Start Date'
@@ -134,17 +120,8 @@ const NewEducationForm = React.forwardRef<any, IProps>(({ onSubmit, education, f
           I{"'"}m currently studying
         </Checkbox>
       </Form.Item>
-      <Form.Item
-        wrapperCol={{ span: 24 }}
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-        required={false}
-        name='notes'
-      >
-        <TextArea rows={5} placeholder='Additional information (optional)' maxLength={6} />
+      <Form.Item wrapperCol={{ span: 24 }} required={false} name='notes'>
+        <TextArea rows={5} placeholder='Additional information (optional)' />
       </Form.Item>
     </Form>
   );

@@ -1,9 +1,9 @@
 import { unwrapResult } from '@reduxjs/toolkit';
 import { Button, Col, Form, Input, message, Row } from 'antd';
+import { DEFAULT_IMAGE } from 'constant';
 import { validateMessages } from 'constant/validateMessages';
 import { auth } from 'firebase';
 import { signInWithGoogle, signUpWithEmailPassword } from 'firebase/services';
-import Link from 'next/link';
 import React, { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { useAppDispatch } from 'redux/hooks';
@@ -18,7 +18,9 @@ const RegisterForm = () => {
     const { user, error } = await signUpWithEmailPassword(email, password);
     if (!error && user) {
       try {
-        const result = await dispatch(authActions.register({ ...user, displayName: name }));
+        const result = await dispatch(
+          authActions.register({ ...user, displayName: name, photoURL: DEFAULT_IMAGE })
+        );
         await unwrapResult(result);
         message.info('Sign up successfully', 1000);
       } catch (errorLogin: any) {

@@ -1,21 +1,13 @@
 import { User } from 'types';
 import axiosClient from './axiosClient';
-
+import second from 'mime';
 const userApi = {
-  getUser: async (id: string) => {
-    return await axiosClient.get(`/users/${id}`);
-  },
-  login: async (uid: string, type: string = 'default') => {
+  updateMe: async (updated: Partial<User>) => {
     const {
-      data: { data: user, accessToken, refreshToken },
-    } = await axiosClient.post('job-seeker/auth/login', { uid, type });
-    return { user, accessToken, refreshToken };
-  },
-  register: async (userData: any) => {
-    const {
-      data: { data: user, accessToken, refreshToken },
-    } = await axiosClient.post('job-seeker/auth/sign-up', { ...userData });
-    return { user, accessToken, refreshToken };
+      data: { data },
+    } = await axiosClient.put('/job-seeker/me', updated);
+
+    return data as User;
   },
   getUserSkills: async () => {
     const {

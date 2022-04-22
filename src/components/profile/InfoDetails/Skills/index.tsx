@@ -17,6 +17,7 @@ const Skills = ({}: Props) => {
   const [visible, setVisible] = useState(false);
   const formRef = useRef<any>(null);
   const user = useAppSelector(selectUser);
+  const [loading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -41,19 +42,20 @@ const Skills = ({}: Props) => {
 
   const handleOk = () => {
     formRef.current?.submit();
-    setVisible(false);
   };
   const handleCancel = () => {
     setVisible(false);
     formRef.current?.resetFields();
   };
   const handleFormSubmit = async (data: Skill[]) => {
-    console.log('submit data: ', data);
     try {
+      setLoading(true);
       const { user } = await userApi.updateSkills(data.map((d) => d._id));
       dispatch(authActions.update({ user }));
-    } catch (error) {
-      console.log('Error: ', error);
+      setLoading(false);
+      setVisible(false);
+    } catch (error: any) {
+      message.error('Error from edit skill: ', error?.message);
     }
   };
 
@@ -89,6 +91,7 @@ const Skills = ({}: Props) => {
         okButtonProps={{
           className: '!px-8',
         }}
+        confirmLoading={loading}
         cancelText='CANCEL'
         onCancel={handleCancel}
       >

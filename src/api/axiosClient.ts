@@ -6,12 +6,10 @@ const axiosClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  // withCredentials: true,
+  withCredentials: true,
 });
-
 axiosClient.interceptors.request.use(function (config) {
   const token = store.getState().auth.accessToken;
-
   if (token) {
     //@ts-ignore
     config.headers['Authorization'] = `Bearer ${token}`;
@@ -21,12 +19,8 @@ axiosClient.interceptors.request.use(function (config) {
 
 export const setAuthToken = (token: string) => {
   console.log('Set token', token);
-  axiosClient.defaults.headers.common['Authorization'] = '';
-  delete axiosClient.defaults.headers.common['Authorization'];
-
   if (token) {
     axiosClient.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   }
 };
-
 export default axiosClient;

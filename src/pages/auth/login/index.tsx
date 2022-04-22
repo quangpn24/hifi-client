@@ -13,7 +13,7 @@ const LoginPage: NextPage<Props> = () => {
   const router = useRouter();
   useEffect(() => {
     if (accessToken) {
-      router.push('/profile');
+      router.push('/');
     }
   }, [accessToken, router]);
 

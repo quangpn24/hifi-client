@@ -1,45 +1,81 @@
 import { EditOutlined } from '@ant-design/icons';
-import { Button, Divider, Modal } from 'antd';
-import React, { useEffect, useState } from 'react';
+import { Button, Divider, FormInstance, message, Modal } from 'antd';
+import educationApi from 'api/educationApi';
+import React, { useEffect, useRef, useState } from 'react';
 import Utils from 'utils';
 import Header from '../Header';
 import SegmentItem from '../SegmentItem';
 import NewEducationForm from './NewEducationForm';
-type Props = {};
-const data: Education[] = [
-  {
-    school: 'University of Information Technology',
-    _id: '1',
-    degree: 'Bachelor of Science',
-    fieldStudy: 'Software Engineering',
-    startDate: new Date(2020, 1, 1),
-    isPresent: true,
-    notes: 'University of Information Technology 1, Software Engineering 1',
-  },
-  {
-    school: 'University of Information Technology 2',
-    _id: '2',
-    degree: 'Bachelor of Science 2',
-    fieldStudy: 'Software Engineering 2',
-    startDate: new Date(2020, 1, 1),
-    isPresent: true,
-    notes: 'University of Information Technology 2, Software Engineering 2',
-  },
-];
 const Education = () => {
   const [visible, setVisible] = useState(false);
   const [educations, setEducations] = useState<Education[]>([]);
   const [selectedEdu, setSelectedEdu] = useState<Education>();
-
+  const formRef = useRef<FormInstance<any> | null>(null);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    setEducations(data);
+    let isMounted = true;
+
+    educationApi
+      .getEducations()
+      .then((data) => isMounted && setEducations(data))
+      .catch((err) => console.log(err));
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
-  const handleOk = () => {};
-  const handleCancel = () => {
-    setVisible(false);
+  const handleOk = () => {
+    formRef.current?.submit();
   };
-  const handleDelete = (edu: Education) => {};
+  const handleCancel = () => {
+    selectedEdu && setSelectedEdu(undefined);
+    setVisible(false);
+    formRef.current?.resetFields();
+  };
+  const handleSubmit = async (data: any) => {
+    console.log('Data: ', data);
+    try {
+      setLoading(true);
+      if (selectedEdu) {
+        const updatedEdu = await educationApi.updateEducation(selectedEdu._id, data);
+        setEducations((prev) => {
+          const copy = [...prev];
+          const index = copy.findIndex((edu) => edu._id === updatedEdu._id);
+          if (index !== -1) {
+            copy[index] = updatedEdu;
+          }
+
+          return copy;
+        });
+        message.success('update successfully');
+        setSelectedEdu(undefined);
+      } else {
+        const newEdu = await educationApi.createEducation(data);
+        setEducations((prev) => [...prev, newEdu]);
+        message.success('add successfully');
+      }
+      formRef.current?.resetFields();
+      setVisible(false);
+    } catch (error: any) {
+      message.error(error.message);
+    }
+    setLoading(false);
+  };
+  const handleDelete = (edu: Education) => {
+    Modal.confirm({
+      title: 'Are you sure delete this education?',
+      onOk: async () => {
+        try {
+          await educationApi.deleteEducation(edu._id);
+          setEducations((prev) => prev.filter((e) => e._id !== edu._id));
+          message.success('delete successfully');
+        } catch (error: any) {
+          message.error(error.message);
+        }
+      },
+    });
+  };
   return (
     <>
       <div className='mb-8'>
@@ -60,6 +96,7 @@ const Education = () => {
               title={e.school}
               subtitle={e.fieldStudy}
               timeline={Utils.showTimeline(e.startDate, e.endDate)}
+              descrition={e.notes}
               onEdit={() => {
                 setSelectedEdu(e);
                 setVisible(true);
@@ -70,8 +107,15 @@ const Education = () => {
           ))}
         </div>
       </div>
-      <Modal title='ADD EDUCATION' visible={visible} onOk={handleOk} onCancel={handleCancel}>
-        <NewEducationForm education={selectedEdu} />
+      <Modal
+        title={selectedEdu ? 'EDIT EDUCATION' : ' ADD EDUCATION'}
+        visible={visible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        confirmLoading={loading}
+        okText='SAVE'
+      >
+        <NewEducationForm education={selectedEdu} ref={formRef} onSubmit={handleSubmit} />
       </Modal>
     </>
   );

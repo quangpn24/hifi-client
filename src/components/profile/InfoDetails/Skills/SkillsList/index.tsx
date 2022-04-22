@@ -11,7 +11,7 @@ const SkillsList = ({ skills }: Props) => {
   return (
     <Space className='mt-4' size={[8, 16]} wrap>
       {skills?.map((skill) => (
-        <Chip key={skill._id} text={skill.text} />
+        <Chip key={skill?._id ?? skill} text={skill.text} />
       ))}
     </Space>
   );

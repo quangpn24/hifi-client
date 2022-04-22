@@ -4,8 +4,6 @@ export function requireAuth(gss: GetServerSideProps) {
   return async (context: GetServerSidePropsContext) => {
     const { req, res } = context;
     let token;
-    console.log('Referer: ', context.req.headers.referer);
-    console.log('req.url: ', req.url);
     if (req.headers.cookie) {
       console.log(req.headers.cookie);
       const tokens = req.headers.cookie.split(';');

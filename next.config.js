@@ -27,13 +27,17 @@ module.exports = withAntdLess({
   },
   reactStrictMode: true,
   images: {
-    domains: ['picsum.photos'],
+    domains: ['picsum.photos', 'firebasestorage.googleapis.com'],
   },
-  rewrites: () => [{ source: '/api/proxy/:path*', destination: 'http://localhost:5000/:path*' }],
   webpack(config) {
     return config;
   },
-  experimental: {
-    esmExternals: false,
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://localhost:5000/api/:path*', // Proxy to Backend
+      },
+    ];
   },
 });

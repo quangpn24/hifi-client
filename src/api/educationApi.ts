@@ -1,28 +1,29 @@
 import axiosClient from './axiosClient';
+const ROUTE = '/job-seeker/me/educations';
 
 const educationApi = {
   getEducations: async () => {
     const {
       data: { data },
-    } = await axiosClient.get('/job-seeker/educations');
+    } = await axiosClient.get(ROUTE);
     return data;
   },
   createEducation: async (educationData: any) => {
     const {
       data: { data },
-    } = await axiosClient.post('/job-seeker/educations', { ...educationData });
+    } = await axiosClient.post(ROUTE, { ...educationData });
     return data;
   },
   updateEducation: async (id: string, updatedData: any) => {
     const {
       data: { data },
-    } = await axiosClient.put('/job-seeker/educations/' + id, { ...updatedData });
+    } = await axiosClient.put(ROUTE + `/${id}`, { ...updatedData });
     return data;
   },
   deleteEducation: async (id: string) => {
     const {
       data: { data },
-    } = await axiosClient.delete('/job-seeker/educations' + id);
+    } = await axiosClient.delete(ROUTE + `/${id}`);
     return data;
   },
 };

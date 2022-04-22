@@ -1,41 +1,12 @@
 import { EditOutlined } from '@ant-design/icons';
-import { Button, Divider, FormInstance, Modal } from 'antd';
+import { Button, Divider, FormInstance, message, Modal } from 'antd';
+import workExperienceApi from 'api/workExperienceApi';
 import React, { useEffect, useRef, useState } from 'react';
 import Utils from 'utils';
 import ActionSuggestion from '../ActionSuggestion';
 import Header from '../Header';
 import SegmentItem from '../SegmentItem';
 import NewWorkExpForm from './NewWorkExpForm';
-
-const data: WorkExperience[] = [
-  {
-    _id: '1',
-    jobTitle: 'Mic check',
-    company: 'Zalo',
-    startDate: new Date(2021, 1, 1),
-    // endDate: new Date(2022, 3, 1),
-    isPresent: true,
-    notes: 'Work expertt notesss mic check',
-  },
-  {
-    _id: '2',
-    jobTitle: 'Mic check 2',
-    company: 'Zalo 2',
-    startDate: new Date(2020, 1, 1),
-    endDate: new Date(2022, 3, 1),
-    isPresent: false,
-    notes: 'Work expertt notesss mic check 2',
-  },
-  {
-    _id: '3',
-    jobTitle: 'Mic check 3 ',
-    company: 'Zalo 3',
-    startDate: new Date(2019, 1, 1),
-    // endDate: new Date(2022, 3, 1),
-    isPresent: true,
-    notes: 'Work expertt notesss mic check 3',
-  },
-];
 
 type Props = {};
 const WorkExperience = (props: Props) => {
@@ -45,10 +16,16 @@ const WorkExperience = (props: Props) => {
   const [selectedExp, setSelectedExp] = useState<WorkExperience>();
 
   useEffect(() => {
-    // workExperienceApi.getWorkExperiences().then((res) => {
-    //   console.log(res);
-    // });
-    setExps(data);
+    let isMounted = true;
+
+    workExperienceApi
+      .getWorkExperiences()
+      .then((data) => isMounted && setExps(data))
+      .catch((err) => console.log(err));
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const handleOk = () => {
@@ -58,41 +35,46 @@ const WorkExperience = (props: Props) => {
     setVisible(false);
     setSelectedExp(undefined);
     formRef.current?.resetFields();
-    console.log('Cancel');
   };
 
-  const handleFormSubmit = (value: WorkExperience) => {
-    console.log('Form data: ', value);
-
-    if (selectedExp) {
-      setExps((prev) => {
-        const copyPrev = [...prev];
-        const index = prev.findIndex((item) => item._id === selectedExp._id);
-
-        if (index !== -1) {
-          copyPrev[index] = { ...copyPrev[index], ...value };
-
-          console.log('After edit', copyPrev);
+  const handleFormSubmit = async (value: WorkExperience) => {
+    try {
+      if (selectedExp) {
+        const updatedWorkExp = await workExperienceApi.updateWorkExperience(selectedExp._id, value);
+        setExps((prev) => {
+          const copyPrev = [...prev];
+          const index = prev.findIndex((item) => item._id === updatedWorkExp._id);
+          if (index !== -1) {
+            copyPrev[index] = updatedWorkExp;
+          }
           return copyPrev;
-        }
+        });
 
-        return prev;
-      });
-
-      setSelectedExp(undefined);
-    } else {
-      setExps([...exps, { ...value, _id: Math.random() * 10000 + '' }]);
-    }
+        setSelectedExp(undefined);
+        message.success('Edit work experience successfully');
+      } else {
+        const newWorkExp = await workExperienceApi.createWorkExperience(value);
+        setExps((prev) => [...prev, newWorkExp]);
+        message.success('Add new work experience success');
+      }
+    } catch (error) {}
 
     formRef.current?.resetFields();
     setVisible(false);
   };
 
   const handleDelete = (value: WorkExperience) => {
-    console.log('Delete: ', value);
-
-    setExps((prev) => {
-      return prev.filter((item) => item._id !== value._id);
+    Modal.confirm({
+      title: 'Are you sure delete this job interest?',
+      onOk: async () => {
+        try {
+          await workExperienceApi.deleteWorkExperience(value._id);
+          setExps((prev) => prev.filter((e) => e._id !== value._id));
+          message.success('Delete successfully');
+        } catch (error: any) {
+          message.error(error.message);
+        }
+      },
     });
   };
   return (
@@ -101,9 +83,13 @@ const WorkExperience = (props: Props) => {
         <Header
           text={'Work experience'.toUpperCase()}
           action={
-            <Button icon={<EditOutlined />} type='text' onClick={() => setVisible(true)}>
-              ADD WORK EXPERIENCE
-            </Button>
+            exps.length > 0 ? (
+              <Button icon={<EditOutlined />} type='text' onClick={() => setVisible(true)}>
+                ADD WORK EXPERIENCE
+              </Button>
+            ) : (
+              <></>
+            )
           }
         />
         <Divider className='!my-2' />
@@ -128,7 +114,13 @@ const WorkExperience = (props: Props) => {
               />
             ))
           ) : (
-            <ActionSuggestion text='No' textButton='Add work experience' onClick={() => {}} />
+            <ActionSuggestion
+              text='No'
+              textButton='Add work experience'
+              onClick={() => {
+                setVisible(true);
+              }}
+            />
           )}
         </div>
       </div>

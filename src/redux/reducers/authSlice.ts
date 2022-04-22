@@ -1,7 +1,5 @@
-import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { HYDRATE } from 'next-redux-wrapper';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { login, register } from 'redux/actions/authActions';
-import { User } from 'types';
 // import { AppState } from 'redux/store';
 
 // const hydrate = createAction<AppState>(HYDRATE);
@@ -18,7 +16,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     update: (state, action: PayloadAction<AuthState>) => {
-      console.log('first', action.payload);
+      console.log('action.payload', action.payload);
       return { ...state, ...action.payload };
     },
     logout: () => {

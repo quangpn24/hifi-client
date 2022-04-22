@@ -12,7 +12,10 @@ const Utils = {
     return new Date(year, month, 1);
   },
   convertReverseMonthYearToDate(date?: Date) {
-    return date && { month: date.getMonth(), year: date.getFullYear() };
+    if (typeof date === 'string') {
+      date = new Date(date);
+    }
+    return date && { month: date?.getMonth(), year: date?.getFullYear() };
   },
   showTimeline(startDate: Date, endDate?: Date) {
     const start = dayjs(startDate);

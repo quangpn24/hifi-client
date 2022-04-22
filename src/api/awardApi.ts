@@ -7,10 +7,10 @@ const awardApi = {
     } = await axiosClient.get('/job-seeker/me/awards');
     return data;
   },
-  createAward: async () => {
+  createAward: async (award: any) => {
     const {
       data: { data },
-    } = await axiosClient.post('/job-seeker/me/awards');
+    } = await axiosClient.post('/job-seeker/me/awards', award);
     return data;
   },
   updateAward: async (awardId: string, updatedData: any) => {
@@ -22,7 +22,7 @@ const awardApi = {
   deleteAward: async (awardId: string) => {
     const {
       data: { data },
-    } = await axiosClient.delete('/job-seeker/me/awards' + awardId);
+    } = await axiosClient.delete('/job-seeker/me/awards/' + awardId);
     return data;
   },
 };

@@ -1,6 +1,6 @@
 import { Checkbox, Col, Input, message, Row } from 'antd';
 import { CheckboxValueType } from 'antd/lib/checkbox/Group';
-import suggestionApi from 'api/suggestion/skillApi';
+import suggestionApi from 'api/suggestionApi';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Skill } from 'types';
 import _debounce from 'lodash.debounce';
@@ -16,11 +16,6 @@ const SkillCheckboxGroup = ({ onChange, defaultValues }: Props) => {
   const searchSkillCallApi = useMemo(
     () =>
       _debounce((keyword) => {
-        console.log('Keyword: ', keyword);
-        // if (!keyword || keyword.length < 2) {
-        //   setSkills([]);
-        //   return;
-        // }
         setSearching(true);
         suggestionApi
           .getSkills(keyword)

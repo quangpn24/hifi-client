@@ -12,7 +12,6 @@ type Props = {
 };
 const { Header, Content, Footer } = Layout;
 const ProfilePage: NextPage<Props> = ({ awards }: Props) => {
-  console.log('awards: ', awards);
   return (
     <Layout className='layout'>
       <Header>
@@ -41,7 +40,7 @@ export const getServerSideProps: GetServerSideProps = requireAuth(async ({ req }
   try {
     const data = await awardApi.getAwards();
 
-    console.log('Micc check', data);
+    console.log('getServerSideProps: ', data);
     return {
       props: {
         awards: data,

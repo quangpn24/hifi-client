@@ -105,7 +105,7 @@ const NewWorkExpForm = React.forwardRef<any, IProps>(({ onSubmit, workExp, formT
         <MonthYearSelect disabled={isPresent} />
       </Form.Item>
       <Form.Item wrapperCol={{ span: 24 }} name='isPresent' valuePropName='checked'>
-        <Checkbox value={workExp?.isPresent} onChange={(e) => onIsPresentChange(e.target.checked)}>
+        <Checkbox value={isPresent} onChange={(e) => onIsPresentChange(e.target.checked)}>
           I{"'"}m currently working in this company
         </Checkbox>
       </Form.Item>
@@ -119,7 +119,7 @@ const NewWorkExpForm = React.forwardRef<any, IProps>(({ onSubmit, workExp, formT
         required={false}
         name='notes'
       >
-        <TextArea rows={5} placeholder='Additional information (optional)' maxLength={6} />
+        <TextArea rows={5} placeholder='Additional information (optional)' />
       </Form.Item>
     </Form>
   );

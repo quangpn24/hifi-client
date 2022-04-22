@@ -68,7 +68,6 @@ const AboutMe = ({ content }: Props) => {
         <TextArea
           rows={5}
           placeholder='Add an introduction about yourselft'
-          maxLength={6}
           onChange={(e) => setNewAbout(e.target.value)}
         />
       </Modal>

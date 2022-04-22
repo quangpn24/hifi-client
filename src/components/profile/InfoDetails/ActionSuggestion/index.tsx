@@ -13,7 +13,7 @@ const ActionSuggestion = ({ onClick, text, textButton }: Props) => {
       <p className='mb-2 text-gray-600 text-base'>{text}</p>
       <Button
         icon={<PlusCircleIcon className='w-5 h-5 text-primary-color' />}
-        className='child:text-primary-color flex gap-1 items-center '
+        className='child:text-primary-color flex gap-1 items-center font-bold'
         onClick={onClick}
         type='text'
       >

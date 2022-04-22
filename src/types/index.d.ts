@@ -6,9 +6,10 @@ type User = {
   email: string;
   name: string;
   photoUrl: string;
+  birthDate: Date;
   isVerified: boolean;
   phoneNumber: string;
-  location: string;
+  address: string;
   age: number;
   gender: Gender;
   nationality: string;
@@ -17,7 +18,7 @@ type User = {
   resume: {
     fileName: string;
     url: string;
-  };
+  } | null;
   socialNetwork: {
     facebook: string;
     linkedIn: string;
@@ -25,7 +26,7 @@ type User = {
     twitter: string;
   };
 };
-type Gender = 'Male' | 'Female';
+type Gender = 'MALE' | 'FEMALE';
 type Company = {
   _id: string;
   email: string;
@@ -80,10 +81,20 @@ type WorkLocation = {
   address?: string;
 };
 type Award = {
+  _id: string;
   userId: string;
   title: string;
   achievement: string;
   year: number;
   notes: string;
 };
-export type { User, Company, Post, Salary, Skill, WorkLocation, Category, Subcategory, Award };
+
+type Category = {
+  _id: string;
+  name: string;
+  subcategories: Subcategory[];
+};
+type Subcategory = {
+  _id: string;
+  name: string;
+};
