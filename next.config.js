@@ -22,7 +22,9 @@ module.exports = withAntdLess({
     localIdentNameFollowDev: true, // default false, for easy to debug on PROD mode
   },
   reactStrictMode: true,
-
+  images: {
+    domains: ['itviec.com'],
+  },
   webpack(config) {
     return config;
   },
