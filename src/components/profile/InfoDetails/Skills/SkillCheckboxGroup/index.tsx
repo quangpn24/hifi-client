@@ -1,9 +1,8 @@
 import { Checkbox, Col, Input, message, Row } from 'antd';
 import { CheckboxValueType } from 'antd/lib/checkbox/Group';
 import suggestionApi from 'api/suggestionApi';
-import React, { useEffect, useMemo, useState } from 'react';
-import { Skill } from 'types';
 import _debounce from 'lodash.debounce';
+import React, { useEffect, useMemo, useState } from 'react';
 type Props = {
   defaultValues: Skill[];
   onChange: (skills: Skill[]) => void;
@@ -20,7 +19,6 @@ const SkillCheckboxGroup = ({ onChange, defaultValues }: Props) => {
         suggestionApi
           .getSkills(keyword)
           .then((data) => {
-            console.log('Data from searchSkillCallApi: ', data);
             setSkills(data);
           })
           .catch((err) => {
@@ -51,13 +49,10 @@ const SkillCheckboxGroup = ({ onChange, defaultValues }: Props) => {
     };
   }, []);
   const handleSkillsCheckboxChange = (checkedValue: CheckboxValueType[]) => {
-    console.log('checkedValue: ', checkedValue);
     onChange(skills.filter((skill) => checkedValue.includes(skill._id)));
   };
   const handleSearchChange = (value: string) => {
-    console.log('onSearch: ', value);
     searchSkillCallApi(value);
-    // searchSkillCallApi(value);
   };
   return (
     <div>

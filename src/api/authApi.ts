@@ -8,7 +8,6 @@ const authApi = {
     if (!accessToken) {
       throw new Error('Access Token is required');
     }
-    console.log('verify: ', accessToken);
     const {
       data: { data: user },
     } = await axiosClient.get('job-seeker/auth');
@@ -18,15 +17,7 @@ const authApi = {
   login: async (loginData: any) => {
     const {
       data: { data: user, accessToken, refreshToken },
-    } = await axiosClient.post(
-      'job-seeker/auth/login',
-      { ...loginData },
-      {
-        headers: { 'Access-Control-Allow-Origin': '*' },
-      }
-    );
-    // } = await axios.post('/auth/login', { ...loginData });
-
+    } = await axiosClient.post('job-seeker/auth/login', { ...loginData });
     return { user, accessToken, refreshToken };
   },
   register: async (userData: any) => {

@@ -6,7 +6,6 @@ import Chip from './Chip';
 import UpdateSkillsForm from './UpdateSkillsForm';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { selectUser } from 'redux/selectors';
-import { Skill } from 'types';
 import SkillsList from './SkillsList';
 import userApi from 'api/userApi';
 import { authActions } from 'redux/reducers/authSlice';
@@ -27,7 +26,6 @@ const Skills = ({}: Props) => {
       .then((res) => {
         if (mounted) {
           dispatch(authActions.update({ user: res.user }));
-          console.log('Res');
         }
       })
       .catch((err) => {

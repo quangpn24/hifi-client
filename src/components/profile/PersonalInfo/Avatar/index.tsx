@@ -18,7 +18,6 @@ const Avatar = ({ image, onChange, canUpdate }: Props) => {
     accept: 'image/*',
     maxSize: 3145728,
     onDrop: (acceptedFiles) => {
-      console.log('acceptedFiles', acceptedFiles);
       if (!acceptedFiles?.[0]) return;
       handleImageChange(acceptedFiles[0]);
     },
@@ -30,12 +29,10 @@ const Avatar = ({ image, onChange, canUpdate }: Props) => {
       setPreviewImage(undefined);
       return;
     }
-    console.log('handleImageChange File: ', file);
     revokeURLImage();
     const previewUrl = URL.createObjectURL(file);
     setPreviewImage(previewUrl);
 
-    console.log('PreviewUrl : ', previewUrl);
     onChange?.(file);
   };
   const revokeURLImage = useCallback(() => {

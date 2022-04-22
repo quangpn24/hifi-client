@@ -1,6 +1,4 @@
-import { User } from 'types';
 import axiosClient from './axiosClient';
-import second from 'mime';
 const userApi = {
   updateMe: async (updated: Partial<User>) => {
     const {

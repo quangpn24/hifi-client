@@ -23,7 +23,6 @@ const LoginForm = () => {
     setLoading(true);
     const { user, error } = await signInWithEmailPassword(email, password);
 
-    console.log({ user, error });
     if (!error && user) {
       try {
         const result = await dispatch(authActions.login(user));
@@ -31,7 +30,6 @@ const LoginForm = () => {
         message.success('Login successfully!');
       } catch (errorLogin: any) {
         setLoading(false);
-        console.log('Error: ', errorLogin);
         message.error(errorLogin.message);
       }
     } else {

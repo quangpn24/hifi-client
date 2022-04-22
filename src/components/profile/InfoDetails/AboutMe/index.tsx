@@ -30,7 +30,6 @@ const AboutMe = ({ content }: Props) => {
               <Button
                 icon={<EditOutlined />}
                 onClick={() => {
-                  console.log('Edit');
                   setType('edit');
                   setVisible(true);
                 }}

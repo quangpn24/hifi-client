@@ -23,7 +23,6 @@ const Layout: React.FC = ({ children }) => {
           dispatch(authActions.update(data));
         })
         .catch((error) => {
-          console.log('Mic check Errror verify', error);
           dispatch(authActions.logout());
         })
         .finally(() => {
@@ -41,7 +40,6 @@ const Layout: React.FC = ({ children }) => {
   const handleLogout = async () => {
     try {
       const { data } = await axios.get('/api/auth/logout');
-      console.log('handleLogout', data);
       dispatch(authActions.logout());
       router.replace('/auth/login');
     } catch (error) {

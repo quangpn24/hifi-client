@@ -5,13 +5,12 @@ import ToolSidebar from 'components/profile/ToolSidebar';
 import { requireAuth } from 'hoc/requireAuth';
 import { GetServerSideProps, NextPage } from 'next';
 import React from 'react';
-import { Award } from 'types';
 
 type Props = {
   awards?: Award[];
 };
 const { Header, Content, Footer } = Layout;
-const ProfilePage: NextPage<Props> = ({ awards }: Props) => {
+const ProfilePage: NextPage<Props> = () => {
   return (
     <Layout className='layout'>
       <Header>
@@ -35,25 +34,5 @@ const ProfilePage: NextPage<Props> = ({ awards }: Props) => {
     </Layout>
   );
 };
-
-export const getServerSideProps: GetServerSideProps = requireAuth(async ({ req }) => {
-  try {
-    const data = await awardApi.getAwards();
-
-    console.log('getServerSideProps: ', data);
-    return {
-      props: {
-        awards: data,
-      },
-    };
-  } catch (error: any) {
-    console.log('Error: ', error?.response?.data ?? error.message);
-    return {
-      props: {
-        awards: null,
-      },
-    };
-  }
-});
 
 export default ProfilePage;

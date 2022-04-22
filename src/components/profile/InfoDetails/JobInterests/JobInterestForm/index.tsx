@@ -55,7 +55,6 @@ const JobInterestsForm = React.forwardRef<any, IProps>(({ onSubmit, fields }, re
 
   // useEffect(() => form.resetFields(), [jobInterest]);
   const onFinish = (data: any) => {
-    console.log('On finish: ', data);
     onSubmit?.(data);
   };
 

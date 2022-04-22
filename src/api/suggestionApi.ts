@@ -5,7 +5,6 @@ const suggestionApi = {
     const {
       data: { data },
     } = await axiosClient.get('/suggestion/categories');
-    console.log('Categories: ', data);
     return data as Category[];
   },
   getSkills: async (keyword?: string) => {

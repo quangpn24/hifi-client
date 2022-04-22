@@ -20,7 +20,6 @@ const uploadFile = async (file: RcFile | File, folderName: string = 'images') =>
     }_${new Date().valueOf()}`;
     const storageRef = ref(storage, filename);
     const imageUrl = await uploadBytes(storageRef, file).then((snapshot) => {
-      console.log('Uploaded a blob or file!');
       const url = getDownloadURL(snapshot.ref);
       return url;
     });

@@ -40,7 +40,7 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
       accessToken && setAuthToken(accessToken);
     }
   } catch (error) {
-    console.log('Error getInitialProps', error);
+    console.log('Error MyApp.getInitialProps', error);
   }
   return { ...appProps, accessToken };
 };

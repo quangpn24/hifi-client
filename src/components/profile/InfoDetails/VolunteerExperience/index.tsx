@@ -37,7 +37,6 @@ const VolunteerExperience = (props: Props) => {
     formRef.current?.resetFields();
   };
   const handleSubmit = async (data: any) => {
-    console.log('Data: ', data);
     try {
       setLoading(true);
       if (selectedVolunteer) {

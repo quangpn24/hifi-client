@@ -49,7 +49,6 @@ const JobInterests = () => {
     jobInterestedApi
       .getJobInterest()
       .then((data) => {
-        console.log('getJobInterest: ', data);
         setJobInterest(data);
       })
       .catch((err) => {
@@ -59,12 +58,10 @@ const JobInterests = () => {
 
   useEffect(() => {
     if (formSubmitState.fieldsForm && formSubmitState.preferenceForm && jobInterest) {
-      console.log('updateJobInterest: ', jobInterest);
       setLoading(true);
       jobInterestedApi
         .updateJobInterest(jobInterest)
         .then((updated) => {
-          console.log('Updated: ', updated);
           setJobInterest(updated);
           fieldsFormRef.current?.resetFields();
           preferenceFormRef.current?.resetFields();
@@ -98,7 +95,6 @@ const JobInterests = () => {
     setFormSubmitState((prev) => ({ ...prev, fieldsForm: true }));
   };
   const handleReferenceFormSubmit = async (value: any) => {
-    // console.log('handleReferenceFormSubmit: ', value);
     setJobInterest((prev) =>
       prev ? { ...prev, preference: { ...value } } : { preference: { ...value } }
     );

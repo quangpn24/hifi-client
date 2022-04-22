@@ -5,7 +5,6 @@ export function requireAuth(gss: GetServerSideProps) {
     const { req, res } = context;
     let token;
     if (req.headers.cookie) {
-      console.log(req.headers.cookie);
       const tokens = req.headers.cookie.split(';');
       token = tokens.find((t) => t.trim().startsWith('accessToken'));
     }
