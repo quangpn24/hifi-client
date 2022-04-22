@@ -27,7 +27,6 @@ const MyApp = ({ Component, pageProps, accessToken }: AppProps & { accessToken: 
   );
 };
 MyApp.getInitialProps = async (appContext: AppContext) => {
-  // calls page's `getInitialProps` and fills `appProps.pageProps`
   const appProps = await App.getInitialProps(appContext);
   let accessToken;
   try {

@@ -27,7 +27,7 @@ module.exports = withAntdLess({
   },
   reactStrictMode: true,
   images: {
-    domains: ['picsum.photos', 'firebasestorage.googleapis.com'],
+    domains: ['picsum.photos', 'firebasestorage.googleapis.com', 'itviec.com'],
   },
   webpack(config) {
     return config;

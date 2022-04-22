@@ -1,8 +1,6 @@
-import httpProxy from 'http-proxy';
 import Cookies from 'cookies';
-import url from 'url';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { proxy } from 'server/proxy';
+import url from 'url';
 const API_URL = process.env.API_URL;
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
   return new Promise((resolve, reject) => {
