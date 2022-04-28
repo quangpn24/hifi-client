@@ -2,7 +2,6 @@ import { Checkbox, Divider, Form, Input, message, Select, Space } from 'antd';
 import { CheckboxValueType } from 'antd/lib/checkbox/Group';
 import suggestionApi from 'api/suggestionApi';
 import React, { useEffect, useImperativeHandle, useState } from 'react';
-import { Skill } from 'types';
 import Utils from 'utils';
 import Chip from '../Chip';
 import SkillCheckboxGroup from '../SkillCheckboxGroup';

@@ -1,5 +1,4 @@
 import { HomeOutlined } from '@ant-design/icons';
-import { Layout as AntdLayout } from 'antd';
 import authApi from 'api/authApi';
 import axios from 'axios';
 import Footer from 'components/layouts/Footer';
@@ -8,19 +7,19 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { authActions } from 'redux/reducers/authSlice';
-import LoadingPage from './Loading';
+import LoadingPage from '../Loading';
 
 const menu = [
   {
     id: 1,
     name: 'Jobs',
-    url: './jobs',
+    url: '/job-posts',
     icon: <HomeOutlined />,
   },
   {
     id: 2,
     name: 'Companies',
-    url: './companies',
+    url: '/companies',
     icon: <HomeOutlined />,
   },
 ];
@@ -39,6 +38,7 @@ const Layout: React.FC = ({ children }) => {
           dispatch(authActions.update(data));
         })
         .catch((error) => {
+          axios.get('/api/auth/logout');
           dispatch(authActions.logout());
         })
         .finally(() => {
@@ -52,10 +52,12 @@ const Layout: React.FC = ({ children }) => {
   if (loading) {
     return <LoadingPage />;
   }
-
+  if (router.pathname.startsWith('/auth')) {
+    return <>{children}</>;
+  }
   const handleLogout = async () => {
     try {
-      const { data } = await axios.get('/api/auth/logout');
+      await axios.get('/api/auth/logout');
       dispatch(authActions.logout());
       router.replace('/auth/login');
     } catch (error) {
@@ -63,24 +65,11 @@ const Layout: React.FC = ({ children }) => {
     }
   };
   return (
-    <>
-      {/* Test protected route */}
-      {/* <Head>
-        <link rel='shortcut icon' href='/favicon.ico' type='image/x-icon' />
-        <link rel='icon' href='/favicon.ico' type='image/x-icon' />
-      </Head>
-      <Header className='!bg-slate-50 space-x-8'>
-        {accessToken && <Button onClick={handleLogout}>Log out</Button>}
-        <Link href={'/'}>Home</Link>
-        <Link href={'/profile'}>Profile</Link>
-        <Link href={'/auth/login'}>Login</Link>
-      </Header> */}
-      <div className='flex flex-col h-screen'>
-        <Header menu={menu}></Header>
-        <main className='flex-1 bg-[#EBEFF7]'>{children}</main>
-        <Footer />
-      </div>
-    </>
+    <div className='flex flex-col h-screen'>
+      <Header menu={menu} />
+      <main className='flex-1 bg-[#EBEFF7] px-16'>{children}</main>
+      <Footer />
+    </div>
   );
 };
 

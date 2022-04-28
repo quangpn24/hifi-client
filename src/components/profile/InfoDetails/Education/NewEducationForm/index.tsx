@@ -1,4 +1,4 @@
-import { Checkbox, Form, Input, Select } from 'antd';
+import { Checkbox, Form, Input } from 'antd';
 import { validateMessages } from 'constant/validateMessages';
 import React, { useEffect, useImperativeHandle, useState } from 'react';
 import Utils from 'utils';
@@ -62,7 +62,6 @@ const NewEducationForm = React.forwardRef<any, IProps>(({ onSubmit, education },
             required: true,
           },
         ]}
-        required={false}
       >
         <UniversitySelect />
       </Form.Item>
@@ -75,7 +74,6 @@ const NewEducationForm = React.forwardRef<any, IProps>(({ onSubmit, education },
             required: true,
           },
         ]}
-        required={false}
       >
         <DegreeSelect />
       </Form.Item>
@@ -87,7 +85,6 @@ const NewEducationForm = React.forwardRef<any, IProps>(({ onSubmit, education },
             required: true,
           },
         ]}
-        required={false}
       >
         <MajorSelect />
       </Form.Item>
@@ -99,7 +96,6 @@ const NewEducationForm = React.forwardRef<any, IProps>(({ onSubmit, education },
             required: true,
           },
         ]}
-        required={false}
       >
         <MonthYearSelect />
       </Form.Item>
@@ -111,7 +107,6 @@ const NewEducationForm = React.forwardRef<any, IProps>(({ onSubmit, education },
             required: !isPresent,
           },
         ]}
-        required={false}
       >
         <MonthYearSelect disabled={isPresent} />
       </Form.Item>

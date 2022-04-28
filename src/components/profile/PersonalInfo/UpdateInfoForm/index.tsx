@@ -3,7 +3,6 @@ import userApi from 'api/userApi';
 import { validateMessages } from 'constant/validateMessages';
 import dayjs from 'dayjs';
 import React, { useCallback, useEffect, useImperativeHandle, useState } from 'react';
-import { User } from 'types';
 import Utils from 'utils';
 import Avatar from '../Avatar';
 

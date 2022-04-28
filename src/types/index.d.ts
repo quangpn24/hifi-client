@@ -15,10 +15,7 @@ type User = {
   nationality: string;
   about: string;
   skills: Skill[];
-  resume: {
-    fileName: string;
-    url: string;
-  } | null;
+  resume: UploadFile | null;
   socialNetwork: {
     facebook: string;
     linkedIn: string;
@@ -38,10 +35,12 @@ type Company = {
   size: string;
   contactName: string;
   summary: string;
+  logo: string;
   accountStatus: 'pending' | 'rejected' | 'fullfilled';
 };
 
 type Post = Partial<{
+  _id: string;
   title: string;
   jobType: string;
   categories: string[];
@@ -52,6 +51,7 @@ type Post = Partial<{
   locations: WorkLocation[];
   photoFile: any;
   postPhoto: string;
+  company: Company;
 }>;
 type Skill = {
   _id: string;
@@ -97,4 +97,19 @@ type Category = {
 type Subcategory = {
   _id: string;
   name: string;
+};
+type UploadFile = {
+  fileName: string;
+  url: string;
+};
+type Application = {
+  id: string;
+  resume: UploadFile;
+  phoneNumber: string;
+  coverLetter: string;
+  status: string;
+  user: User;
+  post: Post;
+  createAt: Date;
+  updatedAt: Date;
 };

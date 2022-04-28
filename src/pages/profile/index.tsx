@@ -12,26 +12,14 @@ type Props = {
 const { Header, Content, Footer } = Layout;
 const ProfilePage: NextPage<Props> = () => {
   return (
-    <Layout className='layout'>
-      <Header>
-        <div className='logo' />
-      </Header>
-      <Content style={{ padding: '0 50px' }}>
-        <Row
-          gutter={[16, { xs: 8, sm: 16, md: 24, lg: 32 }]}
-          className='px-24 pt-6'
-          style={{ backgroundColor: 'rgb(251, 251, 251)' }}
-        >
-          <Col lg={16} md={24}>
-            <MainProfile />
-          </Col>
-          <Col lg={8} md={24}>
-            <ToolSidebar />
-          </Col>
-        </Row>
-      </Content>
-      <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
-    </Layout>
+    <Row gutter={[16, { xs: 8, sm: 16, md: 24, lg: 32 }]} className='pt-6'>
+      <Col lg={16} md={24}>
+        <MainProfile />
+      </Col>
+      <Col lg={8} md={24}>
+        <ToolSidebar />
+      </Col>
+    </Row>
   );
 };
 

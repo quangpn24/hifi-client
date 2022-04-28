@@ -28,16 +28,18 @@ const uploadFile = async (file: RcFile | File, folderName: string = 'images') =>
     return { error: error?.message ?? 'Something went wrong!' };
   }
 };
-const deteteFile = async (url: string | undefined) => {
+const deteteFile = async (url: string | undefined, folderName: string = 'images/') => {
   try {
     if (!url) return;
-    const start = url.indexOf('/images%2F') + '/images%2F'.length;
+    const filename = folderName.replaceAll('/', '%2F');
+    console.log('File name', filename);
+    const start = url.indexOf(filename) + filename.length;
     const end = url.indexOf('?alt');
     const fileName = url.slice(start, end);
-    const storageRef = ref(storage, `/images/${fileName}`);
+    const storageRef = ref(storage, `/${folderName}/${fileName}`);
     await deleteObject(storageRef);
   } catch (error: any) {
-    console.log(error);
+    console.log(error.message);
     return;
   }
 };
