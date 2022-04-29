@@ -14,18 +14,15 @@ type Props = {
 };
 
 const CheckboxMenu = (props: Props) => {
-  const [icon, setIcon] = useState(true);
   const [selectedItems, setSelectedItems] = useState<Array<string | number>>([]);
   useEffect(() => {
     if (props.defaultValue?.length) {
       setSelectedItems([...props.defaultValue]);
-      setIcon(false);
     }
   }, []);
 
   const onChange = (selection: any) => {
     setSelectedItems([...selection]);
-    setIcon(!(selection.length > 0));
     props.onChange(selection);
   };
 
@@ -66,7 +63,7 @@ const CheckboxMenu = (props: Props) => {
     <Popover content={<CheckboxRender />} trigger='click' placement='bottomLeft'>
       <Button>
         <div className='flex items-center'>
-          <HeroIcon icon='FilterIcon' className='mr-1' outline={icon} />
+          <HeroIcon icon='FilterIcon' className='mr-1' outline={selectedItems.length == 0} />
           {props.keyword ? props.keyword : 'Keywords'}
         </div>
       </Button>

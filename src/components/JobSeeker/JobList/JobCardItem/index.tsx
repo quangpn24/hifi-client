@@ -1,8 +1,12 @@
+import { Data } from '@react-google-maps/api';
 import { Card, Col, Image, Row, Tag } from 'antd';
+import Link from 'next/link';
 import React, { useState } from 'react';
 import { HeroIcon } from 'utils/HeroIcon';
 
-type Props = {};
+type Props = {
+  data: any;
+};
 
 const JobCardItem = (props: Props) => {
   const [isLike, setIsLike] = useState(false);
@@ -11,46 +15,61 @@ const JobCardItem = (props: Props) => {
     setIsLike(!isLike);
   };
   return (
-    <Row className=' mb-[10px] last:mb-0 hover:opacity-90 hover:shadow-lg '>
-      <Card className='w-full h-[230px] shadow-sm p-[20px]'>
+    <Row className=' mb-[10px] last:mb-0 hover:opacity-90 hover:shadow-lg'>
+      <Card className='w-full p-[20px]'>
         <Row>
-          <Col span={4}>
-            <Image width={90} height={90} className='bg-red-500' />
+          <Col span={3}>
+            <a href={`/job-list/${props.data._id}`} target='_blank'>
+              <Image width={100} height={100} className='bg-red-500' preview={false} />
+            </a>
           </Col>
-          <Col span={20} className='font-semibold text-[#8B7A9F] pl-[15px]'>
+          <Col span={21} className='text-lg pl-[10px]'>
             <Row>
-              <Col span={12} className=' text-base'>
-                Microsoft
+              <Col span={18} className=' text-[#8B7A9F] font-semibold'>
+                {props.data.company}
               </Col>
-              <Col span={12} className='!flex justify-end'>
+              <Col span={6} className='!flex justify-end'>
+                <span>
+                  Còn <strong>7</strong> ngày để ứng tuyển
+                </span>
+              </Col>
+            </Row>
+            <Col span={18}>
+              <a
+                href={`/job-list/${props.data._id}`}
+                target='_blank'
+                className=' hover:underline !decoration-black'
+              >
+                <h2 className='text-[22px] font-semibold mb-0'>{props.data.title}</h2>
+              </a>
+            </Col>
+            <Col span={24} className='text-[14px] my-2'>
+              {props.data.address}
+            </Col>
+            <Row>
+              <Col span={20}>
+                <Tag className='!rounded-[4px]'>
+                  {props.data?.salary.negotiable
+                    ? 'Negotiable'
+                    : `${props.data?.salary.min} - ${props.data?.salary.max} ${props.data?.salary.unit}`}
+                </Tag>
+                {props.data.skill.map((e: any) => (
+                  <Tag className='!rounded-[4px]'>{e.text}</Tag>
+                ))}
+                <Tag className='!rounded-[4px]'>Cập nhật 2 giờ trước</Tag>
+              </Col>
+              <Col span={4} className='!flex justify-end'>
                 <div onClick={() => Like()}>
                   <HeroIcon
                     icon='HeartIcon'
                     outline={!isLike}
-                    size='h-[24px]'
+                    size='h-[22px]'
                     color={isLike ? '!text-[#D82727]' : ''}
                     className=' hover:!text-[#D82727]'
                   />
                 </div>
               </Col>
             </Row>
-            <Col span={24}>
-              <h2 className='text-[20px] font-semibold mb-0'>Senior backend developer</h2>
-            </Col>
-            <Col span={24} className='text-[14px]  text-[#8B7A9F]'>
-              HCM, VietNam
-            </Col>
-            <Col className='mt-[10px] mb-[10px]' span={24}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Semper non, sit vitae tortor
-              varius at est quis aliquet. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </Col>
-            <Col span={24}>
-              <Tag className='!rounded-[4px]'>React</Tag>
-              <Tag className='!rounded-[4px]'>React</Tag>
-              <Tag className='!rounded-[4px]'>React</Tag>
-              <Tag className='!rounded-[4px]'>React</Tag>
-              <Tag className='!rounded-[4px]'>React</Tag>
-            </Col>
           </Col>
         </Row>
       </Card>
