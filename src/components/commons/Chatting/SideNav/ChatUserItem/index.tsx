@@ -2,7 +2,7 @@ import { Avatar, Col, Divider, Row, Tooltip, Typography } from 'antd';
 import moment from 'moment';
 import React, { FC } from 'react';
 import { User, Message } from 'types';
-import socket from 'utils/socket';
+import socket from 'utils/messageSocket';
 import styles from './index.module.less';
 
 interface IProps {

@@ -3,7 +3,7 @@ import { Button, Input } from 'antd';
 import { Picker } from 'emoji-mart';
 import moment from 'moment';
 import React, { FC, useState } from 'react';
-import socket from 'utils/socket';
+import socket from 'utils/messageSocket';
 import 'emoji-mart/css/emoji-mart.css';
 import styles from './index.module.less';
 

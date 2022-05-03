@@ -1,14 +1,15 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { getUser } from 'redux/actions/userActions';
+import { User } from 'types';
 
 export type userState = {
-  data: object;
+  data: User | undefined;
   pending: boolean;
   error: boolean;
 };
 
 const initialState: userState = {
-  data: {},
+  data: undefined,
   pending: false,
   error: false,
 };

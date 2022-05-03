@@ -10,15 +10,18 @@ type Post = Partial<{
   photoFile: any;
   postPhoto: string;
 }>;
+
 type Skill = {
   _id: string;
   text: string;
 };
+
 type Category = {
   _id: string;
   name: string;
   subcategories: Subcategory[];
 };
+
 type Subcategory = {
   _id: string;
   name: string;
@@ -46,7 +49,20 @@ type Message = {
 
 type User = {
   _id: string;
+  uid: string;
+  signInProvider: string;
+  type: string;
+  email: string;
   name: string;
+  photoUrl: string;
+  notifications: Notification[];
+};
+
+type Notification = {
+  message: string;
+  createdAt: Date;
+  redirectUrl: string;
+  _id: string;
 };
 
 type Room = {
@@ -55,4 +71,15 @@ type Room = {
   chatters: User[];
 };
 
-export type { Post, Salary, Skill, WorkLocation, Category, Subcategory, Message, Room, User };
+export type {
+  Post,
+  Salary,
+  Skill,
+  WorkLocation,
+  Category,
+  Subcategory,
+  Message,
+  Room,
+  User,
+  Notification,
+};

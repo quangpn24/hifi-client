@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import ChatItem from './ChatItem';
 import styles from './index.module.less';
 import { Message, Room } from 'types';
-import socket from 'utils/socket';
+import socket from 'utils/messageSocket';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { setRoom } from 'redux/actions/chattingActions';
 

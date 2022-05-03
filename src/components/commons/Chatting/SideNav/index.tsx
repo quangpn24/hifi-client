@@ -5,7 +5,7 @@ import ChatUserItem from './ChatUserItem';
 import roomApi from 'api/roomApi';
 import { Room } from 'types';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import socket from 'utils/socket';
+import socket from 'utils/messageSocket';
 import { setRoom } from 'redux/actions/chattingActions';
 const { Title } = Typography;
 
