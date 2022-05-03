@@ -37,4 +37,22 @@ type WorkLocation = {
   city?: string;
   address?: string;
 };
-export type { Post, Salary, Skill, WorkLocation, Category, Subcategory };
+
+type Message = {
+  userId: string;
+  content: string;
+  createdAt: string;
+};
+
+type User = {
+  _id: string;
+  name: string;
+};
+
+type Room = {
+  _id: string;
+  messages: Message[];
+  chatters: User[];
+};
+
+export type { Post, Salary, Skill, WorkLocation, Category, Subcategory, Message, Room, User };

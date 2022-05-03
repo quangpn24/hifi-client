@@ -3,10 +3,11 @@ import { Row, Col, Button, Avatar, Divider } from 'antd';
 import type { NextPage } from 'next';
 import logo from '/public/images/Logo.svg';
 import Image from 'next/image';
+import { FC } from 'react';
 
-const Footer: NextPage = (props) => {
+const Footer: FC = (props) => {
   return (
-    <div className='bg-white px-16 py-4 sticky  w-full'>
+    <div className='bg-white px-16 pb-4 sticky w-full'>
       <Row>
         <Col span={8}>
           <Row className='items-center'>

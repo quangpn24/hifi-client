@@ -3,8 +3,9 @@ import { Row, Col, Button, Avatar, Menu, Drawer } from 'antd';
 import type { NextPage } from 'next';
 import logo from '/public/images/Logo.svg';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
+import RightContent from './RightContent';
 
 const { SubMenu } = Menu;
 
@@ -19,7 +20,7 @@ interface Props {
   menu: Array<menuData>;
 }
 
-const Header: NextPage<Props> = (props) => {
+const Header: FC<Props> = (props) => {
   const { menu } = props;
   const [pathname, setPathname] = useState(['home']);
 
@@ -91,12 +92,7 @@ const Header: NextPage<Props> = (props) => {
           </div>
         </Col>
         <Col>
-          <Button key='login' type='link' href='/login'>
-            <span className='font-semibold text-text-secondary'>Login</span>
-          </Button>
-          <Button key='signup' type='primary' href='/signup'>
-            <span className='font-semibold text-[#fff] '>Sign up</span>
-          </Button>
+          <RightContent />
         </Col>
       </Row>
     </div>
