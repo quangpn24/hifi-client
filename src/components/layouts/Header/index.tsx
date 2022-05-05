@@ -1,10 +1,10 @@
-import Icon, { DownOutlined, MenuOutlined } from '@ant-design/icons';
-import { Row, Col, Button, Avatar, Menu, Drawer } from 'antd';
+import { DownOutlined, MenuOutlined } from '@ant-design/icons';
+import { Button, Col, Drawer, Menu, Row } from 'antd';
 import type { NextPage } from 'next';
-import logo from '/public/images/Logo.svg';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import logo from '/public/images/Logo.svg';
 
 const { SubMenu } = Menu;
 
@@ -51,7 +51,7 @@ const Header: NextPage<Props> = (props) => {
 
   return (
     <div className='sticky inset-x-0 top-0 bg-white z-10 drop-shadow-xl'>
-      <Row justify='space-between' className='px-16 py-4 '>
+      <Row justify='space-between' className='contain py-4 '>
         <Col className='items-center'>
           <div className='mobileVisible'>
             <Button type='primary' onClick={showDrawer}>
