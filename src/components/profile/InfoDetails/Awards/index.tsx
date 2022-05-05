@@ -24,8 +24,8 @@ const AwardsSection: React.FC<Props> = ({ awards: data }: Props) => {
     awardApi
       .getAwards()
       .then((data) => isMounted && setAwards(data))
+      //TODO: error
       .catch((err) => console.log('Error: ', err));
-
     return () => {
       isMounted = false;
     };

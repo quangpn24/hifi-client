@@ -16,6 +16,7 @@ const MajorSelect = ({ value, onChange }: Props) => {
     suggestionApi
       .getMajors()
       .then((data) => mounted && setMajors(data))
+      //TODO: toast error
       .catch((err) => console.log('getMajors Error: ', err));
     return () => {
       mounted = false;

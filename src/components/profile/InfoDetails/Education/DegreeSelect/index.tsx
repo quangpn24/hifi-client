@@ -16,7 +16,8 @@ const DegreeSelect = ({ value, onChange }: Props) => {
     suggestionApi
       .getDegrees()
       .then((data) => mounted && setDegrees(data))
-      .catch((err) => console.log('suggestionApi Error: ', err));
+      //TODO: toast error
+      .catch((err) => console.log('getDegrees Error: ', err));
     return () => {
       mounted = false;
     };

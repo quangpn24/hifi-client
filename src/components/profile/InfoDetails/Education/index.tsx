@@ -18,6 +18,7 @@ const Education = () => {
     educationApi
       .getEducations()
       .then((data) => isMounted && setEducations(data))
+      //TODO: toast error
       .catch((err) => console.log('get educationApi Error: ', err));
 
     return () => {
