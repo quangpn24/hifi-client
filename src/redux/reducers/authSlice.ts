@@ -33,13 +33,6 @@ export const authSlice = createSlice({
         return initialState;
       })
     );
-    // builder.addCase(hydrate, (state, action: any) => {
-    //   console.log('HYDRATE', state, action.payload);
-    //   return {
-    //     ...state,
-    //     ...action.payload[authSlice.name],
-    //   };
-    // });
   },
 });
 

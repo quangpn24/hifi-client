@@ -17,9 +17,7 @@ const PostListPage = (props: Props) => {
         isMounted && setPosts(posts ?? []);
       })
       .catch((err) => {
-        if (isMounted) {
-          console.log(err);
-        }
+        console.log('getPosts Error: ', err);
       });
     return () => {
       isMounted = false;

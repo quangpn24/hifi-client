@@ -24,7 +24,7 @@ const ApplicationList = (props: Props) => {
         console.log('getApplications error: ', error);
       })
       .finally(() => {
-        setLoading(false);
+        isMounted && setLoading(false);
       });
     return () => {
       isMounted = false;
@@ -33,8 +33,8 @@ const ApplicationList = (props: Props) => {
 
   return (
     <div className='w-full ml-12'>
-      <h3 className='text-base font-bold'>{applications.length} Applications</h3>
-      <Space direction='vertical' size={10} className='w-full max-h- overflow-auto'>
+      <h3 className='text-lg font-bold px-3'>{applications.length} Applications</h3>
+      <Space direction='vertical' size={18} className='w-full max-h- overflow-auto p-3'>
         {loading ? (
           <div className='flex justify-center items-center w-full h-full'>
             <Spin size='large' />

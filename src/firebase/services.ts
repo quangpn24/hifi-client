@@ -32,7 +32,6 @@ const deteteFile = async (url: string | undefined, folderName: string = 'images/
   try {
     if (!url) return;
     const filename = folderName.replaceAll('/', '%2F');
-    console.log('File name', filename);
     const start = url.indexOf(filename) + filename.length;
     const end = url.indexOf('?alt');
     const fileName = url.slice(start, end);

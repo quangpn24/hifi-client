@@ -1,5 +1,5 @@
 import { CheckCircleOutlined, RightOutlined } from '@ant-design/icons';
-import { Col, Progress, Row } from 'antd';
+import { Col, Modal, Progress, Row } from 'antd';
 import React from 'react';
 import InstructionItem from '../InstructionItem';
 import ShortcutItem from '../QuickActionItem';
@@ -8,10 +8,16 @@ import styles from '../styles.module.css';
 type Props = {};
 
 const ToolSidebar = (props: Props) => {
+  const [visible, setVisible] = React.useState(false);
+
+  const handleOk = () => {};
+  const handleCancel = () => {
+    setVisible(false);
+  };
   return (
     <div>
       <h3 className='text-xl text-gray-600 tracking-wide'>Job Status</h3>
-      <div className={styles.status}>
+      <div className={styles.status} onClick={() => setVisible(true)}>
         <p className='!mb-0 text-primary-color'>Select Status</p>
         <ChevronRightIcon className='text-primary-color h-8 w-8' />
       </div>
@@ -27,7 +33,7 @@ const ToolSidebar = (props: Props) => {
                   }}
                 />
               }
-              text={'Update easily'}
+              text={'Quick fill Profile'}
             />
           </Col>
           <Col span={8}>
@@ -39,7 +45,7 @@ const ToolSidebar = (props: Props) => {
                   }}
                 />
               }
-              text={'Update easily'}
+              text={'Export to PDF'}
             />
           </Col>
           <Col span={8}>
@@ -51,7 +57,7 @@ const ToolSidebar = (props: Props) => {
                   }}
                 />
               }
-              text={'Update easily'}
+              text={'Preview Profile'}
             />
           </Col>
         </Row>
@@ -74,6 +80,9 @@ const ToolSidebar = (props: Props) => {
           <InstructionItem text='Organizational & Volunteering Experiences' onClick={() => {}} />
         </div>
       </div>
+      <Modal title='STATUS AVAILABILITY ' visible={visible} onOk={handleOk} onCancel={handleCancel}>
+        <p>Telling them about yourself will help them understand you.</p>
+      </Modal>
     </div>
   );
 };

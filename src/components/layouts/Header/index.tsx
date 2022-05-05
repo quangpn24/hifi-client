@@ -4,6 +4,7 @@ import axios from 'axios';
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { authActions } from 'redux/reducers/authSlice';
@@ -58,7 +59,7 @@ const Header: NextPage<Props> = (props) => {
       await axios.get('/api/auth/logout');
       dispatch(authActions.logout());
     } catch (error) {
-      console.log('Error: ', error);
+      console.log('handleLogout Error: ', error);
     }
   };
   return (

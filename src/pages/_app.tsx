@@ -1,12 +1,11 @@
 import 'antd/dist/antd.css';
 import { setAuthToken } from 'api/axiosClient';
-import Layout from 'components/layout';
+import Layout from 'components/layouts';
 import 'config/day';
 import Cookies from 'cookies';
 import type { AppContext, AppProps } from 'next/app';
 import App from 'next/app';
 import { useEffect } from 'react';
-// import 'react-quill/dist/quill.snow.css';
 import { Provider } from 'react-redux';
 import { authActions } from 'redux/reducers/authSlice';
 import { store } from 'redux/store';
@@ -43,5 +42,4 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   }
   return { ...appProps, accessToken };
 };
-// export default wrapper.withRedux(MyApp);
 export default MyApp;

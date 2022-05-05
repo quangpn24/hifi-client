@@ -51,7 +51,7 @@ export const ApplicationStatusMap = new Map([
     'REJECTED',
     {
       key: 'REJECTED',
-      text: 'Rejected',
+      text: 'Unsuitable',
     },
   ],
 ]);
@@ -60,7 +60,6 @@ const StatusSideBar = (props: Props) => {
   const [status, setStatus] = useState(ApplicationStatusMap.keys().next().value);
   const router = useRouter();
   const handleClick: MenuProps['onClick'] = (e) => {
-    console.log('click ', e);
     setStatus(e.key);
     router.query.status = e.key;
     router.push(router);

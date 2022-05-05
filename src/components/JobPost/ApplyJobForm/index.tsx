@@ -45,7 +45,6 @@ const ApplyJobFormModal = ({ post, title, visible, onCancel, onSuccess }: Props)
         if (resume?.file) {
           const { error, url } = await uploadFile(resume.file, 'job-seekers/resume');
 
-          console.log('object: ', error, url);
           fileUrl = url;
           if (error || !url) {
             throw new Error(error);
@@ -67,7 +66,6 @@ const ApplyJobFormModal = ({ post, title, visible, onCancel, onSuccess }: Props)
         );
       } else {
         const application = await applicationApi.createApplication({ ...data });
-        console.log('New application', application);
       }
 
       message.success('Send application successfully');
@@ -76,7 +74,6 @@ const ApplyJobFormModal = ({ post, title, visible, onCancel, onSuccess }: Props)
       if (fileUrl) {
         await deteteFile(fileUrl, 'job-seekers/resume/');
         data.resume.url = undefined;
-        console.log('delete error');
       }
       setLoading(false);
       if (axios.isAxiosError(error)) {

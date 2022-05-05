@@ -49,7 +49,7 @@ const JobInterestsForm = React.forwardRef<any, IProps>(({ onSubmit, fields }, re
         setJobCategories(subs);
       })
       .catch((err) => {
-        console.log(err);
+        console.log('suggestionApi Error', err);
       });
   }, []);
 

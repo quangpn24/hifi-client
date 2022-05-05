@@ -13,7 +13,7 @@ type Props = {};
 const InfoDetails = (props: Props) => {
   return (
     <div className='bg-white shadow-md p-3 mt-4 rounded-md'>
-      <AboutMe content='' />
+      <AboutMe />
       <WorkExperience />
       <Education />
       <Skills />

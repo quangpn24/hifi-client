@@ -6,6 +6,8 @@ import { User as FirebaseUser } from 'firebase/auth';
 
 const login = createAsyncThunk('auth/login', async (user: FirebaseUser, { rejectWithValue }) => {
   try {
+    console.log('user login', user);
+
     const signInProvider = user.providerData[0]?.providerId;
     const loginData =
       signInProvider === 'password'
@@ -35,6 +37,7 @@ const register = createAsyncThunk('auth/register', async (user: FirebaseUser) =>
     name: user.displayName,
     picture: user.photoURL,
     signInProvider: user.providerData[0]?.providerId || 'password',
+    isVerified: user.emailVerified,
   });
   setAuthToken(authState.accessToken);
   return authState;

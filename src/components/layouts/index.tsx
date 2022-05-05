@@ -38,8 +38,10 @@ const Layout: React.FC = ({ children }) => {
           dispatch(authActions.update(data));
         })
         .catch((error) => {
-          axios.get('/api/auth/logout');
-          dispatch(authActions.logout());
+          if (error.response.status === 401) {
+            axios.get('/api/auth/logout');
+            dispatch(authActions.logout());
+          }
         })
         .finally(() => {
           setLoading(false);
@@ -55,15 +57,7 @@ const Layout: React.FC = ({ children }) => {
   if (router.pathname.startsWith('/auth')) {
     return <>{children}</>;
   }
-  const handleLogout = async () => {
-    try {
-      await axios.get('/api/auth/logout');
-      dispatch(authActions.logout());
-      router.replace('/auth/login');
-    } catch (error) {
-      console.log('Error logout', error);
-    }
-  };
+
   return (
     <div className='flex flex-col h-screen'>
       <Header menu={menu} />

@@ -9,29 +9,6 @@ import JobInterestsForm from './JobInterestForm';
 import PreferenceForm from './PreferenceForm';
 const { TabPane } = Tabs;
 
-const jobInterest = {
-  willingRemote: true,
-  preferedWorkLocations: [
-    {
-      id: 1,
-      text: 'Ho Chi Minh City, Vietnam',
-    },
-    {
-      id: 2,
-      text: 'Jakarta, Indonesia',
-    },
-  ],
-  typeOfOpportunities: [
-    {
-      id: 1,
-      text: 'Full-Time',
-    },
-    {
-      id: 2,
-      text: 'Part-Time',
-    },
-  ],
-};
 type TabType = 'JOB INTERESTS' | 'PREFERENCES';
 const JobInterests = () => {
   const [visible, setVisible] = useState(false);

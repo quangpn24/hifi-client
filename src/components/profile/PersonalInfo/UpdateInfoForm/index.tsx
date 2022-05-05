@@ -1,4 +1,5 @@
-import { Checkbox, Col, DatePicker, Form, Input, Radio, Row, Select } from 'antd';
+import { ExclamationCircleIcon } from '@heroicons/react/solid';
+import { Button, Checkbox, Col, DatePicker, Form, Input, Radio, Row, Select } from 'antd';
 import userApi from 'api/userApi';
 import { validateMessages } from 'constant/validateMessages';
 import dayjs from 'dayjs';
@@ -27,10 +28,12 @@ const UpdateInfoForm = React.forwardRef<any, IProps>(({ onSubmit, user, formType
       form.resetFields();
     },
   }));
+
   const onFinish = async (data: any) => {
     onSubmit?.(data);
   };
 
+  const handleSendVerifyEmail = async () => {};
   return (
     <Form
       form={form}
@@ -48,9 +51,28 @@ const UpdateInfoForm = React.forwardRef<any, IProps>(({ onSubmit, user, formType
           <Avatar canUpdate={true} image={user?.photoUrl} />
         </Form.Item>
       </div>
-      {/* <div className='flex justify-center'>
-        <p>Email</p>
-      </div> */}
+
+      <div className='mb-1'>
+        <p className='!mb-1'>
+          Email{' '}
+          <span className='text-primary-color'>
+            {user?.isVerified ? '(Verified)' : '(Unverified)'}
+          </span>
+        </p>
+        <h3>{user?.email}</h3>
+        {!user?.isVerified && (
+          <>
+            <div className='flexf'>
+              <ExclamationCircleIcon className='w-5 h-5' />
+              <p>Your email address is not yet verified.</p>
+            </div>
+            <Button type='text' onClick={handleSendVerifyEmail} className='text-primary-color'>
+              Verify email
+            </Button>
+          </>
+        )}
+      </div>
+
       <Form.Item
         label='Full Name'
         name='name'

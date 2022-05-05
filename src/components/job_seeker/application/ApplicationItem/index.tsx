@@ -17,35 +17,36 @@ const ApplicationItem = ({ data }: Props) => {
       href={{
         pathname: router.pathname + '/' + data.id,
       }}
-      passHref
     >
-      <div
-        className='flex p-4 w-full bg-white hover:shadow-lg hover:cursor-pointer rounded'
-        style={{
-          border: '1px solid rgb(227, 227, 227)',
-        }}
-      >
-        <Image
-          src={data.post.company?.logo || 'https://picsum.photos/200'}
-          layout='fixed'
-          width={50}
-          height={50}
-          alt='logo-company'
-        />
-        <div className='ml-4 w-full '>
-          <h4 className='!mb-0  text-xl'>{data.post.title}</h4>
-          <p className='!mt-1 !mb-0'>{data.post.company?.name} </p>
-          <div className='flex items-center my-2'>
-            <CalendarIcon className='w-5 h-5 mr-2' />
-            <p className='!mb-0'>
-              Submitted on {dayjs(data.createAt).format('MMMM DD YYYY, HH:mm a')}
-            </p>
+      <a>
+        <div
+          className='flex p-4 w-full bg-white hover:shadow-lg hover:cursor-pointer rounded'
+          style={{
+            border: '1px solid rgb(227, 227, 227)',
+          }}
+        >
+          <Image
+            src={data.post.company?.logo || 'https://picsum.photos/200'}
+            layout='fixed'
+            width={50}
+            height={50}
+            alt='logo-company'
+          />
+          <div className='ml-4 w-full '>
+            <h4 className='!mb-0  text-xl'>{data.post.title}</h4>
+            <p className='!mt-1 !mb-0'>{data.post.company?.name} </p>
+            <div className='flex items-center my-2'>
+              <CalendarIcon className='w-5 h-5 mr-2' />
+              <p className='!mb-0'>
+                Submitted on {dayjs(data.createAt).format('MMMM DD YYYY, HH:mm a')}
+              </p>
+            </div>
+            <span className='bg-slate-600 px-3 py-1 text-center inline-block rounded-3xl text-white'>
+              {ApplicationStatusMap.get(data.status)?.text}
+            </span>
           </div>
-          <span className='bg-slate-600 px-3 py-1 text-center inline-block rounded-3xl text-white'>
-            {ApplicationStatusMap.get(data.status)?.text}
-          </span>
         </div>
-      </div>
+      </a>
     </Link>
   );
 };

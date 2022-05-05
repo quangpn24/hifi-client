@@ -1,25 +1,51 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { EditOutlined } from '@ant-design/icons';
-import { Button, Divider, Modal } from 'antd';
+import { Button, Divider, message, Modal } from 'antd';
 import Header from '../Header';
 import { Input } from 'antd';
 import ActionSuggestion from '../ActionSuggestion';
+import userApi from 'api/userApi';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { selectUser } from 'redux/selectors';
+import { authActions } from 'redux/reducers/authSlice';
+import axios from 'axios';
 
 const { TextArea } = Input;
-type Props = {
-  content: string;
-};
-type ActionType = 'add' | 'edit';
-const AboutMe = ({ content }: Props) => {
-  const [visible, setVisible] = useState(false);
-  const [about, setAbout] = useState<string | undefined>();
-  const [newAbout, setNewAbout] = useState<string | undefined>('');
-  const [type, setType] = useState<ActionType>('add');
 
-  const handleOk = () => {};
+const AboutMe = () => {
+  const [visible, setVisible] = useState(false);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
+  const [about, setAbout] = useState<string | undefined>(user?.about);
+  const [loading, setLoading] = useState(false);
+
+  const handleOk = async () => {
+    try {
+      setLoading(true);
+      const newUser = await userApi.updateMe({ about });
+      dispatch(authActions.update({ user: { ...(user ?? newUser), about: about ?? '' } }));
+      message.success('Update about me successfully');
+      setVisible(false);
+    } catch (error: any) {
+      if (axios.isAxiosError(error)) {
+        message.error(error?.response?.data.message);
+      } else {
+        message.error(error?.message);
+      }
+    }
+    setLoading(false);
+  };
+
   const handleCancel = () => {
     setVisible(false);
   };
+
+  useEffect(() => {
+    if (visible) {
+      setAbout(user?.about);
+    }
+  }, [user?.about, visible]);
+
   return (
     <>
       <div className='mb-8'>
@@ -30,7 +56,6 @@ const AboutMe = ({ content }: Props) => {
               <Button
                 icon={<EditOutlined />}
                 onClick={() => {
-                  setType('edit');
                   setVisible(true);
                 }}
                 type='text'
@@ -42,32 +67,33 @@ const AboutMe = ({ content }: Props) => {
         />
         <Divider className='!my-2' />
         <div className='mt-4'>
-          {!!about ? (
-            <p>
-              Là người có tư duy logic và khả năng tiếp thu, thích ứng nhanh với những điều, tôi
-              mong muốn trở thành một trong những lập trình viên chủ chốt của công ty để mang lại
-              những giải pháp công nghệ tối ưu cho khách hàng. Đồng thời, tôi muốn được nâng cao
-              trình độ chuyên môn và năng lực nghề nghiệp thông qua môi trường làm việc chuyên
-              nghiệp của công ty.
-            </p>
+          {!!user?.about ? (
+            <p>{user?.about}</p>
           ) : (
             <ActionSuggestion
               text='Tell employers what you can bring to the table.'
               textButton='ADD A DESCRIPTION ABOUT ME'
               onClick={() => {
-                setType('add');
                 setVisible(true);
               }}
             />
           )}
         </div>
       </div>
-      <Modal title='About me' visible={visible} onOk={handleOk} onCancel={handleCancel}>
+      <Modal
+        title='About me'
+        visible={visible}
+        onOk={handleOk}
+        okText='SAVE'
+        onCancel={handleCancel}
+        confirmLoading={loading}
+      >
         <p>Telling them about yourself will help them understand you.</p>
         <TextArea
           rows={5}
+          value={about}
           placeholder='Add an introduction about yourselft'
-          onChange={(e) => setNewAbout(e.target.value)}
+          onChange={(e) => setAbout(e.target.value)}
         />
       </Modal>
     </>

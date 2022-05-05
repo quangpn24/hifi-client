@@ -15,7 +15,7 @@ const Chip = ({ text, onDelete }: Props) => {
       })}
       onClick={() => onDelete?.()}
     >
-      <p>{text}</p>
+      <p className='!mb-0'>{text}</p>
       {onDelete && <XIcon className='ml-3 h-4 w-4 cursor-pointer' />}
     </div>
   );

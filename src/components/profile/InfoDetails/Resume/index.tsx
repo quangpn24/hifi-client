@@ -25,6 +25,7 @@ const ResumeSection = ({}: Props) => {
   const [loading, setLoading] = useState(false);
   const [resume, setResume] = useState<Resume>();
   const inputRef = useRef<HTMLInputElement>(null);
+
   const handleOk = async () => {
     setLoading(true);
     try {
@@ -56,16 +57,20 @@ const ResumeSection = ({}: Props) => {
 
     setLoading(false);
   };
+
   const handleCancel = () => {
     setVisible(false);
     setResume(undefined);
   };
+
   const onEdit = () => {
     inputRef.current?.click();
   };
+
   const onDelete = () => {
     setResume(undefined);
   };
+
   const onChangeFile = (event: ChangeEvent<HTMLInputElement>) => {
     event.stopPropagation();
     event.preventDefault();
@@ -73,6 +78,11 @@ const ResumeSection = ({}: Props) => {
     if (!file) return;
     setResume({ fileName: file.name, file });
   };
+
+  useEffect(() => {
+    setResume(user?.resume ? { ...user?.resume } : undefined);
+  }, [user?.resume]);
+
   return (
     <>
       <div className='mb-8'>

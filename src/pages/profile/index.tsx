@@ -12,7 +12,7 @@ type Props = {
 const { Header, Content, Footer } = Layout;
 const ProfilePage: NextPage<Props> = () => {
   return (
-    <Row gutter={[16, { xs: 8, sm: 16, md: 24, lg: 32 }]} className='pt-6'>
+    <Row gutter={[16, { xs: 8, sm: 16, md: 24, lg: 32 }]} className='py-6'>
       <Col lg={16} md={24}>
         <MainProfile />
       </Col>

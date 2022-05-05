@@ -18,7 +18,7 @@ const Education = () => {
     educationApi
       .getEducations()
       .then((data) => isMounted && setEducations(data))
-      .catch((err) => console.log(err));
+      .catch((err) => console.log('get educationApi Error: ', err));
 
     return () => {
       isMounted = false;

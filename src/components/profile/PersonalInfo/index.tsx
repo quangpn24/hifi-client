@@ -51,13 +51,13 @@ const PersonalInfo = (props: Props) => {
   return (
     <>
       <div className='bg-white shadow-md rounded-md'>
-        <Row className='p-4' gutter={[8, 16]}>
-          <Col lg={5} md={24}>
+        <Row className='p-4' gutter={16}>
+          <Col>
             <div
-              className='flex items-center justify-center'
+              className='flex items-center justify-center bg-red-700'
               style={{ borderRadius: '50%', overflow: 'hidden' }}
             >
-              <div className='h-36 w-36' style={{ borderRadius: '50%' }}>
+              <div className='h-36 w-36 ' style={{ borderRadius: '50%' }}>
                 <Image
                   src={user?.photoUrl || DEFAULT_IMAGE}
                   alt='avatar-user'
@@ -78,7 +78,10 @@ const PersonalInfo = (props: Props) => {
                 <InfoItem label='Gender' value={user?.phoneNumber} />
               </Col>
               <Col span={12}>
-                <InfoItem label='Email' value={user?.email} />
+                <InfoItem
+                  label={`Email ${user?.isVerified ? '(Verified)' : '(Unverified)'}`}
+                  value={user?.email}
+                />
                 <InfoItem
                   label='Age'
                   value={`${dayjs(user?.birthDate).fromNow(true)} old, ${

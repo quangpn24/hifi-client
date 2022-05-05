@@ -15,7 +15,7 @@ const UniversitySelect = ({ value, onChange }: Props) => {
     suggestionApi
       .getUniversities()
       .then((data) => mounted && setUniversities(data))
-      .catch((err) => console.log(err));
+      .catch((err) => console.log('get Universities: ', err));
     return () => {
       mounted = false;
     };

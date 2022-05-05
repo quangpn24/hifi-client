@@ -29,7 +29,6 @@ const Skills = ({}: Props) => {
         }
       })
       .catch((err) => {
-        console.log('Error', err);
         message.error(err.message);
       });
 

@@ -8,7 +8,7 @@ interface IProps {
 const InfoItem: React.FC<IProps> = ({ label, value }) => {
   return (
     <div className='mb-4'>
-      <div className='uppercase text-zinc-400 font-semibold	text-base'>{label}</div>
+      <div className='uppercase text-zinc-500 font-bold	text-base'>{label}</div>
       <p className='font-medium	text-base'>{value}</p>
     </div>
   );
