@@ -93,7 +93,10 @@ const JobDetails = (props: Props) => {
               </Col>
               <Row className='my-[20px]'>
                 {data?.skill.map((e: any) => (
-                  <Tag className=' !text-[16px] !h-[30px] !flex !items-center !rounded-[4px]'>
+                  <Tag
+                    key={e._id}
+                    className=' !text-[16px] !h-[30px] !flex !items-center !rounded-[4px]'
+                  >
                     {e.text}
                   </Tag>
                 ))}

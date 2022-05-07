@@ -196,7 +196,7 @@ const Jobs = (props: Props) => {
       </Row>
       <Row className='w-full mt-[20px] px-16 pt-[20px] bg-[#FAFAFC]' justify='center'>
         {data?.map((e) => (
-          <Col span={24} className='mb-4'>
+          <Col span={24} className='mb-4' key={`${e._id}`}>
             <JobCardItem data={e} />
           </Col>
         ))}
