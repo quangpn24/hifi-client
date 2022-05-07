@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
 import { ChevronLeftIcon } from '@heroicons/react/solid';
 import { Col, Divider, Row, Space } from 'antd';
-import ApplicationItem from 'components/job_seeker/application/ApplicationItem';
+import ApplicationItem from 'components/application/ApplicationItem';
 import Image from 'next/image';
 import { CalendarIcon, ExternalLinkIcon, EyeIcon } from '@heroicons/react/outline';
-import JobDetails from 'components/job_seeker/application/JobDetails';
+import JobDetails from 'components/application/JobDetails';
 import Link from 'next/link';
 import applicationApi from 'api/applicationApi';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import dayjs from 'dayjs';
-import { ApplicationStatusMap } from 'components/job_seeker/application/StatusSideBar';
+import { ApplicationStatusMap } from 'components/application/StatusSideBar';
 type Props = {
   application: Application;
 };

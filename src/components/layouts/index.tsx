@@ -38,7 +38,7 @@ const Layout: React.FC = ({ children }) => {
           dispatch(authActions.update(data));
         })
         .catch((error) => {
-          if (error.response.status === 401) {
+          if (error?.response?.status === 401) {
             axios.get('/api/auth/logout');
             dispatch(authActions.logout());
           }

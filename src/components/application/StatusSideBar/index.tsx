@@ -20,24 +20,10 @@ export const ApplicationStatusMap = new Map([
     },
   ],
   [
-    'IN_REVIEW',
+    'IN_PROGRESS',
     {
-      key: 'IN_REVIEW',
-      text: 'Shortlisted',
-    },
-  ],
-  [
-    'ASSESSMENT',
-    {
-      key: 'ASSESSMENT',
-      text: 'Asssessment',
-    },
-  ],
-  [
-    'OFFERED',
-    {
-      key: 'OFFERED',
-      text: 'Offered',
+      key: 'IN_PROGRESS',
+      text: 'In Progress',
     },
   ],
   [
@@ -48,9 +34,9 @@ export const ApplicationStatusMap = new Map([
     },
   ],
   [
-    'REJECTED',
+    'UNSUITABLE',
     {
-      key: 'REJECTED',
+      key: 'UNSUITABLE',
       text: 'Unsuitable',
     },
   ],
