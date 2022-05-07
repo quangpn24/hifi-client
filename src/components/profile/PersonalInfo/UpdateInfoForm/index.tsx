@@ -1,17 +1,11 @@
 import { ExclamationCircleIcon } from '@heroicons/react/solid';
-import { Button, Checkbox, Col, DatePicker, Form, Input, Radio, Row, Select } from 'antd';
-import userApi from 'api/userApi';
+import { Button, DatePicker, Form, Input, message, Radio } from 'antd';
+import emailApi from 'api/emailApi';
+import axios from 'axios';
 import { validateMessages } from 'constant/validateMessages';
 import dayjs from 'dayjs';
-import React, { useCallback, useEffect, useImperativeHandle, useState } from 'react';
-import Utils from 'utils';
+import React, { useImperativeHandle, useState } from 'react';
 import Avatar from '../Avatar';
-
-const { TextArea } = Input;
-const layout = {
-  labelCol: { span: 6 },
-  wrapperCol: { span: 18 },
-};
 interface IProps {
   user?: User;
   formType?: 'update' | 'create';
@@ -19,6 +13,7 @@ interface IProps {
 }
 const UpdateInfoForm = React.forwardRef<any, IProps>(({ onSubmit, user, formType }, ref) => {
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
 
   useImperativeHandle(ref, () => ({
     submit() {
@@ -33,7 +28,20 @@ const UpdateInfoForm = React.forwardRef<any, IProps>(({ onSubmit, user, formType
     onSubmit?.(data);
   };
 
-  const handleSendVerifyEmail = async () => {};
+  const handleSendVerifyEmail = async () => {
+    try {
+      setLoading(true);
+      await emailApi.sendAccountVerificationEmail(user?.email!);
+      message.success('Verification email has been sent!');
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        message.error(error?.response?.data.message);
+      } else {
+        message.error('Failed to send verification email');
+      }
+    }
+    setLoading(false);
+  };
   return (
     <Form
       form={form}
@@ -55,18 +63,23 @@ const UpdateInfoForm = React.forwardRef<any, IProps>(({ onSubmit, user, formType
       <div className='mb-1'>
         <p className='!mb-1'>
           Email{' '}
-          <span className='text-primary-color'>
+          <span className={user?.isVerified ? 'text-success-color' : 'text-red-500'}>
             {user?.isVerified ? '(Verified)' : '(Unverified)'}
           </span>
         </p>
         <h3>{user?.email}</h3>
         {!user?.isVerified && (
           <>
-            <div className='flexf'>
-              <ExclamationCircleIcon className='w-5 h-5' />
-              <p>Your email address is not yet verified.</p>
+            <div className='flex items-center'>
+              <ExclamationCircleIcon className='w-4 h-4 mr-1 text-red-500' />
+              <p className='!mb-0'>Your email address is not yet verified.</p>
             </div>
-            <Button type='text' onClick={handleSendVerifyEmail} className='text-primary-color'>
+            <Button
+              type='text'
+              onClick={handleSendVerifyEmail}
+              loading={loading}
+              className='text-primary-color'
+            >
               Verify email
             </Button>
           </>

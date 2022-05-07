@@ -3,6 +3,7 @@ import { Button, Col, Form, Input, message, Radio, Row } from 'antd';
 import { validateMessages } from 'constant/validateMessages';
 import { signInWithEmailPassword, signInWithGoogle } from 'firebase/services';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { useSelector } from 'react-redux';
@@ -18,7 +19,7 @@ const LoginForm = () => {
   const dispatch = useAppDispatch();
   const user = useSelector(selectUser);
   const [loading, setLoading] = useState(false);
-
+  const router = useRouter();
   const handleLogin = async ({ email, password }: any) => {
     setLoading(true);
     const { user, error } = await signInWithEmailPassword(email, password);
@@ -28,8 +29,12 @@ const LoginForm = () => {
         const result = await dispatch(authActions.login(user));
         await unwrapResult(result);
         message.success('Login successfully!');
-      } catch (errorLogin: any) {
+
+        const url = (router.query.redirect_url as string) ?? '/';
+        console.log('url from Loginpage ', url);
+        router.push(url);
         setLoading(false);
+      } catch (errorLogin: any) {
         message.error(errorLogin.message);
       }
     } else {
