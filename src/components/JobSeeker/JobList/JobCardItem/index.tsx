@@ -29,9 +29,9 @@ const JobCardItem = (props: Props) => {
       <Card className='w-full p-[20px]'>
         <Row>
           <Col span={3}>
-            <a href={`/job-list/${props.data._id}`} target='_blank' rel='noreferrer'>
+            <Link href={`/job-list/${props.data._id}`} passHref>
               <Image width={100} height={100} className='bg-red-500' preview={false} />
-            </a>
+            </Link>
           </Col>
           <Col span={21} className='text-lg pl-[10px]'>
             <Row>
