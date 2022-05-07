@@ -13,7 +13,6 @@ const PostListPage = (props: Props) => {
     postApi
       .getPosts()
       .then((posts) => {
-        console.log('Posts: ', posts);
         isMounted && setPosts(posts ?? []);
       })
       .catch((err) => {

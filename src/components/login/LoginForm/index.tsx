@@ -31,7 +31,6 @@ const LoginForm = () => {
         message.success('Login successfully!');
 
         const url = (router.query.redirect_url as string) ?? '/';
-        console.log('url from Loginpage ', url);
         router.push(url);
         setLoading(false);
       } catch (errorLogin: any) {
