@@ -99,7 +99,7 @@ const TimelineEditor = ({ METADATA, state, operation, identifier }: IProps) => {
   );
 
   return (
-    <div className='m-4'>
+    <div>
       <div className='flex gap-4'>
         <p>Re order:</p>
         <Switch checked={isReorder} onChange={handleSwitchChange} />

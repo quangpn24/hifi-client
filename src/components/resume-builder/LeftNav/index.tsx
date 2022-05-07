@@ -63,7 +63,7 @@ interface IMenu {
   component: JSX.Element;
 }
 
-const LeftNav: NextPage = () => {
+const LeftNav = () => {
   return (
     <div className='bg-white'>
       <Tabs defaultActiveKey='0' tabPosition='left'>
@@ -77,7 +77,7 @@ const LeftNav: NextPage = () => {
               </div>
             }
           >
-            {item.component}
+            <div className='px-4 py-2'>{item.component}</div>
           </Tabs.TabPane>
         ))}
       </Tabs>

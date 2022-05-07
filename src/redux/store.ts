@@ -2,6 +2,7 @@ import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import activityReducer from './reducers/activityReducer';
 import educationReducer from './reducers/educationReducer';
 import introReducer from './reducers/introReducer';
+import labelReducer from './reducers/labelReducer';
 import socialReducer from './reducers/socialReducer';
 import { userReducer } from './reducers/userReducer';
 import workReducer from './reducers/workReducer';
@@ -14,6 +15,7 @@ export const store = configureStore({
     education: educationReducer,
     work: workReducer,
     activity: activityReducer,
+    label: labelReducer,
   },
 });
 

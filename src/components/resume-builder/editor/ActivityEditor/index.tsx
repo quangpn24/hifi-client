@@ -16,23 +16,19 @@ const ActivityEditor = () => {
   const state = useAppSelector(selectActivity);
   const dispatch = useAppDispatch();
   return (
-    <div className='m-4'>
-      <Form initialValues={state} layout='vertical'>
-        <Form.Item label={Title('Award', 'Hi/HiOutlineBadgeCheck')} name='award'>
-          <MarkDownField
-            height='240px'
-            setValue={(text: any) => dispatch(updateActivity({ field: 'award', value: text }))}
-          />
-        </Form.Item>
-        <Form.Item label={Title('Volunteering', 'Hi/HiOutlineHeart')} name='volunteering'>
-          <MarkDownField
-            setValue={(text: any) =>
-              dispatch(updateActivity({ field: 'volunteering', value: text }))
-            }
-          />
-        </Form.Item>
-      </Form>
-    </div>
+    <Form initialValues={state} layout='vertical'>
+      <Form.Item label={Title('Award', 'Hi/HiOutlineBadgeCheck')} name='award'>
+        <MarkDownField
+          height='240px'
+          setValue={(text: any) => dispatch(updateActivity({ field: 'award', value: text }))}
+        />
+      </Form.Item>
+      <Form.Item label={Title('Volunteering', 'Hi/HiOutlineHeart')} name='volunteering'>
+        <MarkDownField
+          setValue={(text: any) => dispatch(updateActivity({ field: 'volunteering', value: text }))}
+        />
+      </Form.Item>
+    </Form>
   );
 };
 

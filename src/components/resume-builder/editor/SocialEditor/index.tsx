@@ -64,20 +64,18 @@ const SocialEditor = ({}: IProps) => {
     };
   });
   return (
-    <div className='px-6 py-4'>
-      <Form initialValues={init} layout='vertical'>
-        {metadata.map((item) => (
-          <Form.Item key={item.name} label={<InputTitle title={item.label} />} name={item.name}>
-            <Input
-              value={state.find((value) => value.network === item.name)?.url}
-              onChange={(event) =>
-                dispatch(updateSocial({ network: event.target.id, url: event.target.value }))
-              }
-            />
-          </Form.Item>
-        ))}
-      </Form>
-    </div>
+    <Form initialValues={init} layout='vertical'>
+      {metadata.map((item) => (
+        <Form.Item key={item.name} label={<InputTitle title={item.label} />} name={item.name}>
+          <Input
+            value={state.find((value) => value.network === item.name)?.url}
+            onChange={(event) =>
+              dispatch(updateSocial({ network: event.target.id, url: event.target.value }))
+            }
+          />
+        </Form.Item>
+      ))}
+    </Form>
   );
 };
 

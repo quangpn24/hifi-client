@@ -1,4 +1,7 @@
 import { Form, Input } from 'antd';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { updateLabel } from 'redux/reducers/labelReducer';
+import { selectLabel } from 'redux/selectors';
 
 interface IProps {}
 
@@ -34,16 +37,21 @@ const metadata = [
 ];
 
 const LabelEditor = ({}: IProps) => {
+  const state = useAppSelector(selectLabel);
+  const dispatch = useAppDispatch();
   return (
-    <div className='px-6 py-4'>
-      <Form layout='vertical'>
-        {metadata.map((item) => (
-          <Form.Item key={item.name} name={item.name}>
-            <Input placeholder={item.label} />
-          </Form.Item>
-        ))}
-      </Form>
-    </div>
+    <Form initialValues={state} layout='vertical'>
+      {metadata.map((item) => (
+        <Form.Item key={item.name} name={item.name}>
+          <Input
+            placeholder={item.label}
+            onChange={(event) =>
+              dispatch(updateLabel({ field: event.target.id, value: event.target.value }))
+            }
+          />
+        </Form.Item>
+      ))}
+    </Form>
   );
 };
 

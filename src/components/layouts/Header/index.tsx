@@ -51,7 +51,7 @@ const Header: NextPage<Props> = (props) => {
 
   return (
     <div className='sticky inset-x-0 top-0 bg-white z-10 drop-shadow-xl'>
-      <Row justify='space-between' className='contain py-4 '>
+      <Row justify='space-between' className='contain py-2 ' align='middle'>
         <Col className='items-center'>
           <div className='mobileVisible'>
             <Button type='primary' onClick={showDrawer}>
