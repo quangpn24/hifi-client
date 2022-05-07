@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     {
       id: 1,
       name: 'Jobs',
-      url: './jobs',
+      url: './job-list',
       icon: <HomeOutlined />,
     },
     {
