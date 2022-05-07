@@ -1,9 +1,7 @@
 import { Col, Layout, Row } from 'antd';
-import awardApi from 'api/awardApi';
 import MainProfile from 'components/profile/MainProfile';
 import ToolSidebar from 'components/profile/ToolSidebar';
-import { requireAuth } from 'HOC/requireAuth';
-import { GetServerSideProps, NextPage } from 'next';
+import { NextPage } from 'next';
 import React from 'react';
 
 type Props = {
@@ -22,11 +20,5 @@ const ProfilePage: NextPage<Props> = () => {
     </Row>
   );
 };
-
-// export const getServerSideProps: GetServerSideProps = requireAuth(async (ctx) => {
-//   return {
-//     props: {},
-//   };
-// });
 
 export default ProfilePage;
