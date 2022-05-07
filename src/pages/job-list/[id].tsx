@@ -1,5 +1,6 @@
 import { Button, Card, Col, Divider, Image, Row, Tag, Tooltip } from 'antd';
 import postApi from 'api/postApi';
+import DescriptionItem from 'components/JobSeeker/JobList/DescriptionItem';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -7,12 +8,6 @@ import { Salary, Skill } from 'types';
 import { HeroIcon } from 'utils/HeroIcon';
 
 type Props = {};
-
-type ItemProps = {
-  iconName: string;
-  content?: string;
-  outline?: boolean;
-};
 
 type Company = {
   _id: String;
@@ -33,20 +28,6 @@ type Post = {
   salary: Salary;
   description: any;
   jobType: string;
-};
-
-const DescriptionItem = (props: ItemProps) => {
-  return (
-    <div className='flex flex-row items-center'>
-      <HeroIcon
-        icon={props.iconName}
-        outline={props.outline ? props.outline : false}
-        size='h-[20px]'
-        className='mr-[10px]'
-      />
-      {props.content}
-    </div>
-  );
 };
 
 const JobDetails = (props: Props) => {
@@ -79,10 +60,10 @@ const JobDetails = (props: Props) => {
     }
   }, [router]);
   return (
-    <div className='h-screen overflow-auto scrollbar-hide px-[150px] bg-white'>
+    <div className='px-16'>
       <Card>
         <div>
-          <Row className='sticky top-0 bg-white z-10' gutter={[0, 20]}>
+          <Row className=' bg-white' gutter={[0, 20]}>
             <Col span={2} className='mt-5'>
               <Image width={80} height={80} className='bg-red-500' preview={false} />
             </Col>

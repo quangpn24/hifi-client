@@ -155,10 +155,10 @@ const Jobs = (props: Props) => {
 
   return (
     <Row>
-      <Row className='w-full px-[150px] py-[40px] bg-white'>
-        <Col span={24} className='my-[20px]'>
-          <AppHeading text={'Search jobs, companies, ....'} />
-        </Col>
+      <Row className='w-full px-16 py-[40px] bg-white'>
+        {/* <Col span={24} className='my-[20px]'>
+          <AppHeading text={'Find jobs'} />
+        </Col> */}
         <Col span={24}>
           <div className=' w-2/5 mb-[20px]'>
             <Search
@@ -194,7 +194,7 @@ const Jobs = (props: Props) => {
           </div>
         </Col>
       </Row>
-      <Row className='w-full mt-[20px] px-[150px] pt-[20px] bg-[#FAFAFC]' justify='center'>
+      <Row className='w-full mt-[20px] px-16 pt-[20px] bg-[#FAFAFC]' justify='center'>
         {data?.map((e) => (
           <Col span={24} className='mb-4'>
             <JobCardItem data={e} />

@@ -1,13 +1,13 @@
 import * as SolidIcons from '@heroicons/react/solid';
 import * as OutlineIcons from '@heroicons/react/outline';
 
-interface Props {
+type Props = {
   icon: string;
   color?: string;
   size?: string;
   outline?: boolean;
   className?: string;
-}
+};
 
 export const HeroIcon = (props: Props): JSX.Element => {
   const { icon, color, size, outline = false, className = '' } = props;
