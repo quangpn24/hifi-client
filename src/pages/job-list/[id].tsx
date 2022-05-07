@@ -153,9 +153,9 @@ const JobDetails = (props: Props) => {
               <h3 className=' text-[20px]'>Intro</h3>
               <p>{data?.company.summary}</p>
               <h3 className=' text-[20px]'>Address</h3>
-              {data?.company.locations.map((e) => {
+              {data?.company.locations.map((e, index) => {
                 return (
-                  <div>
+                  <div key={index}>
                     ● <strong>{e.officeName}</strong> - {e.address}
                   </div>
                 );

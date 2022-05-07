@@ -29,7 +29,7 @@ const JobCardItem = (props: Props) => {
       <Card className='w-full p-[20px]'>
         <Row>
           <Col span={3}>
-            <a href={`/job-list/${props.data._id}`} target='_blank' rel='noopener noreferrer'>
+            <a href={`/job-list/${props.data._id}`} target='_blank' rel='noreferrer'>
               <Image width={100} height={100} className='bg-red-500' preview={false} />
             </a>
           </Col>
@@ -63,8 +63,10 @@ const JobCardItem = (props: Props) => {
                     ? 'Negotiable'
                     : `${props.data?.salary?.min} - ${props.data?.salary?.max} ${props.data?.salary?.unit}`}
                 </Tag>
-                {props.data.skill.map((e: any) => (
-                  <Tag className='!rounded-[4px]'>{e.text}</Tag>
+                {props.data.skill.map((e: any, index) => (
+                  <Tag className='!rounded-[4px]' key={index}>
+                    {e.text}
+                  </Tag>
                 ))}
                 <Tag className='!rounded-[4px]'>Cập nhật 2 giờ trước</Tag>
               </Col>
