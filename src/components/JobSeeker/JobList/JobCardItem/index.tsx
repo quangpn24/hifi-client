@@ -4,13 +4,27 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { HeroIcon } from 'utils/HeroIcon';
 
+type Salary = {
+  min: Number;
+  max: Number;
+  negotiable: Boolean;
+  unit: String;
+};
+interface Post {
+  title: String;
+  company: String;
+  address: String;
+  skill: Array<Object>;
+  image: String;
+  _id: String;
+  salary: Salary;
+}
 type Props = {
-  data: any;
+  data: Post;
 };
 
 const JobCardItem = (props: Props) => {
   const [isLike, setIsLike] = useState(false);
-
   const Like = () => {
     setIsLike(!isLike);
   };
@@ -49,9 +63,9 @@ const JobCardItem = (props: Props) => {
             <Row>
               <Col span={20}>
                 <Tag className='!rounded-[4px]'>
-                  {props.data?.salary.negotiable
+                  {props.data?.salary?.negotiable
                     ? 'Negotiable'
-                    : `${props.data?.salary.min} - ${props.data?.salary.max} ${props.data?.salary.unit}`}
+                    : `${props.data?.salary?.min} - ${props.data?.salary?.max} ${props.data?.salary?.unit}`}
                 </Tag>
                 {props.data.skill.map((e: any) => (
                   <Tag className='!rounded-[4px]'>{e.text}</Tag>

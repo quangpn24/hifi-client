@@ -1,8 +1,9 @@
-import { Col, Input, Row, Button, Card } from 'antd';
+import { Col, Input, Row, Button, Card, Select, Pagination } from 'antd';
 import postApi from 'api/postApi';
 import AppHeading from 'components/commons/AppHeading';
 import CheckboxMenu from 'components/commons/CheckboxMenu';
 import JobCardItem from 'components/JobSeeker/JobList/JobCardItem';
+import { PAGE_SIZE } from 'constant/others';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 const { Search } = Input;
@@ -11,6 +12,12 @@ type Option = {
   label: string;
   value: string | number;
 };
+type Salary = {
+  min: Number;
+  max: Number;
+  negotiable: Boolean;
+  unit: String;
+};
 interface Post {
   title: String;
   company: String;
@@ -18,28 +25,113 @@ interface Post {
   skill: Array<Object>;
   image: String;
   _id: String;
-  salary: Object;
+  salary: Salary;
 }
 const Jobs = (props: Props) => {
   const [data, setData] = useState<Array<Post>>();
+  const [totalSize, setTotalSize] = useState<number>(0);
+  const [categoryOption, setCategoryOption] = useState<Array<Option>>([]);
+  const [selectedCategory, setSelectedCategory] = useState<Array<String | Number>>([]);
+  const [selectedSalary, setSelectedSalary] = useState<String | Number>();
+  const router = useRouter();
+  const salaryOption = [
+    { label: 'All salary', value: 'all' },
+    { label: 'Less than 10M', value: '0' },
+    { label: '10M - 20M', value: '1' },
+    { label: 'Greater than 20M', value: '2' },
+    { label: 'Negotiable', value: '3' },
+  ];
+
+  const convertToPostType = (data: any) => {
+    const posts = data.map((e: any) => {
+      return {
+        title: e.title,
+        company: e.company?.name,
+        _id: e._id,
+        skill: e.skillTags,
+        address: e?.locations[0],
+        image: '',
+        salary: e.salary,
+      };
+    });
+    return posts;
+  };
+  const handleSearch = async (value: String) => {
+    if (value.length > 0) router.push(`${router.basePath}?search=${value}`);
+    else router.push(router.basePath);
+    try {
+      const res = await postApi.getPosts(`?search=${value}`);
+      if (res.data.data) {
+        const posts = convertToPostType(res.data.data);
+        setData(posts);
+        setTotalSize(res.data.totalItems);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleFilter = async () => {
+    try {
+      let query = '';
+      if (selectedCategory.length > 0) {
+        query += `?jobCategories=${selectedCategory.join(',')}`;
+      }
+      if (selectedSalary) {
+        switch (selectedSalary) {
+          case '0': {
+            query = '?salary[end]=10000000';
+            break;
+          }
+          case '1': {
+            query = '?salary[start]=10000000&salary[end]=20000000';
+            break;
+          }
+          case '2': {
+            query = '?salary[start]=20000000';
+            break;
+          }
+          case '3': {
+            query = '?negotiable=true';
+            break;
+          }
+          case 'all': {
+            query = '';
+            break;
+          }
+        }
+      }
+      const res = await postApi.getPosts(query);
+      const posts = convertToPostType(res.data.data);
+      setData(posts);
+      setTotalSize(res.data.totalItems);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleNextPage = async (currPage: number) => {
+    router.push(`${router.basePath}?page=${currPage}`);
+    try {
+      const res = await postApi.getPosts(`?page=${currPage}`);
+      if (res.data.data) {
+        const posts = convertToPostType(res.data.data);
+        setData(posts);
+        setTotalSize(res.data.totalItems);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await postApi.getPosts();
         if (res.data.data) {
-          const posts = res.data.data.map((e: any) => {
-            return {
-              title: e.title,
-              company: e.company?.name,
-              _id: e._id,
-              skill: e.skillTags,
-              address: 'HCM',
-              image: '',
-              salary: e.salary,
-            };
-          });
-          setData([...posts, ...posts, ...posts]);
+          const posts = convertToPostType(res.data.data);
+          setData(posts);
+          setTotalSize(res.data.totalItems);
         }
       } catch (error) {
         console.log(error);
@@ -49,6 +141,13 @@ const Jobs = (props: Props) => {
       try {
         const res = await postApi.getFilterOption();
         if (res.data.data) {
+          const categorys = res.data.data.categoryOption.map((e: any) => {
+            return {
+              label: e.name,
+              value: e._id,
+            };
+          });
+          setCategoryOption(categorys);
         }
       } catch (error) {
         console.log(error);
@@ -72,34 +171,50 @@ const Jobs = (props: Props) => {
               allowClear
               size='large'
               enterButton='Search'
+              onSearch={(value) => handleSearch(value)}
             />
           </div>
         </Col>
         <Col>
           <div className='flex w-auto'>
-            {/* <CheckboxMenu
-              options={options}
-              onChange={() => {}}
-              keyword='Catelogy'
-              defaultValue={[1, 2, 3]}
-            />
-            <CheckboxMenu options={} onChange={() => {}} keyword='Level' />
-            <CheckboxMenu options={options} onChange={() => {}} keyword='Salary' /> */}
-            <Button type='primary' className='!ml-[10px] !px-4'>
+            <div>
+              <CheckboxMenu
+                options={categoryOption}
+                onChange={(selectedValue: any) => setSelectedCategory(selectedValue)}
+                keyword='Category'
+              />
+            </div>
+            <div className='ml-3'>
+              <Select
+                style={{ width: 160 }}
+                defaultValue='all'
+                options={salaryOption}
+                onChange={(selectedValue: any) => setSelectedSalary(selectedValue)}
+              />
+            </div>
+            <Button type='primary' className='!ml-3 !px-4' onClick={handleFilter}>
               Filter
             </Button>
           </div>
         </Col>
       </Row>
-      {/* <Card className='w-full'> */}
-      <Row className='w-full mt-[20px] px-[150px] pt-[20px] bg-[#FAFAFC]'>
+      <Row className='w-full mt-[20px] px-[150px] pt-[20px] bg-[#FAFAFC]' justify='center'>
         {data?.map((e) => (
           <Col span={24} className='mb-4'>
             <JobCardItem data={e} />
           </Col>
         ))}
+        {data && data.length > 0 && (
+          <Pagination
+            className='!my-5'
+            defaultCurrent={1}
+            total={totalSize}
+            pageSize={PAGE_SIZE}
+            showSizeChanger={false}
+            onChange={(currPage) => handleNextPage(currPage)}
+          />
+        )}
       </Row>
-      {/* </Card> */}
     </Row>
   );
 };

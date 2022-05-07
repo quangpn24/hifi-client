@@ -35,28 +35,38 @@ const CheckboxMenu = (props: Props) => {
         return e;
       });
 
+    const clearSelected = () => {
+      setSelectedItems([]);
+      props.onChange([]);
+    };
+
     return (
-      <Checkbox.Group onChange={onChange} defaultValue={selectedItems}>
-        <Row>
-          {groups.map((group: any, i) => {
-            return (
-              <Col key={'checkbox-group-' + i} span={Math.floor(24 / groups.length)}>
-                {group.map((e: Option, i: any) => {
-                  return (
-                    <Checkbox
-                      key={e.value.toString() + i.toString()}
-                      value={e.value}
-                      style={{ display: 'flex', margin: '10px' }}
-                    >
-                      {e.label}
-                    </Checkbox>
-                  );
-                })}
-              </Col>
-            );
-          })}
-        </Row>
-      </Checkbox.Group>
+      <div>
+        <Checkbox.Group onChange={onChange} defaultValue={selectedItems}>
+          <Row>
+            {groups.map((group: any, i) => {
+              return (
+                <Col key={'checkbox-group-' + i} span={Math.floor(24 / groups.length)}>
+                  {group.map((e: Option, i: any) => {
+                    return (
+                      <Checkbox
+                        key={e.value.toString() + i.toString()}
+                        value={e.value}
+                        style={{ display: 'flex', margin: '10px' }}
+                      >
+                        {e.label}
+                      </Checkbox>
+                    );
+                  })}
+                </Col>
+              );
+            })}
+          </Row>
+        </Checkbox.Group>
+        <Button type='primary' onClick={() => clearSelected()}>
+          Clear
+        </Button>
+      </div>
     );
   };
   return (
@@ -64,7 +74,8 @@ const CheckboxMenu = (props: Props) => {
       <Button>
         <div className='flex items-center'>
           <HeroIcon icon='FilterIcon' className='mr-1' outline={selectedItems.length == 0} />
-          {props.keyword ? props.keyword : 'Keywords'}
+          {props.keyword ? props.keyword : 'Keywords'}{' '}
+          {selectedItems.length > 0 ? `(+${selectedItems.length})` : ''}
         </div>
       </Button>
     </Popover>

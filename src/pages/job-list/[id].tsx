@@ -28,8 +28,8 @@ type Company = {
 };
 interface Post {
   title: String;
+  category: Array<String>;
   company: Company;
-  address: String;
   skill: Array<Object>;
   image: String;
   _id: String;
@@ -62,10 +62,10 @@ const JobDetails = (props: Props) => {
         if (res.data.data) {
           const posts = {
             title: res.data.data.title,
+            category: res.data.data.jobCategories.map((e: any) => e.name),
             company: res.data.data.company,
             _id: res.data.data._id,
             skill: res.data.data.skillTags,
-            address: 'HCM',
             image: '',
             salary: res.data.data.salary,
             description: res.data.data.description,
@@ -111,7 +111,7 @@ const JobDetails = (props: Props) => {
               </Row>
 
               <Col span={24} className='text-[#685879] text-lg'>
-                {`${data?.company.name} · Ho Chi Minh City, Viet Nam`}
+                {`${data?.company.name} · ${data?.company.locations[0].address}`}
               </Col>
               <Row className='my-[20px]'>
                 {data?.skill.map((e: any) => (
@@ -125,7 +125,7 @@ const JobDetails = (props: Props) => {
                   <DescriptionItem
                     iconName='CurrencyDollarIcon'
                     content={
-                      data?.salary.negotiable
+                      data?.salary?.negotiable
                         ? 'Negotiable'
                         : `${data?.salary.min} - ${data?.salary.max} ${data?.salary.unit}`
                     }
@@ -138,7 +138,7 @@ const JobDetails = (props: Props) => {
                 <Col span={24}>
                   <DescriptionItem
                     iconName='OfficeBuildingIcon'
-                    content='501-1,000 employees · Software Development'
+                    content={data?.category.join('/') || ''}
                   />
                 </Col>
               </Row>
@@ -172,9 +172,15 @@ const JobDetails = (props: Props) => {
               <h3 className=' text-[20px]'>Intro</h3>
               <p>{data?.company.summary}</p>
               <h3 className=' text-[20px]'>Address</h3>
-              <div>{data?.company.locations[0].address}</div>
-              <h3 className=' text-[20px]'>Size</h3>
-              <div>{data?.company.size}/người</div>
+              {data?.company.locations.map((e) => {
+                return (
+                  <div>
+                    ● <strong>{e.officeName}</strong> - {e.address}
+                  </div>
+                );
+              })}
+              <h3 className=' text-[20px] mt-2'>Size</h3>
+              <div>{data?.company.size}/people</div>
             </Col>
           </Row>
         </div>
