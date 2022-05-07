@@ -3,21 +3,17 @@ import postApi from 'api/postApi';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { Salary, Skill } from 'types';
 import { HeroIcon } from 'utils/HeroIcon';
 
 type Props = {};
 
 type ItemProps = {
   iconName: string;
-  content: string;
+  content?: string;
   outline?: boolean;
 };
-type Salary = {
-  min: Number;
-  max: Number;
-  negotiable: Boolean;
-  unit: String;
-};
+
 type Company = {
   _id: String;
   name: String;
@@ -26,17 +22,18 @@ type Company = {
   size: String;
   summary: String;
 };
-interface Post {
+
+type Post = {
   title: String;
   category: Array<String>;
   company: Company;
-  skill: Array<Object>;
+  skill: Array<Skill>;
   image: String;
   _id: String;
   salary: Salary;
   description: any;
-  jobType: any;
-}
+  jobType: string;
+};
 
 const DescriptionItem = (props: ItemProps) => {
   return (

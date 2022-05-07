@@ -8,6 +8,8 @@ export const TEXT_SECONDARY_COLOR = '#685879';
 
 export const TEXT_LINK_COLOR = '#5A69EB';
 
+export const TEXT_TERTIARY_COLOR = '#8B7A9F';
+
 export const SUCCESS_COLOR = '#68D8B8';
 
 export const ERROR_COLOR = '#FF713B';

@@ -2,23 +2,19 @@ import { Data } from '@react-google-maps/api';
 import { Card, Col, Image, Row, Tag } from 'antd';
 import Link from 'next/link';
 import React, { useState } from 'react';
+import { Salary, Skill } from 'types';
 import { HeroIcon } from 'utils/HeroIcon';
 
-type Salary = {
-  min: Number;
-  max: Number;
-  negotiable: Boolean;
-  unit: String;
-};
 interface Post {
   title: String;
-  company: String;
+  companyName: String;
   address: String;
-  skill: Array<Object>;
+  skill: Array<Skill>;
   image: String;
   _id: String;
   salary: Salary;
 }
+
 type Props = {
   data: Post;
 };
@@ -40,7 +36,7 @@ const JobCardItem = (props: Props) => {
           <Col span={21} className='text-lg pl-[10px]'>
             <Row>
               <Col span={18} className=' text-[#8B7A9F] font-semibold'>
-                {props.data.company}
+                {props.data.companyName}
               </Col>
               <Col span={6} className='!flex justify-end'>
                 <span>

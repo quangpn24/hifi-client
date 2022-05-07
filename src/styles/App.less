@@ -34,3 +34,31 @@ body {
     }
   }
 }
+
+.mobileHidden {
+  display: flex;
+  width: fit-content;
+}
+
+.mobileVisible {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .mobileHidden {
+    display: none;
+  }
+  .mobileVisible {
+    display: flex;
+  }
+}
+
+.ant-image {
+  height: 100%;
+  display: inline-flex !important;
+  align-items: center;
+}
+
+svg {
+  vertical-align: baseline;
+}

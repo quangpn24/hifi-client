@@ -6,27 +6,23 @@ import JobCardItem from 'components/JobSeeker/JobList/JobCardItem';
 import { PAGE_SIZE } from 'constant/others';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { Salary, Skill } from 'types';
 const { Search } = Input;
 type Props = {};
+
 type Option = {
   label: string;
   value: string | number;
 };
-type Salary = {
-  min: Number;
-  max: Number;
-  negotiable: Boolean;
-  unit: String;
-};
-interface Post {
+type Post = {
   title: String;
-  company: String;
+  companyName: String;
   address: String;
-  skill: Array<Object>;
+  skill: Array<Skill>;
   image: String;
   _id: String;
   salary: Salary;
-}
+};
 const Jobs = (props: Props) => {
   const [data, setData] = useState<Array<Post>>();
   const [totalSize, setTotalSize] = useState<number>(0);
@@ -46,7 +42,7 @@ const Jobs = (props: Props) => {
     const posts = data.map((e: any) => {
       return {
         title: e.title,
-        company: e.company?.name,
+        companyName: e.company?.name,
         _id: e._id,
         skill: e.skillTags,
         address: e?.locations[0],
