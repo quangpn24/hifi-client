@@ -47,5 +47,6 @@ type PostItem = {
   _id: String;
   salary: Salary;
   updatedAt: Date;
+  isFavorited: Boolean;
 };
 export type { Post, Salary, Skill, WorkLocation, Category, Subcategory, PostItem };

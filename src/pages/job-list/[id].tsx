@@ -28,11 +28,14 @@ type Post = {
   salary: Salary;
   description: any;
   jobType: string;
+  isFavorited: boolean;
 };
 
 const JobDetails = (props: Props) => {
   const [data, setData] = useState<Post>();
+  const [isLiked, setIsLiked] = useState(data?.isFavorited);
   const router = useRouter();
+
   useEffect(() => {
     const fetchData = async (id: any) => {
       try {
@@ -48,6 +51,7 @@ const JobDetails = (props: Props) => {
             salary: res.data.data.salary,
             description: res.data.data.description,
             jobType: res.data.data.jobType,
+            isFavorited: res.data.data.isFavorited,
           };
           setData(posts);
         }
@@ -59,6 +63,19 @@ const JobDetails = (props: Props) => {
       fetchData(router.query.id);
     }
   }, [router]);
+
+  const handleLike = async () => {
+    try {
+      if (isLiked) {
+        const result = await postApi.deleteFavoritePost('6253d28a27aa74eb68b2988e', data?._id);
+      } else {
+        const result = await postApi.addFavoritePost('6253d28a27aa74eb68b2988e', data?._id);
+      }
+      setIsLiked(!isLiked);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className='px-16'>
       <Card>
@@ -77,13 +94,14 @@ const JobDetails = (props: Props) => {
                     icon='ShareIcon'
                     className='!h-[30px] !w-[30px] mr-[10px] border-[1px] border-[#00ADEF] rounded-[4px] p-[2px] text-[#00ADEF]'
                   />
-                  <Tooltip title='Đánh dấu bài viết'>
+                  <div onClick={() => handleLike()}>
                     <HeroIcon
                       icon='HeartIcon'
-                      outline={true}
-                      className='!h-[30px] !w-[30px] mr-[10px] border-[1px] border-[#8B7A9F] rounded-[4px] p-[2px]'
+                      outline={!isLiked}
+                      color={isLiked ? '!text-[#D82727]' : ''}
+                      className='!h-[30px] !w-[30px] mr-[10px] border-[1px] border-[#8B7A9F] rounded-[4px] p-[2px] hover:!text-[#D82727]'
                     />
-                  </Tooltip>
+                  </div>
                 </Col>
               </Row>
 

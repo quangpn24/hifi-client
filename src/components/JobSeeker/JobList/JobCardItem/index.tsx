@@ -1,5 +1,6 @@
 import { Data } from '@react-google-maps/api';
 import { Card, Col, Image, Row, Tag } from 'antd';
+import postApi from 'api/postApi';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { PostItem } from 'types';
@@ -11,9 +12,18 @@ type Props = {
 };
 
 const JobCardItem = (props: Props) => {
-  const [isLike, setIsLike] = useState(false);
-  const Like = () => {
-    setIsLike(!isLike);
+  const [isLiked, setIsLiked] = useState(props.data.isFavorited);
+  const handleLike = async () => {
+    try {
+      if (isLiked) {
+        const result = await postApi.deleteFavoritePost('6253d28a27aa74eb68b2988e', props.data._id);
+      } else {
+        const result = await postApi.addFavoritePost('6253d28a27aa74eb68b2988e', props.data._id);
+      }
+      setIsLiked(!isLiked);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <Row className=' mb-[10px] last:mb-0 hover:opacity-90 hover:shadow-lg'>
@@ -61,15 +71,17 @@ const JobCardItem = (props: Props) => {
                     {e.text}
                   </Tag>
                 ))}
-                <Tag className='!rounded-[4px]'>{timeAgo(props.data.updatedAt)}</Tag>
+                {props.data.updatedAt && (
+                  <Tag className='!rounded-[4px]'>{timeAgo(props.data.updatedAt)}</Tag>
+                )}
               </Col>
               <Col span={4} className='!flex justify-end'>
-                <div onClick={() => Like()}>
+                <div onClick={() => handleLike()}>
                   <HeroIcon
                     icon='HeartIcon'
-                    outline={!isLike}
+                    outline={!isLiked}
                     size='h-[22px]'
-                    color={isLike ? '!text-[#D82727]' : ''}
+                    color={isLiked ? '!text-[#D82727]' : ''}
                     className=' hover:!text-[#D82727]'
                   />
                 </div>

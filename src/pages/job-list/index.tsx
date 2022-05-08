@@ -41,9 +41,9 @@ const Jobs = (props: Props) => {
         image: '',
         salary: e.salary,
         updatedAt: new Date(e.updatedAt),
+        isFavorited: e.isFavorited,
       };
     });
-    console.log(posts);
     return posts;
   };
   const handleSearch = async (value: String) => {
