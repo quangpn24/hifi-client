@@ -6,7 +6,7 @@ import JobCardItem from 'components/JobSeeker/JobList/JobCardItem';
 import { PAGE_SIZE } from 'constant/others';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { Salary, Skill } from 'types';
+import { PostItem } from 'types';
 const { Search } = Input;
 type Props = {};
 
@@ -14,17 +14,8 @@ type Option = {
   label: string;
   value: string | number;
 };
-type Post = {
-  title: String;
-  companyName: String;
-  address: String;
-  skill: Array<Skill>;
-  image: String;
-  _id: String;
-  salary: Salary;
-};
 const Jobs = (props: Props) => {
-  const [data, setData] = useState<Array<Post>>();
+  const [data, setData] = useState<Array<PostItem>>([]);
   const [totalSize, setTotalSize] = useState<number>(0);
   const [categoryOption, setCategoryOption] = useState<Array<Option>>([]);
   const [selectedCategory, setSelectedCategory] = useState<Array<String | Number>>([]);
@@ -39,17 +30,20 @@ const Jobs = (props: Props) => {
   ];
 
   const convertToPostType = (data: any) => {
-    const posts = data.map((e: any) => {
+    const posts: Array<PostItem> = data.map((e: any) => {
       return {
         title: e.title,
         companyName: e.company?.name,
+        jobCategories: e.jobCategories,
         _id: e._id,
         skill: e.skillTags,
         address: e?.locations[0],
         image: '',
         salary: e.salary,
+        updatedAt: new Date(e.updatedAt),
       };
     });
+    console.log(posts);
     return posts;
   };
   const handleSearch = async (value: String) => {
@@ -71,28 +65,31 @@ const Jobs = (props: Props) => {
     try {
       let query = '';
       if (selectedCategory.length > 0) {
-        query += `?jobCategories=${selectedCategory.join(',')}`;
+        query = `?jobCategories=${selectedCategory.join(',')}`;
+      } else {
+        query = '?';
       }
       if (selectedSalary) {
+        if (query.length > 1) query += '&';
         switch (selectedSalary) {
           case '0': {
-            query = '?salary[end]=10000000';
+            query += 'salary[end]=10000000';
             break;
           }
           case '1': {
-            query = '?salary[start]=10000000&salary[end]=20000000';
+            query += 'salary[start]=10000000&salary[end]=20000000';
             break;
           }
           case '2': {
-            query = '?salary[start]=20000000';
+            query += 'salary[start]=20000000';
             break;
           }
           case '3': {
-            query = '?negotiable=true';
+            query += 'salary[negotiable]=true';
             break;
           }
           case 'all': {
-            query = '';
+            query += '';
             break;
           }
         }

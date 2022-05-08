@@ -4,7 +4,7 @@ import DescriptionItem from 'components/JobSeeker/JobList/DescriptionItem';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { Salary, Skill } from 'types';
+import { Salary, Skill, Subcategory } from 'types';
 import { HeroIcon } from 'utils/HeroIcon';
 
 type Props = {};
@@ -20,7 +20,7 @@ type Company = {
 
 type Post = {
   title: String;
-  category: Array<String>;
+  category: Subcategory;
   company: Company;
   skill: Array<Skill>;
   image: String;
@@ -40,7 +40,7 @@ const JobDetails = (props: Props) => {
         if (res.data.data) {
           const posts = {
             title: res.data.data.title,
-            category: res.data.data.jobCategories.map((e: any) => e.name),
+            category: res.data.data.jobCategories,
             company: res.data.data.company,
             _id: res.data.data._id,
             skill: res.data.data.skillTags,
@@ -75,7 +75,6 @@ const JobDetails = (props: Props) => {
                 <Col span={6} className='!flex flex-row items-center text-[#685879] justify-end'>
                   <HeroIcon
                     icon='ShareIcon'
-                    // outline={true}
                     className='!h-[30px] !w-[30px] mr-[10px] border-[1px] border-[#00ADEF] rounded-[4px] p-[2px] text-[#00ADEF]'
                   />
                   <Tooltip title='Đánh dấu bài viết'>
@@ -117,10 +116,7 @@ const JobDetails = (props: Props) => {
                   <DescriptionItem iconName='ClockIcon' outline content={data?.jobType} />
                 </Col>
                 <Col span={24}>
-                  <DescriptionItem
-                    iconName='OfficeBuildingIcon'
-                    content={data?.category.join('/') || ''}
-                  />
+                  <DescriptionItem iconName='OfficeBuildingIcon' content={data?.category.name} />
                 </Col>
               </Row>
 

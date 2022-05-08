@@ -2,21 +2,12 @@ import { Data } from '@react-google-maps/api';
 import { Card, Col, Image, Row, Tag } from 'antd';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { Salary, Skill } from 'types';
+import { PostItem } from 'types';
+import { timeAgo } from 'utils/date_time';
 import { HeroIcon } from 'utils/HeroIcon';
 
-interface Post {
-  title: String;
-  companyName: String;
-  address: String;
-  skill: Array<Skill>;
-  image: String;
-  _id: String;
-  salary: Salary;
-}
-
 type Props = {
-  data: Post;
+  data: PostItem;
 };
 
 const JobCardItem = (props: Props) => {
@@ -59,6 +50,7 @@ const JobCardItem = (props: Props) => {
             </Col>
             <Row>
               <Col span={20}>
+                <Tag className='!rounded-[4px]'>{props.data.jobCategories.name}</Tag>
                 <Tag className='!rounded-[4px]'>
                   {props.data?.salary?.negotiable
                     ? 'Negotiable'
@@ -69,7 +61,7 @@ const JobCardItem = (props: Props) => {
                     {e.text}
                   </Tag>
                 ))}
-                <Tag className='!rounded-[4px]'>Cập nhật 2 giờ trước</Tag>
+                <Tag className='!rounded-[4px]'>{timeAgo(props.data.updatedAt)}</Tag>
               </Col>
               <Col span={4} className='!flex justify-end'>
                 <div onClick={() => Like()}>

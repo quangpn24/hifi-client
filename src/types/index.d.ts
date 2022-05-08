@@ -37,4 +37,15 @@ type WorkLocation = {
   city?: string;
   address?: string;
 };
-export type { Post, Salary, Skill, WorkLocation, Category, Subcategory };
+type PostItem = {
+  title: String;
+  companyName: String;
+  jobCategories: Subcategory;
+  address: String;
+  skill: Array<Skill>;
+  image: String;
+  _id: String;
+  salary: Salary;
+  updatedAt: Date;
+};
+export type { Post, Salary, Skill, WorkLocation, Category, Subcategory, PostItem };
