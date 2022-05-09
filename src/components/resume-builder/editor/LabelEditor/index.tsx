@@ -11,10 +11,6 @@ const metadata = [
     name: 'summary',
   },
   {
-    label: 'Career objective',
-    name: 'objective',
-  },
-  {
     label: 'Experience',
     name: 'experience',
   },
@@ -23,16 +19,16 @@ const metadata = [
     name: 'education',
   },
   {
-    label: 'Awards',
-    name: 'award',
-  },
-  {
-    label: 'Volunteering',
-    name: 'volunteering',
+    label: 'Activity',
+    name: 'activity',
   },
   {
     label: 'Skills',
     name: 'skill',
+  },
+  {
+    label: 'Awards',
+    name: 'award',
   },
 ];
 

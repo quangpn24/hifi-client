@@ -3,7 +3,7 @@ import postApi from 'api/recruiter/postApi';
 import { deteteImage, uploadImage } from 'firebase/services';
 import React, { useState } from 'react';
 import { Post } from 'types';
-import Utils from 'utils';
+import { objectHelper } from 'utils';
 import DescriptionRichInput from '../DescriptionRichInput';
 import ImageFileUpload from '../ImageFileUpload';
 import JobCategory from '../JobCategory';
@@ -46,7 +46,7 @@ const JobPostForm = (props: Props) => {
     }
     post.postPhoto = url;
     try {
-      Utils.renameProperty(post, 'categories', 'jobCategories');
+      objectHelper.renameProperty(post, 'categories', 'jobCategories');
       const { data } = await postApi.createPost(post);
       message.info('Create job hirement post successfully!');
       console.log('Success:', data);

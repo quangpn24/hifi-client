@@ -23,7 +23,7 @@ module.exports = withAntdLess({
   },
   reactStrictMode: true,
   images: {
-    domains: ['itviec.com'],
+    domains: ['itviec.com', 'picsum.photos'],
   },
   webpack(config) {
     return config;

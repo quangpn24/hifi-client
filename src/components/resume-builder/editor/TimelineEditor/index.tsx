@@ -2,6 +2,7 @@ import { CaretRightOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Button, Collapse, Form, Input, Switch } from 'antd';
 import AppIcon from 'components/commons/AppIcon';
 import InputTitle from 'components/commons/InputTitle';
+import { MarkDownField } from 'components/resume-builder/widgets';
 import { useState } from 'react';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import { useAppDispatch } from 'redux/hooks';
@@ -51,36 +52,53 @@ const TimelineEditor = ({ METADATA, state, operation, identifier }: IProps) => {
 
   const panelList = (
     <Collapse expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}>
-      {state.map((item: any, index: number) => (
-        <Panel
-          header={item[identifier]}
-          key={index}
-          extra={<DeleteOutlined onClick={(e) => handleDelete(e, index)} />}
-        >
-          <Form initialValues={item} layout='vertical'>
-            {METADATA.map((metadata: any) => (
-              <Form.Item
-                key={metadata.name}
-                label={<InputTitle title={metadata.label} />}
-                name={metadata.name}
-              >
-                <Input
-                  value={item[metadata.name]}
-                  onChange={(event) =>
-                    dispatch(
-                      operation.update({
-                        index: index,
-                        field: metadata.name,
-                        value: event.target.value,
-                      })
-                    )
-                  }
-                />
-              </Form.Item>
-            ))}
-          </Form>
-        </Panel>
-      ))}
+      {state.map((item: any, index: number) => {
+        return (
+          <Panel
+            header={item[identifier]}
+            key={index}
+            extra={<DeleteOutlined onClick={(e) => handleDelete(e, index)} />}
+          >
+            <Form initialValues={item} layout='vertical'>
+              {METADATA.map((metadata: any) => (
+                <Form.Item
+                  key={metadata.name}
+                  label={<InputTitle title={metadata.label} />}
+                  name={metadata.name}
+                >
+                  {metadata.type == 'input' ? (
+                    <Input
+                      value={item[metadata.name]}
+                      onChange={(event) =>
+                        dispatch(
+                          operation.update({
+                            index: index,
+                            field: metadata.name,
+                            value: event.target.value,
+                          })
+                        )
+                      }
+                    />
+                  ) : (
+                    <MarkDownField
+                      defaultValue={item[metadata.name]}
+                      setValue={(text: any) =>
+                        dispatch(
+                          operation.update({
+                            index: index,
+                            field: metadata.name,
+                            value: text,
+                          })
+                        )
+                      }
+                    />
+                  )}
+                </Form.Item>
+              ))}
+            </Form>
+          </Panel>
+        );
+      })}
     </Collapse>
   );
 

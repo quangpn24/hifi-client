@@ -1,4 +1,3 @@
-import { NextPage } from 'next';
 import styled from 'styled-components';
 import DefaultLayout from '../templates/layout/DefaultLayout';
 

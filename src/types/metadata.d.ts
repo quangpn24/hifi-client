@@ -10,4 +10,10 @@ type workMetadata = {
   type: string;
 };
 
-export { eduMetadata, workMetadata };
+type awardMetadata = {
+  label: string;
+  name: string;
+  type: string;
+};
+
+export { eduMetadata, workMetadata, awardMetadata };

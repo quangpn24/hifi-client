@@ -53,12 +53,8 @@ const IntroEditor = ({}: IProps) => {
       ))}
       <Form.Item label={<InputTitle title='Summary' />} name='summary'>
         <MarkDownField
+          defaultValue={state.summary}
           setValue={(text: any) => dispatch(updateIntro({ field: 'summary', value: text }))}
-        />
-      </Form.Item>
-      <Form.Item label={<InputTitle title='Objective' />} name='objective'>
-        <MarkDownField
-          setValue={(text: any) => dispatch(updateIntro({ field: 'objective', value: text }))}
         />
       </Form.Item>
     </Form>

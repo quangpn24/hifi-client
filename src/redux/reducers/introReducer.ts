@@ -9,8 +9,8 @@ export type IntroState = {
   phone: string;
   address: string;
   summary: string;
-  objective: string;
   skills: string;
+  activities: string;
 };
 
 const initialState: IntroState = userData.intro;

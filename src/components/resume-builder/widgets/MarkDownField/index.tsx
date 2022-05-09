@@ -9,7 +9,7 @@ const MdEditor = dynamic(() => import('react-markdown-editor-lite'), {
 
 const mdParser = new MarkdownIt();
 
-const MarkDownField = ({ setValue, height }: any) => {
+const MarkDownField = ({ setValue, defaultValue }: any) => {
   const handleEditorChange = useCallback(
     ({ text }) => {
       setValue(text);
@@ -30,6 +30,7 @@ const MarkDownField = ({ setValue, height }: any) => {
         'list-unordered',
         'logger',
       ]}
+      defaultValue={defaultValue}
       renderHTML={(text) => mdParser.render(text)}
       onChange={handleEditorChange}
     />

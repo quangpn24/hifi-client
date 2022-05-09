@@ -10,6 +10,7 @@ export type Education = {
   startDate: string;
   endDate: string;
   score: string;
+  description: string;
 };
 
 export type EducationState = Array<Education>;
@@ -40,6 +41,7 @@ export const educationSlice = createSlice({
           startDate: '',
           endDate: '',
           score: '',
+          description: '',
         },
       ];
     },

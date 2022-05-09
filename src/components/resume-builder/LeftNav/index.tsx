@@ -1,15 +1,15 @@
 import { Tabs } from 'antd';
 import AppIcon from 'components/commons/AppIcon';
-import { NextPage } from 'next';
 import {
+  EducationEditor,
   IntroEditor,
   LabelEditor,
-  SocialEditor,
-  EducationEditor,
-  WorkEditor,
   SkillEditor,
+  SocialEditor,
+  WorkEditor,
 } from '../editor';
 import ActivityEditor from '../editor/ActivityEditor';
+import { AwardEditor } from '../editor/Editor';
 
 const sideBarList = [
   {
@@ -50,6 +50,12 @@ const sideBarList = [
   },
   {
     key: 6,
+    title: 'Award',
+    icon: 'Hi/HiOutlineTag',
+    component: <AwardEditor />,
+  },
+  {
+    key: 7,
     title: 'Label',
     icon: 'Hi/HiOutlineTag',
     component: <LabelEditor />,

@@ -1,6 +1,6 @@
 import { useAppSelector } from 'redux/hooks';
-import { selectEducation, selectWork } from 'redux/selectors';
-import { EDU_METADATA, WORK_METADATA } from 'constant/input-metadata';
+import { selectAward, selectEducation, selectIntro, selectWork } from 'redux/selectors';
+import { AWARD_METADATA, EDU_METADATA, WORK_METADATA } from 'constant/input-metadata';
 import TimelineEditor from '../TimelineEditor';
 import {
   addEducation,
@@ -9,6 +9,7 @@ import {
   updateEducation,
 } from 'redux/reducers/educationReducer';
 import { addWork, changeOrderWork, removeWork, updateWork } from 'redux/reducers/workReducer';
+import { addAward, changeOrderAward, removeAward, updateAward } from 'redux/reducers/awardReducer';
 
 export const EducationEditor = () => {
   const state = useAppSelector(selectEducation);
@@ -42,6 +43,24 @@ export const WorkEditor = () => {
         update: updateWork,
       }}
       identifier='name'
+    />
+  );
+};
+
+export const AwardEditor = () => {
+  const state = useAppSelector(selectAward);
+
+  return (
+    <TimelineEditor
+      METADATA={AWARD_METADATA}
+      state={state}
+      operation={{
+        add: addAward,
+        changeOrder: changeOrderAward,
+        remove: removeAward,
+        update: updateAward,
+      }}
+      identifier='title'
     />
   );
 };

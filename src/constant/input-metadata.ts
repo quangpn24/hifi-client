@@ -1,4 +1,4 @@
-import { eduMetadata, workMetadata } from 'types/metadata';
+import { awardMetadata, eduMetadata, workMetadata } from 'types/metadata';
 
 export const EDU_METADATA: Array<eduMetadata> = [
   {
@@ -36,6 +36,11 @@ export const EDU_METADATA: Array<eduMetadata> = [
     name: 'score',
     type: 'input',
   },
+  {
+    label: 'Description',
+    name: 'description',
+    type: 'md',
+  },
 ];
 
 export const WORK_METADATA: Array<workMetadata> = [
@@ -62,6 +67,34 @@ export const WORK_METADATA: Array<workMetadata> = [
   {
     label: 'End Date',
     name: 'endDate',
+    type: 'input',
+  },
+  {
+    label: 'Summary',
+    name: 'summary',
+    type: 'md',
+  },
+];
+
+export const AWARD_METADATA: Array<awardMetadata> = [
+  {
+    label: 'Title',
+    name: 'title',
+    type: 'input',
+  },
+  {
+    label: 'Credential',
+    name: 'link',
+    type: 'input',
+  },
+  {
+    label: 'Date',
+    name: 'date',
+    type: 'input',
+  },
+  {
+    label: 'Issued by',
+    name: 'awarder',
     type: 'input',
   },
   {

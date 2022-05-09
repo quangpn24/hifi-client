@@ -3,12 +3,11 @@ import labels from 'constant/label.json';
 
 export type LabelState = {
   summary: string;
-  objective: string;
   experience: string;
   education: string;
-  award: string;
-  volunteering: string;
+  activity: string;
   skill: string;
+  award: string;
 };
 
 const initialState: LabelState = labels;
