@@ -1,49 +1,14 @@
-import { Timeline } from 'antd';
 import MarkdownIt from 'markdown-it';
 import { Education } from 'redux/reducers/educationReducer';
 import styled from 'styled-components';
-
-const FlexTimeline = styled(Timeline)`
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  justify-content: space-between;
-  height: 100%;
-  color: ${(props: any) => props.theme.fontColor};
-  margin-top: 4px;
-
-  ul {
-    padding-left: 16px;
-    margin-bottom: 0;
-    font-size: 0.8rem;
-  }
-`;
-
-const TimelineItem = styled(FlexTimeline.Item)`
-  padding-bottom: 0;
-  flex-grow: 1;
-  padding-bottom: 12px;
-
-  :last-child {
-    flex-grow: 0;
-    padding-bottom: 0;
-  }
-`;
-
-const TitleText = styled.div`
-  font-size: 1rem;
-  font-weight: 500;
-`;
+import { FlexTimeline, ItalicText, TimelineItem, TitleText } from 'styles/styles';
+import { colorHelper } from 'utils';
 
 const BoldText = styled.div`
   font-weight: 500;
   font-size: 0.8rem;
   line-height: inherit;
-`;
-
-const ItalicText = styled.div`
-  font-style: italic;
-  font-size: 0.6rem;
+  color: ${(props: any) => colorHelper.converHexToRGB(props.theme.text, '0.9')};
 `;
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);

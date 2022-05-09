@@ -1,39 +1,26 @@
 import MarkdownIt from 'markdown-it';
 import styled from 'styled-components';
 
-const RoundedImage = styled.img`
-  border-radius: 50%;
-  height: 60px;
-  width: 60px;
-  float: left;
-  shape-outside: circle();
-  margin-right: 20px;
-  margin-bottom: 5px;
-  border: 0.5px solid ${(props) => props.theme.fontColor};
-`;
-
 const MarkdownHolder = styled.div`
+  font-size: 13px;
+  line-height: 1.2rem;
+  color: ${(props: any) => props.theme.text};
+
   ul {
     margin: 0;
-    padding-left: 1rem;
+    list-style-position: inside;
+    list-style-type: circle;
+    padding-left: 0;
   }
   li {
-    font-size: 0.8rem;
-    line-height: 1.2rem;
+    margin-bottom: 2px;
   }
 `;
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
-const DescriptionSection = ({ description, photo }: any) => {
-  const image = photo && <RoundedImage src={photo} />;
-
-  return (
-    <>
-      {image}
-      <MarkdownHolder dangerouslySetInnerHTML={{ __html: mdParser.render(description) }} />
-    </>
-  );
+const DescriptionSection = ({ description }: any) => {
+  return <MarkdownHolder dangerouslySetInnerHTML={{ __html: mdParser.render(description) }} />;
 };
 
 export default DescriptionSection;

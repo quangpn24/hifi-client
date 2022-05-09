@@ -4,6 +4,7 @@ import educationReducer from './reducers/educationReducer';
 import introReducer from './reducers/introReducer';
 import labelReducer from './reducers/labelReducer';
 import socialReducer from './reducers/socialReducer';
+import themeReducer from './reducers/themeReducer';
 import { userReducer } from './reducers/userReducer';
 import workReducer from './reducers/workReducer';
 
@@ -16,6 +17,7 @@ export const store = configureStore({
     work: workReducer,
     label: labelReducer,
     award: awardReducer,
+    theme: themeReducer,
   },
 });
 

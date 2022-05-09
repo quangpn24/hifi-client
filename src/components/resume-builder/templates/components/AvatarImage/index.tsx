@@ -1,15 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
 
-const AvatarImage = () => {
+import styled from 'styled-components';
+
+const ImageContainer = styled.img`
+  background-color: ${(props: any) => props.theme.primary};
+  text-align: center;
+  border-radius: 50%;
+  object-fit: cover;
+`;
+
+const AvatarImage = ({ url }: { url: string }) => {
   return (
     <div className='text-center mt-1 mb-4'>
-      <img
-        src='https://picsum.photos/id/1011/500/500'
-        className='rounded-full'
-        alt='avatar'
-        width={140}
-        height={140}
-      />
+      <ImageContainer src={url} alt='avatar' width={140} height={140} />
     </div>
   );
 };

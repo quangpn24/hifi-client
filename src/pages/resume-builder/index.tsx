@@ -2,10 +2,10 @@ import { Affix, Col, Drawer, Row } from 'antd';
 import AppIcon from 'components/commons/AppIcon';
 import LeftNav from 'components/resume-builder/LeftNav';
 import Resume from 'components/resume-builder/Resume';
-import { DownloadTool, FontFamilyTool, FontSizeTool } from 'components/resume-builder/widgets';
+import { DownloadTool } from 'components/resume-builder/widgets';
+import ColorTool from 'components/resume-builder/widgets/ColorTool';
 import { NextPage } from 'next';
 import { useRef, useState } from 'react';
-import { useReactToPrint } from 'react-to-print';
 import style from './index.module.less';
 
 const ResumeBuilder: NextPage = () => {
@@ -13,8 +13,8 @@ const ResumeBuilder: NextPage = () => {
   const componentToPrint = useRef(null);
 
   return (
-    <div style={{ minHeight: '100vh' }} className=' py-8'>
-      <h2>Resume builder</h2>
+    <div style={{ minHeight: '100vh' }} className='py-8'>
+      <h2 className='contain'>Resume builder</h2>
       <div className={style.affixContent} onClick={() => setIsVisible(true)}>
         <AppIcon icon='Io5/IoDocumentTextOutline' size='26' />
         <p>My content</p>
@@ -25,8 +25,9 @@ const ResumeBuilder: NextPage = () => {
       </div>
       <Affix offsetTop={80}>
         <div className={style.affixTool}>
-          <FontFamilyTool />
-          <FontSizeTool />
+          {/* <FontFamilyTool />
+          <FontSizeTool /> */}
+          <ColorTool />
           <DownloadTool componentToPrint={componentToPrint} />
         </div>
       </Affix>

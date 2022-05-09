@@ -22,8 +22,8 @@ const GridContainer = styled.div`
   display: grid;
   padding: 25px 20px;
   grid-template-columns: 65% 20px 1fr;
-  color: ${(props) => props.theme.fontColor};
-  background-color: ${(props) => props.theme.backgroundColor};
+  color: ${(props) => props.theme.text};
+  background-color: ${(props) => props.theme.background};
 `;
 
 const GridColumn = styled.div`
@@ -33,13 +33,6 @@ const GridColumn = styled.div`
   &:first-child {
     padding-right: 10px;
   }
-`;
-
-const EmployerName = styled.div`
-  margin: 0;
-  color: ${(props) => props.theme.primaryColor};
-  font-size: 1.8rem;
-  font-weight: 600;
 `;
 
 const DefaultLayout = () => {
@@ -52,7 +45,6 @@ const DefaultLayout = () => {
   return (
     <GridContainer>
       <GridColumn>
-        <EmployerName>{intro.name}</EmployerName>
         <IntroSection intro={intro} />
         <SocialSection socials={social} />
         <LabelSection title={label.experience} />
@@ -62,7 +54,7 @@ const DefaultLayout = () => {
       </GridColumn>
       <div></div>
       <GridColumn>
-        <AvatarImage />
+        <AvatarImage url={intro.image} />
         <LabelSection title={label.summary} />
         <DescriptionSection description={intro.summary} />
         <LabelSection title={label.skill} />

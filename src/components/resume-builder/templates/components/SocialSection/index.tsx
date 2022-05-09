@@ -5,9 +5,8 @@ import { stringHelper } from 'utils';
 
 const SocialDiv = styled.div`
   padding: 8px;
-  color: ${(props) => props.theme.fontColor};
-  border-top: 1px solid ${(props) => props.theme.primaryColor};
-  border-bottom: 1px solid ${(props) => props.theme.primaryColor};
+  border-top: 1px solid ${(props) => props.theme.text};
+  border-bottom: 1px solid ${(props) => props.theme.text};
   margin: 10px 4px;
   display: flex;
   justify-content: space-around;
@@ -16,7 +15,7 @@ const SocialDiv = styled.div`
 
   a,
   svg {
-    color: ${(props) => props.theme.primaryColor};
+    color: ${(props) => props.theme.primary};
   }
 `;
 
@@ -30,7 +29,7 @@ const SocialSection = ({ socials }: { socials: SocialState }) => {
           const icon = `Si/Si${stringHelper.capitalizeFirstLetter(social.network)}`;
           return (
             <a href={social.url} key={social.url} target='_blank' rel='noreferrer'>
-              <AppIcon icon={icon} size='16' />
+              <AppIcon icon={icon} size='17' />
             </a>
           );
         })}
