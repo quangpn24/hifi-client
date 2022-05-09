@@ -3,7 +3,7 @@ import authApi from 'api/authApi';
 import axios from 'axios';
 import Footer from 'components/layouts/Footer';
 import Header from 'components/layouts/Header';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { authActions } from 'redux/reducers/authSlice';
@@ -23,14 +23,16 @@ const menu = [
     icon: <HomeOutlined />,
   },
 ];
+const noAuthPaths = ['/auth/login', '/auth/register'];
+const publicPaths = ['/', '/job-posts', '/companies'];
 const Layout: React.FC = ({ children }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const accessToken = useAppSelector((state) => state.auth.accessToken);
-
   useEffect(() => {
     setLoading(true);
+    console.log('Check render: ', accessToken);
     if (accessToken) {
       authApi
         .verify(accessToken)
@@ -39,8 +41,11 @@ const Layout: React.FC = ({ children }) => {
         })
         .catch((error) => {
           if (error?.response?.status === 401) {
-            axios.get('/api/auth/logout');
             dispatch(authActions.logout());
+            axios.get('/api/auth/logout');
+            if (!(noAuthPaths.includes(router.pathname) || publicPaths.includes(router.pathname))) {
+              Router.replace('/auth/login');
+            }
           }
         })
         .finally(() => {
@@ -50,6 +55,16 @@ const Layout: React.FC = ({ children }) => {
       setLoading(false);
     }
   }, [accessToken, dispatch]);
+
+  // useEffect(() => {
+  //   if (
+  //     !loading &&
+  //     !accessToken &&
+  //     !(noAuthPaths.includes(router.pathname) || publicPaths.includes(router.pathname))
+  //   ) {
+  //     Router.replace('/auth/login');
+  //   }
+  // }, [router.pathname, loading, accessToken]);
 
   if (loading) {
     return <LoadingPage />;
