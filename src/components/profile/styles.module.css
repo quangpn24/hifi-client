@@ -1,0 +1,25 @@
+.status {
+  @apply flex px-3 py-1 items-center justify-between bg-white hover:bg-primary-color hover:cursor-pointer hover:text-white-color shadow-lg rounded-md;
+}
+
+.status:hover > * {
+  @apply bg-primary-color text-white;
+}
+.action-item {
+  @apply py-4 flex flex-col items-center justify-center bg-white shadow-lg rounded-md text-primary-color;
+}
+
+.action-item:hover {
+  @apply bg-primary-color text-white cursor-pointer;
+}
+
+.chip {
+  display: inline-flex;
+  border-radius: 20px;
+  border-width: 1px;
+  border-style: solid;
+  font-size: 14px;
+  color: rgb(0, 0, 0);
+  background: rgb(243, 243, 243);
+  border-color: rgb(198, 198, 198);
+}
