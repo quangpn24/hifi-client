@@ -10,7 +10,7 @@ const Role = styled.h3`
 `;
 
 const ContacInfo = styled.div`
-  font-size: 0.8rem;
+  font-size: 13px;
   line-height: inherit;
 `;
 
@@ -36,7 +36,7 @@ const IntroSection = ({ intro }: IProps) => {
     <div className='flex-col '>
       <Role>{intro.title}</Role>
       <div className='m-3' />
-      <Contact icon={<AppIcon icon='Hi/HiPhone' size='18' />} value={intro.phone} />
+      <Contact icon={<AppIcon icon='Hi/HiPhone' size='16' />} value={intro.phone} />
       <Contact
         icon={<AppIcon icon='Hi/HiMail' size='18' />}
         value={intro.email}

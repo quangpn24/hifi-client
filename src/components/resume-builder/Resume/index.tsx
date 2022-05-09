@@ -1,3 +1,5 @@
+/* eslint-disable react/display-name */
+import React from 'react';
 import styled from 'styled-components';
 import DefaultLayout from '../templates/layout/DefaultLayout';
 
@@ -23,12 +25,17 @@ const ResumeContainer: any = styled.div`
   }
 `;
 
-const Resume = () => {
+interface IProps {
+  componentToPrint: React.MutableRefObject<null>;
+}
+
+const Resume = React.forwardRef(({ componentToPrint }: IProps) => {
   return (
-    <ResumeContainer>
+    // @ts-ignore
+    <ResumeContainer ref={(el) => (componentToPrint.current = el)}>
       <DefaultLayout />
     </ResumeContainer>
   );
-};
+});
 
 export default Resume;

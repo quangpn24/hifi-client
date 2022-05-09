@@ -4,11 +4,13 @@ import LeftNav from 'components/resume-builder/LeftNav';
 import Resume from 'components/resume-builder/Resume';
 import { DownloadTool, FontFamilyTool, FontSizeTool } from 'components/resume-builder/widgets';
 import { NextPage } from 'next';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { useReactToPrint } from 'react-to-print';
 import style from './index.module.less';
 
 const ResumeBuilder: NextPage = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const componentToPrint = useRef(null);
 
   return (
     <div style={{ minHeight: '100vh' }} className=' py-8'>
@@ -25,7 +27,7 @@ const ResumeBuilder: NextPage = () => {
         <div className={style.affixTool}>
           <FontFamilyTool />
           <FontSizeTool />
-          <DownloadTool />
+          <DownloadTool componentToPrint={componentToPrint} />
         </div>
       </Affix>
       <Drawer
@@ -42,7 +44,7 @@ const ResumeBuilder: NextPage = () => {
       </Drawer>
       <Row justify='center'>
         <Col>
-          <Resume />
+          <Resume componentToPrint={componentToPrint} />
         </Col>
       </Row>
     </div>
