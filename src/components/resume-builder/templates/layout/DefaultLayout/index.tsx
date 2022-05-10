@@ -54,7 +54,7 @@ const DefaultLayout = () => {
       </GridColumn>
       <div></div>
       <GridColumn>
-        <AvatarImage url={intro.image} />
+        <AvatarImage url={intro.image} size={140} />
         <LabelSection title={label.summary} />
         <DescriptionSection description={intro.summary} />
         <LabelSection title={label.skill} />

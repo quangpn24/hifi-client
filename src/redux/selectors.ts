@@ -8,3 +8,4 @@ export const selectWork = (state: RootState) => state.work;
 export const selectLabel = (state: RootState) => state.label;
 export const selectAward = (state: RootState) => state.award;
 export const selectTheme = (state: RootState) => state.theme;
+export const selectTemplate = (state: RootState) => state.template;

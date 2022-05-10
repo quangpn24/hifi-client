@@ -5,28 +5,13 @@ import { Provider } from 'react-redux';
 import Head from 'next/head';
 import Header from 'components/layouts/Header';
 import Footer from 'components/layouts/Footer';
-import { HomeOutlined } from '@ant-design/icons';
 import { store } from 'redux/store';
 import 'tailwindcss/tailwind.css';
+import menu from 'constant/menu';
 require('../styles/App.less');
 require('../styles/global.less');
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const menu = [
-    {
-      id: 1,
-      name: 'Jobs',
-      url: './jobs',
-      icon: <HomeOutlined />,
-    },
-    {
-      id: 2,
-      name: 'Companies',
-      url: './companies',
-      icon: <HomeOutlined />,
-    },
-  ];
-
   return (
     <Provider store={store}>
       <Head>

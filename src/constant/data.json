@@ -1,9 +1,9 @@
 {
   "intro": {
-    "name": "Trung Huynh",
+    "name": "Alex",
     "title": "Software Engineer",
     "image": "https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairTheCaesarSidePart&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Smile&skinColor=Light",
-    "email": "trunghuynh2304@email.com",
+    "email": "alex@gmail.com",
     "phone": "+84 123456789",
     "address": "Ho Chi Minh city",
     "summary": "I am a web developer having expertise in frontend development and exposure to back- end development. I design and develop web applications using the latest technologies to deliver the product with quality code.",
@@ -38,10 +38,6 @@
       "url": "https://github.com/trunghq234/"
     },
     {
-      "network": "hackerrank",
-      "url": "https://www.hackerrank.com/trunghq234/"
-    },
-    {
       "network": "leetcode",
       "url": "https://leetcode.com/trunghq234/"
     }
@@ -52,6 +48,7 @@
       "name": "Company 1",
       "position": "Senior Software Developer",
       "website": "",
+      "location": "Singapore",
       "startDate": "Apr 2021",
       "endDate": "present",
       "summary": "* Use my extensive experience with front end development to define the structure and components for the project, making sure they are reusable\n* Keep the code quality high reviewing code from other developers and suggesting improvements\n* Interact with the designer to suggest changes and to make sure the view he has about the design is translated into actual functionality"
@@ -60,6 +57,7 @@
       "name": "Company 2",
       "position": "Software Developer",
       "website": "",
+      "location": "Ha Noi",
       "startDate": "Jun 2015",
       "endDate": "Dec 2017",
       "summary": "* Develop web applications based on Sharepoint, Drupal 8 and Episerver\n* Lead a team of 10 front end developers, giving support to the client's multi-cultural team, providing feedback, clarifying requirements and helping with technical questions\n* Keep the Project Manager and the IT Leads updated on the overall progress of the projects and manage the tasks distributed to the team"
@@ -68,6 +66,7 @@
       "name": "Company 3",
       "position": "Trainee Developer",
       "website": "",
+      "location": "HCM city",
       "startDate": "Aug 2011",
       "endDate": "May 2015",
       "summary": "* Design easy user interfaces and great user experiences for the digital platforms of small companies\n* Wordpress development, including themes creation or customization, custom plugins development and training\n* E-commerce development with Magento, customizing preexisting themes\n* VPS configuration and optimization (Apache & Nginx)"

@@ -1,14 +1,8 @@
 import AppIcon from 'components/commons/AppIcon';
 import { IntroState } from 'redux/reducers/introReducer';
 import styled from 'styled-components';
+import { EmployerName, Role } from 'styles/styles';
 import { colorHelper } from 'utils';
-
-const Role = styled.h3`
-  color: ${(props) => props.theme.text};
-  margin-bottom: 0;
-  font-weight: 600;
-  line-height: 16px;
-`;
 
 const ContacInfo = styled.div`
   font-size: 13.4px;
@@ -17,18 +11,11 @@ const ContacInfo = styled.div`
   color: ${(props) => colorHelper.converHexToRGB(props.theme.text, '0.8')};
 `;
 
-const EmployerName = styled.div`
-  margin: 0;
-  color: ${(props) => props.theme.primary};
-  font-size: 1.8rem;
-  font-weight: 700;
-`;
-
 const Icon = styled.div`
   color: ${(props) => colorHelper.converHexToRGB(props.theme.text, '0.9')};
 `;
 
-const Contact = ({ icon, value, link }: any) => (
+export const Contact = ({ icon, value, link }: any) => (
   <div className='flex items-center gap-2'>
     <Icon>{icon}</Icon>
     {link ? (
@@ -47,7 +34,7 @@ interface IProps {
 
 const IntroSection = ({ intro }: IProps) => {
   return (
-    <div className='flex-col '>
+    <div className='flex-col'>
       <EmployerName>{intro.name}</EmployerName>
       <Role>{intro.title}</Role>
 

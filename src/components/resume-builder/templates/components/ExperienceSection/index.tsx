@@ -17,12 +17,13 @@ const Company = ({ company }: any) => (
       <a href={company.website} target='_blank' rel='noreferrer' style={{ color: 'inherit' }}>
         <TitleText>{company.name}</TitleText>
       </a>
-      <ItalicText>
-        {company.startDate} - {company.endDate}
-      </ItalicText>
+      <ItalicText>{company.location}</ItalicText>
     </div>
     <div className='flex items-end justify-between'>
       <CompanyRole>{company.position}</CompanyRole>
+      <ItalicText>
+        {company.startDate} - {company.endDate}
+      </ItalicText>
     </div>
   </>
 );

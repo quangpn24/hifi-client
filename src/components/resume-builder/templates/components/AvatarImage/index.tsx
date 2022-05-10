@@ -9,10 +9,10 @@ const ImageContainer = styled.img`
   object-fit: cover;
 `;
 
-const AvatarImage = ({ url }: { url: string }) => {
+const AvatarImage = ({ url, size }: { url: string; size: number }) => {
   return (
     <div className='text-center mt-1 mb-4'>
-      <ImageContainer src={url} alt='avatar' width={140} height={140} />
+      <ImageContainer src={url} alt='avatar' width={size} height={size} />
     </div>
   );
 };

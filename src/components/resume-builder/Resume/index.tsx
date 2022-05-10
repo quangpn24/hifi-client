@@ -1,9 +1,8 @@
 /* eslint-disable react/display-name */
 import React from 'react';
 import { useAppSelector } from 'redux/hooks';
-import { selectTheme } from 'redux/selectors';
+import { selectTemplate, selectTheme } from 'redux/selectors';
 import styled, { ThemeProvider } from 'styled-components';
-import DefaultLayout from '../templates/layout/DefaultLayout';
 
 const ResumeContainer: any = styled.div`
   width: 210mm;
@@ -33,10 +32,12 @@ interface IProps {
 
 const Resume = React.forwardRef(({ componentToPrint }: IProps) => {
   const theme = useAppSelector(selectTheme);
+  const template = useAppSelector(selectTemplate);
+  const ResumeLayout = template.template;
   return (
     <ThemeProvider theme={theme}>
       <ResumeContainer ref={(el: null) => (componentToPrint.current = el)}>
-        <DefaultLayout />
+        <ResumeLayout />
       </ResumeContainer>
     </ThemeProvider>
   );

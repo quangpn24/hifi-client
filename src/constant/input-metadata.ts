@@ -60,6 +60,11 @@ export const WORK_METADATA: Array<workMetadata> = [
     type: 'input',
   },
   {
+    label: 'Location',
+    name: 'location',
+    type: 'input',
+  },
+  {
     label: 'Start date',
     name: 'startDate',
     type: 'input',

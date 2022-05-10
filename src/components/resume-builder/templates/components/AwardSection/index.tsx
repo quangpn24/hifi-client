@@ -22,7 +22,9 @@ const AwardItem = ({ award }: { award: Award }) => (
   <div>
     <DateText>{award.date}</DateText>
     <a href={award.link} target='_blank' rel='noreferrer' style={{ color: 'inherit' }}>
-      <TitleText>{`${award.title} | ${award.awarder}`}</TitleText>
+      <TitleText style={{ fontWeight: '500' }}>
+        {award.title} | {award.awarder}
+      </TitleText>
     </a>
     <DescriptionText
       className='text-sm leading-4 mt-2 italic'

@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { colorHelper } from 'utils';
 
 export const TitleText = styled.div`
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 0.9rem;
+  font-weight: 700;
   line-height: 1.2rem;
   color: ${(props: any) => props.theme.text};
 `;
@@ -52,4 +52,18 @@ export const TimelineItem = styled(FlexTimeline.Item)`
     flex-grow: 0;
     padding-bottom: 0;
   }
+`;
+
+export const Role = styled.h3`
+  color: ${(props) => props.theme.text};
+  margin-bottom: 0;
+  font-weight: 600;
+  line-height: 16px;
+`;
+
+export const EmployerName = styled.div`
+  margin: 0;
+  color: ${(props) => props.theme.primary};
+  font-size: 1.8rem;
+  font-weight: 700;
 `;

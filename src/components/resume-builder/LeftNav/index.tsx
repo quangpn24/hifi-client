@@ -1,6 +1,8 @@
 import { Tabs } from 'antd';
 import AppIcon from 'components/commons/AppIcon';
 import {
+  ActivityEditor,
+  AwardEditor,
   EducationEditor,
   IntroEditor,
   LabelEditor,
@@ -8,8 +10,6 @@ import {
   SocialEditor,
   WorkEditor,
 } from '../editor';
-import ActivityEditor from '../editor/ActivityEditor';
-import { AwardEditor } from '../editor/Editor';
 
 const sideBarList = [
   {

@@ -6,6 +6,7 @@ export type Work = {
   name: string;
   position: string;
   website: string;
+  location: string;
   startDate: string;
   endDate: string;
   summary: string;
@@ -32,6 +33,7 @@ export const workSlice = createSlice({
           name: '',
           position: '',
           website: '',
+          location: '',
           startDate: '',
           endDate: '',
           summary: '',
