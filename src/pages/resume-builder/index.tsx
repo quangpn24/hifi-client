@@ -1,4 +1,4 @@
-import { Affix, Col, Drawer, Row } from 'antd';
+import { Affix, Col, Drawer, Result, Row } from 'antd';
 import AppIcon from 'components/commons/AppIcon';
 import LeftNav from 'components/resume-builder/LeftNav';
 import Resume from 'components/resume-builder/Resume';
@@ -7,12 +7,24 @@ import { DownloadTool } from 'components/resume-builder/widgets';
 import ColorTool from 'components/resume-builder/widgets/ColorTool';
 import { NextPage } from 'next';
 import { useRef, useState } from 'react';
+import { isMobile } from 'react-device-detect';
 import style from './index.module.less';
 
 const ResumeBuilder: NextPage = () => {
   const [isVisibleContent, setIsVisibleContent] = useState<boolean>(false);
   const [isVisibleTemplate, setIsVisibleTemplate] = useState<boolean>(false);
   const componentToPrint = useRef(null);
+  if (isMobile) {
+    return (
+      <div>
+        <Result
+          status='403'
+          title='403'
+          subTitle='Sorry, you should use larger device to use this feature.'
+        />
+      </div>
+    );
+  }
   return (
     <div style={{ minHeight: '100vh' }} className='py-8'>
       <div className={style.affixContent} onClick={() => setIsVisibleContent(true)}>
