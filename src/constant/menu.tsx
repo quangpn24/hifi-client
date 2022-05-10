@@ -20,6 +20,12 @@ const menu: IMenu[] = [
     url: './companies',
     icon: <HomeOutlined />,
   },
+  {
+    id: 3,
+    name: 'Resume builder',
+    url: './resume-builder',
+    icon: <HomeOutlined />,
+  },
 ];
 
 export default menu;

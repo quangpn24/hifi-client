@@ -16,10 +16,6 @@ const metadata = [
     name: 'github',
   },
   {
-    label: 'Hackerrank',
-    name: 'hackerrank',
-  },
-  {
     label: 'Twitter',
     name: 'twitter',
   },
@@ -38,6 +34,14 @@ const metadata = [
   {
     label: 'Devto',
     name: 'devto',
+  },
+  {
+    label: 'Hackerrank',
+    name: 'hackerrank',
+  },
+  {
+    label: 'Leetcode',
+    name: 'leetcode',
   },
   {
     label: 'Hashnode',

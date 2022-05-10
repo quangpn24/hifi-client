@@ -16,12 +16,8 @@ const ResumeBuilder: NextPage = () => {
   const componentToPrint = useRef(null);
   if (isMobile) {
     return (
-      <div>
-        <Result
-          status='403'
-          title='403'
-          subTitle='Sorry, you should use larger device to use this feature.'
-        />
+      <div className='flex items-center justify-center h-full'>
+        <Result status='info' title='Sorry, you should use larger device to use this feature.' />
       </div>
     );
   }
