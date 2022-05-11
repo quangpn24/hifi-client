@@ -63,6 +63,7 @@ const Header: FC<Props> = (props) => {
       console.log('handleLogout Error: ', error);
     }
   };
+
   return (
     <div className='sticky inset-x-0 top-0 bg-white z-10 drop-shadow-xl'>
       <Row justify='space-between' className='px-16 py-4 '>
@@ -88,9 +89,12 @@ const Header: FC<Props> = (props) => {
           </div>
           <div className='mobileHidden'>
             <Row align='middle'>
-              <Button type='link' className='w-16' href='/'>
-                <Image alt='' src={logo} />
-              </Button>
+              <Link href='/' passHref={true}>
+                <Button type='link' className='w-16'>
+                  <Image alt='' src={logo} />
+                </Button>
+              </Link>
+
               <Menu
                 onClick={(e) => setPathname([e.key])}
                 selectedKeys={pathname}
@@ -105,8 +109,8 @@ const Header: FC<Props> = (props) => {
           </div>
         </Col>
         <Col>
-          {/* <RightContent /> */}
-          {!user ? (
+          <RightContent />
+          {/* {!user ? (
             <>
               <Button key='login' type='link' href='/auth/login'>
                 <span className='font-semibold text-text-secondary'>Login</span>
@@ -127,7 +131,7 @@ const Header: FC<Props> = (props) => {
                 <span className='font-semibold'>Log out</span>
               </Button>
             </div>
-          )}
+          )} */}
         </Col>
       </Row>
     </div>

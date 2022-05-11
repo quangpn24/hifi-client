@@ -14,12 +14,18 @@ const Chatting: NextPage = () => {
   const handleSetVisible = () => {
     setVisible(true);
   };
+
   return (
-    <Row className='px-24 bg-white h-full'>
+    <Row className='px-4 my-4 mx-16 bg-white'>
       <Drawer visible={visible} placement='right' closable={false} onClose={handleClose}>
         <SideNav></SideNav>
       </Drawer>
-      <Col xs={0} sm={0} md={6} className='p-2 border-r-2 border-0 border-r-primary border-solid'>
+      <Col
+        xs={0}
+        sm={0}
+        md={6}
+        className='px-4 py-2 border-r-2 border-0 border-r-primary border-solid'
+      >
         <SideNav></SideNav>
       </Col>
       <Col xs={24} sm={24} md={18}>

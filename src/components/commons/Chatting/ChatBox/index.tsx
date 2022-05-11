@@ -17,8 +17,8 @@ const ChatBox: FC<IProps> = (props) => {
   const [room, setRoom] = useState<Room>();
 
   useEffect(() => {
-    if (chatting.room) {
-      setRoom(chatting.room);
+    if (chatting) {
+      setRoom(chatting.currentRoom);
     }
   }, [chatting]);
 
@@ -34,7 +34,7 @@ const ChatBox: FC<IProps> = (props) => {
           <ChatBoxInput roomId={room._id}></ChatBoxInput>
         </>
       ) : (
-        <div className='flex flex-col h-full items-center justify-center'>
+        <div className='flex flex-col h-[calc(100vh-268px)] items-center justify-center'>
           <Typography.Title>🙂 Select user to chat</Typography.Title>
           <Row>
             <Col md={0} sm={24} xs={24}>

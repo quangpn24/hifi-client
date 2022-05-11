@@ -1,24 +1,25 @@
 import { Avatar, Col, Divider, Row, Tooltip, Typography } from 'antd';
 import moment from 'moment';
 import React, { FC } from 'react';
-import { User, Message } from 'types';
+import { useAppSelector } from 'redux/hooks';
+import { selectUser } from 'redux/selectors';
+import { User, Message, Chatter } from 'types';
 import socket from 'utils/messageSocket';
 import styles from './index.module.less';
 
 interface IProps {
   lastMessage: Message;
   roomId: string;
-  user: User;
+  chatter: Chatter;
   selected: boolean;
 }
 
 const ChatUserItem: FC<IProps> = (props) => {
-  const { user, roomId, lastMessage, selected } = props;
-  const userId = '6255931ff19b3638879e3303';
+  const { chatter, roomId, lastMessage, selected } = props;
+  const user = useAppSelector(selectUser);
 
   const handleJoinRoom = () => {
-    socket.connect();
-    socket.emit('joinRoom', roomId);
+    socket.emit('fetchRoom', roomId);
   };
 
   return (
@@ -32,11 +33,11 @@ const ChatUserItem: FC<IProps> = (props) => {
         </Col>
         <Col span={19}>
           <Typography.Title level={5} className='!mb-0'>
-            {user.name}
+            {chatter?.name}
           </Typography.Title>
           <Row>
             <Typography.Text ellipsis={true} className='text-sm'>
-              {userId === lastMessage.userId ? 'You: ' : ''}
+              {user?._id === lastMessage.userId ? 'You: ' : ''}
               {lastMessage.content}
             </Typography.Text>
           </Row>
@@ -49,7 +50,7 @@ const ChatUserItem: FC<IProps> = (props) => {
           </Row>
         </Col>
       </Row>
-      <Divider></Divider>
+      <Divider style={{ margin: '12px 0' }}></Divider>
     </>
   );
 };

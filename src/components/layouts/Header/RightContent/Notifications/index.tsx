@@ -14,6 +14,7 @@ const Notifications: FC<IProp> = (props) => {
     message: 'ABC',
     createdAt: new Date(),
     redirectUrl: 'ABC',
+    isRead: false,
   };
 
   return (

@@ -15,37 +15,49 @@ const RightContent: FC<IProps> = (props) => {
 
   return (
     <Row gutter={[10, 10]}>
-      <Col>
-        <Button key='login' type='link' href='/login'>
-          <span className='font-semibold text-text-secondary'>Login</span>
-        </Button>
-      </Col>
-      <Col>
-        <Button key='signup' type='primary' href='/signup'>
-          <span className='font-semibold text-[#fff] '>Sign up</span>
-        </Button>
-      </Col>
-      <Col>
-        <Tooltip title='Chat with recruiter'>
-          <Button icon={<WechatOutlined />} key='chatting' type='link' href='/chatting' />
-        </Tooltip>
-      </Col>
-      <Col>
-        <Popover placement='bottomRight' content={<Notifications />} trigger='hover'>
-          <Badge count={user?.notifications.length} size='small'>
-            <Button icon={<BellFilled />} key='chatting' type='link' />
-          </Badge>
-        </Popover>
-      </Col>
-      <Col>
-        <Popover placement='bottomRight' content={<Content />} title={<Title />} trigger='hover'>
-          <Avatar
-            style={{ cursor: 'pointer' }}
-            shape='square'
-            src={user?.photoUrl ? user.photoUrl : avatarUrl}
-          />
-        </Popover>
-      </Col>
+      {!user ? (
+        <Row gutter={[10, 10]}>
+          <Col>
+            <Button key='login' type='link' href='/auth/login'>
+              <span className='font-semibold text-text-secondary'>Login</span>
+            </Button>
+          </Col>
+          <Col>
+            <Button key='signup' type='primary' href='/auth/signup'>
+              <span className='font-semibold text-[#fff] '>Sign up</span>
+            </Button>
+          </Col>
+        </Row>
+      ) : (
+        <Row gutter={[10, 10]}>
+          <Col>
+            <Tooltip title='Chat with recruiter'>
+              <Button icon={<WechatOutlined />} key='chatting' type='link' href='/chatting' />
+            </Tooltip>
+          </Col>
+          <Col>
+            <Popover placement='bottomRight' content={<Notifications />} trigger='hover'>
+              <Badge count={user?.notifications.filter((noti) => !noti.isRead).length} size='small'>
+                <Button icon={<BellFilled />} key='chatting' type='link' />
+              </Badge>
+            </Popover>
+          </Col>
+          <Col>
+            <Popover
+              placement='bottomRight'
+              content={<Content />}
+              title={<Title />}
+              trigger='hover'
+            >
+              <Avatar
+                style={{ cursor: 'pointer' }}
+                shape='square'
+                src={user?.photoUrl ? user.photoUrl : avatarUrl}
+              />
+            </Popover>
+          </Col>
+        </Row>
+      )}
     </Row>
   );
 };

@@ -22,8 +22,11 @@ type User = {
     github: string;
     twitter: string;
   };
+  notifications: Notification[];
 };
+
 type Gender = 'MALE' | 'FEMALE';
+
 type Company = {
   _id: string;
   email: string;
@@ -90,28 +93,36 @@ type Message = {
   createdAt: string;
 };
 
-type User = {
-  _id: string;
-  uid: string;
-  signInProvider: string;
-  type: string;
-  email: string;
-  name: string;
-  photoUrl: string;
-  notifications: Notification[];
-};
+// type User = {
+//   _id: string;
+//   uid: string;
+//   signInProvider: string;
+//   type: string;
+//   email: string;
+//   name: string;
+//   photoUrl: string;
+//   notifications: Notification[];
+// };
 
 type Notification = {
   message: string;
   createdAt: Date;
   redirectUrl: string;
   _id: string;
+  isRead: boolean;
 };
 
 type Room = {
   _id: string;
   messages: Message[];
-  chatters: User[];
+  chatters: Chatter[];
+};
+
+type Chatter = {
+  chatterId: string;
+  name: string;
+  avatar: string;
+  type: string;
 };
 
 type Award = {
@@ -162,4 +173,5 @@ export type {
   Room,
   User,
   Notification,
+  Chatter,
 };

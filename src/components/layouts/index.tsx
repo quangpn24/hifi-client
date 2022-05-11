@@ -23,6 +23,7 @@ const menu = [
     icon: <HomeOutlined />,
   },
 ];
+
 const Layout: React.FC = ({ children }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -54,6 +55,7 @@ const Layout: React.FC = ({ children }) => {
   if (loading) {
     return <LoadingPage />;
   }
+
   if (router.pathname.startsWith('/auth')) {
     return <>{children}</>;
   }
@@ -61,7 +63,7 @@ const Layout: React.FC = ({ children }) => {
   return (
     <div className='flex flex-col h-screen'>
       <Header menu={menu} />
-      <main className='flex-1 bg-[#EBEFF7] px-16'>{children}</main>
+      <main className='flex-1 bg-[#EBEFF7] px-16 py-4'>{children}</main>
       <Footer />
     </div>
   );

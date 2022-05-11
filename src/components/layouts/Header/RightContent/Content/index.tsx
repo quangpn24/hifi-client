@@ -1,17 +1,31 @@
 import { Menu } from 'antd';
 import React from 'react';
-import Icon, { EditOutlined, LogoutOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
+import Icon, { EditOutlined, FormOutlined, LogoutOutlined } from '@ant-design/icons';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from 'redux/hooks';
+import { authActions } from 'redux/reducers/authSlice';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
 const Content = () => {
   const dispatch = useAppDispatch();
-  // const navigate = useNavigate();
+  const router = useRouter();
 
-  const handleLogout = () => {};
+  const handleLogout = async () => {
+    try {
+      await axios.get('/api/auth/logout');
+      dispatch(authActions.logout());
+    } catch (error) {
+      console.log('handleLogout Error: ', error);
+    }
+  };
 
   const editProfile = () => {
-    // navigate('/profile');
+    router.push('/profile');
+  };
+
+  const viewApplications = () => {
+    router.push('/user/applications');
   };
 
   const contents = [
@@ -23,6 +37,12 @@ const Content = () => {
     },
     {
       key: '2',
+      icon: <FormOutlined />,
+      content: 'My Applications',
+      onClick: viewApplications,
+    },
+    {
+      key: '3',
       icon: <LogoutOutlined />,
       content: 'Log Out',
       onClick: handleLogout,
