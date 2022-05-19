@@ -1,14 +1,13 @@
-import { Data } from '@react-google-maps/api';
 import { Card, Col, Image, Row, Tag } from 'antd';
 import postApi from 'api/postApi';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { PostItem } from 'types';
+import { Post } from 'types';
 import { timeAgo } from 'utils/date_time';
 import { HeroIcon } from 'utils/HeroIcon';
 
 type Props = {
-  data: PostItem;
+  data: Post;
 };
 
 const JobCardItem = (props: Props) => {
@@ -30,14 +29,14 @@ const JobCardItem = (props: Props) => {
       <Card className='w-full p-[20px]'>
         <Row>
           <Col span={3}>
-            <a href={`/job-list/${props.data._id}`} target='_blank' rel='noopener noreferrer'>
+            <a href={`/job-posts/${props.data._id}`} target='_blank' rel='noopener noreferrer'>
               <Image width={100} height={100} className='bg-red-500' preview={false} />
             </a>
           </Col>
           <Col span={21} className='text-lg pl-[10px]'>
             <Row>
               <Col span={18} className=' text-[#8B7A9F] font-semibold'>
-                {props.data.companyName}
+                {props.data.company?.name}
               </Col>
               <Col span={6} className='!flex justify-end'>
                 <span>
@@ -47,7 +46,7 @@ const JobCardItem = (props: Props) => {
             </Row>
             <Col span={18}>
               <a
-                href={`/job-list/${props.data._id}`}
+                href={`/job-posts/${props.data._id}`}
                 target='_blank'
                 rel='noopener noreferrer'
                 className=' hover:underline !decoration-black'
@@ -56,24 +55,24 @@ const JobCardItem = (props: Props) => {
               </a>
             </Col>
             <Col span={24} className='text-[14px] my-2'>
-              {props.data.address}
+              {props.data.locations && props.data?.locations[0].address}
             </Col>
             <Row>
               <Col span={20}>
-                <Tag className='!rounded-[4px]'>{props.data.jobCategories.name}</Tag>
+                <Tag className='!rounded-[4px]'>{props.data.jobCategory?.name}</Tag>
                 <Tag className='!rounded-[4px]'>
                   {props.data?.salary?.negotiable
                     ? 'Negotiable'
                     : `${props.data?.salary?.min} - ${props.data?.salary?.max} ${props.data?.salary?.unit}`}
                 </Tag>
-                {props.data.skill.map((e: any, index) => (
+                {props.data.skillTags?.map((e: any, index) => (
                   <Tag className='!rounded-[4px]' key={index}>
                     {e.text}
                   </Tag>
                 ))}
-                {props.data.updatedAt && (
-                  <Tag className='!rounded-[4px]'>{timeAgo(props.data.updatedAt)}</Tag>
-                )}
+                <Tag className='!rounded-[4px]'>
+                  {timeAgo(new Date(props.data.updatedAt ?? ''))}
+                </Tag>
               </Col>
               <Col span={4} className='!flex justify-end'>
                 <div onClick={() => handleLike()}>
