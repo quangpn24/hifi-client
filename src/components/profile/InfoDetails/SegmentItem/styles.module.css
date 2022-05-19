@@ -1,0 +1,26 @@
+.item::before {
+  content: '';
+  position: absolute;
+  left: calc(-21px);
+  width: 3px;
+  height: calc(100% + 30px);
+  margin-top: 7px;
+  @apply bg-primary-color;
+}
+.item::after {
+  content: '';
+  position: absolute;
+  left: calc(-20px);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  /* background-color: rgb(11, 174, 236); */
+  /* margin-top: 7px; */
+  top: 0px;
+  transform: translateX(-50%);
+  @apply bg-primary-color;
+}
+
+.last-item::before {
+  height: calc(100% - 7px);
+}

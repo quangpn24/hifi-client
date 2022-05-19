@@ -6,7 +6,6 @@ import JobCard from 'components/landing_page/JobCard';
 import type { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import Jobhunt from '/public/images/Job-hunt.svg';
 const { TabPane } = Tabs;
 const { Search } = Input;
@@ -25,8 +24,6 @@ interface Props {
 }
 
 const Home: NextPage<Props> = (props) => {
-  const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user.data);
   const { data } = props;
   const router = useRouter();
   const categories = [
@@ -256,7 +253,6 @@ const Home: NextPage<Props> = (props) => {
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   try {
     const result = await axios.get('https://jsonplaceholder.typicode.com/todos/1'); // example
-
     const data = result.data;
     if (!data) {
       return {
@@ -266,8 +262,9 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     return {
       props: { data },
     };
-  } catch {
+  } catch (e: any) {
     res.statusCode = 404;
+    console.log('Errror: ', e.message);
     return {
       props: {},
     };
