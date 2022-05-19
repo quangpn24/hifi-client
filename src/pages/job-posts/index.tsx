@@ -6,10 +6,10 @@ import { PAGE_SIZE } from 'constant/others';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { PostItem } from 'types';
+import { Post } from 'types';
 const { Search } = Input;
 type Props = {
-  posts: PostItem[];
+  posts: Post[];
   categoryOption: Option[];
 };
 
@@ -19,7 +19,7 @@ type Option = {
 };
 const Jobs = (props: Props) => {
   const { categoryOption } = props;
-  const [posts, setPosts] = useState<PostItem[]>(props.posts);
+  const [posts, setPosts] = useState<Post[]>(props.posts);
   const [totalSize, setTotalSize] = useState<number>(0);
   const [selectedCategory, setSelectedCategory] = useState<Array<String | Number>>([]);
   const [selectedSalary, setSelectedSalary] = useState<String | Number>();

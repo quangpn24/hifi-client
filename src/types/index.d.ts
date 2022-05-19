@@ -114,7 +114,6 @@ export type {
   WorkLocation,
   Category,
   Subcategory,
-  PostItem,
   Award,
   UploadFile,
   Application,

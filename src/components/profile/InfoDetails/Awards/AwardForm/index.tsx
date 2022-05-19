@@ -1,6 +1,7 @@
 import { Form, Input, Select } from 'antd';
 import { validateMessages } from 'constant/validateMessages';
 import React, { useEffect, useImperativeHandle } from 'react';
+import { Award } from 'types';
 
 const { TextArea } = Input;
 const { Option } = Select;
