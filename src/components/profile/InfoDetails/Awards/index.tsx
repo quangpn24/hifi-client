@@ -75,7 +75,7 @@ const AwardsSection: React.FC<Props> = ({ awards: data }: Props) => {
     <>
       <div className='mb-8'>
         <Header
-          text={'AWARDS'.toUpperCase()}
+          text={'Awards'}
           action={
             awards.length > 0 ? (
               <Button icon={<EditOutlined />} type='text' onClick={() => setVisible(true)}>
