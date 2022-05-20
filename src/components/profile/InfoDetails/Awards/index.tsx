@@ -3,6 +3,7 @@ import { Button, Divider, FormInstance, message, Modal } from 'antd';
 import awardApi from 'api/awardApi';
 import { NextPage } from 'next';
 import React, { useEffect, useRef, useState } from 'react';
+import { Award } from 'types';
 import Utils from 'utils';
 import ActionSuggestion from '../ActionSuggestion';
 import Header from '../Header';

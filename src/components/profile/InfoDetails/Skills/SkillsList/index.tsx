@@ -1,5 +1,6 @@
 import { Space } from 'antd';
 import React from 'react';
+import { Skill } from 'types';
 import Chip from '../Chip';
 
 type Props = {
