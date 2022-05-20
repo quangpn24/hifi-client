@@ -1,7 +1,6 @@
 import { MessageOutlined } from '@ant-design/icons';
 import { Avatar, Button, Col, Row, Typography } from 'antd';
 import React, { FC } from 'react';
-import { Chatter, User } from 'types';
 
 interface IProps {
   chatter?: Chatter;

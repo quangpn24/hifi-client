@@ -23,7 +23,7 @@ const Notifications: FC<IProp> = (props) => {
       {user?.notifications
         .slice(0)
         .reverse()
-        .map((notification) => {
+        .map((notification: Noti) => {
           return <NotificationItem key={notification?._id} notification={notification} />;
         })}
       <NotificationItem key={notification?._id} notification={notification}></NotificationItem>

@@ -1,6 +1,5 @@
 import { createReducer, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { setRoom } from 'redux/actions/chattingActions';
-import { Room } from 'types';
 
 export type chattingState = {
   rooms?: Room[];

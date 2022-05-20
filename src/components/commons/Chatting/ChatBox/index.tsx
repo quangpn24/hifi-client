@@ -2,7 +2,6 @@ import { MessageOutlined } from '@ant-design/icons';
 import { Button, Col, Row, Typography } from 'antd';
 import React, { FC, useEffect, useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
-import { Room } from 'types';
 import ChatBoxContent from './ChatBoxContent';
 import ChatBoxHeader from './ChatBoxHeader';
 import ChatBoxInput from './ChatBoxInput';

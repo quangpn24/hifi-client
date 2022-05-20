@@ -6,7 +6,6 @@ import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useEffect, useState } from 'react';
-import { Post } from 'types';
 import { HeroIcon } from 'utils/HeroIcon';
 
 type Props = {

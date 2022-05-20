@@ -1,6 +1,5 @@
 import { Card, Col, Image, Row, Tag } from 'antd';
 import React, { useState } from 'react';
-import { Post } from 'types';
 import { timeAgo } from 'utils/date_time';
 import { HeroIcon } from 'utils/HeroIcon';
 

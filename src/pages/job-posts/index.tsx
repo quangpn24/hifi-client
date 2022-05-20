@@ -6,7 +6,6 @@ import { PAGE_SIZE } from 'constant/others';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { Post } from 'types';
 const { Search } = Input;
 type Props = {
   posts: Post[];

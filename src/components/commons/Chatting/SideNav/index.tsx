@@ -3,7 +3,6 @@ import { Input, Typography } from 'antd';
 import React, { FC, useEffect, useState } from 'react';
 import ChatUserItem from './ChatUserItem';
 import roomApi from 'api/roomApi';
-import { Room } from 'types';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import socket from 'utils/messageSocket';
 import { setRoom } from 'redux/actions/chattingActions';

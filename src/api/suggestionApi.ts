@@ -1,4 +1,3 @@
-import { Category, Skill } from 'types';
 import axiosClient from './axiosClient';
 
 const suggestionApi = {

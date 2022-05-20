@@ -22,7 +22,7 @@ type User = {
     github: string;
     twitter: string;
   };
-  notifications: Notification[];
+  notifications: Noti[];
 };
 
 type Gender = 'MALE' | 'FEMALE';
@@ -93,18 +93,7 @@ type Message = {
   createdAt: string;
 };
 
-// type User = {
-//   _id: string;
-//   uid: string;
-//   signInProvider: string;
-//   type: string;
-//   email: string;
-//   name: string;
-//   photoUrl: string;
-//   notifications: Notification[];
-// };
-
-type Notification = {
+type Noti = {
   message: string;
   createdAt: Date;
   redirectUrl: string;

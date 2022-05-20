@@ -3,7 +3,6 @@ import moment from 'moment';
 import React, { FC } from 'react';
 import { useAppSelector } from 'redux/hooks';
 import { selectUser } from 'redux/selectors';
-import { User, Message, Chatter } from 'types';
 import socket from 'utils/messageSocket';
 import styles from './index.module.less';
 

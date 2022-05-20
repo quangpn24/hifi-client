@@ -3,7 +3,6 @@ import MainProfile from 'components/profile/MainProfile';
 import ToolSidebar from 'components/profile/ToolSidebar';
 import { NextPage } from 'next';
 import React from 'react';
-import { Award } from 'types';
 
 type Props = {
   awards?: Award[];

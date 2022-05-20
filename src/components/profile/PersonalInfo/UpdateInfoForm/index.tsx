@@ -5,13 +5,14 @@ import axios from 'axios';
 import { validateMessages } from 'constant/validateMessages';
 import dayjs from 'dayjs';
 import React, { useImperativeHandle, useState } from 'react';
-import { User } from 'types';
 import Avatar from '../Avatar';
+
 interface IProps {
   user?: User;
   formType?: 'update' | 'create';
   onSubmit?: (values: Education) => void;
 }
+
 const UpdateInfoForm = React.forwardRef<any, IProps>(({ onSubmit, user, formType }, ref) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
@@ -43,6 +44,7 @@ const UpdateInfoForm = React.forwardRef<any, IProps>(({ onSubmit, user, formType
     }
     setLoading(false);
   };
+
   return (
     <Form
       form={form}

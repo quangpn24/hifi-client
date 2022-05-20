@@ -2,10 +2,9 @@ import { Avatar, Badge, Col, Row, Tooltip, Typography } from 'antd';
 import moment from 'moment';
 import styles from './index.module.less';
 import React, { FC } from 'react';
-import { Notification } from 'types';
 
 interface IProp {
-  notification: Notification;
+  notification: Noti;
 }
 
 const NotificationItem: FC<IProp> = (props) => {
