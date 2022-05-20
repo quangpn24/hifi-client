@@ -87,7 +87,7 @@ const ResumeSection = ({}: Props) => {
     <>
       <div className='mb-8'>
         <Header
-          text={'Resume'.toUpperCase()}
+          text={'Resume'}
           action={
             resume ? (
               <Button

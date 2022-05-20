@@ -3,10 +3,10 @@ import { Button, Col, Drawer, Menu, Row } from 'antd';
 import axios from 'axios';
 import type { NextPage } from 'next';
 import Image from 'next/image';
-import { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
 import RightContent from './RightContent';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { authActions } from 'redux/reducers/authSlice';
 import { selectUser } from 'redux/selectors';
@@ -23,12 +23,14 @@ interface menuData {
 interface Props {
   menu: Array<menuData>;
 }
-
-const Header: FC<Props> = (props) => {
+const noAuthPaths = ['/auth/login', '/auth/register'];
+const publicPaths = ['/', '/job-posts', '/companies'];
+const Header: NextPage<Props> = (props) => {
   const { menu } = props;
   const user = useAppSelector(selectUser);
   const [pathname, setPathname] = useState(['home']);
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const [visible, setVisible] = useState(false);
 
   const showDrawer = () => {
@@ -58,6 +60,9 @@ const Header: FC<Props> = (props) => {
   const handleLogout = async () => {
     try {
       await axios.get('/api/auth/logout');
+      if (!(noAuthPaths.includes(router.pathname) || publicPaths.includes(router.pathname))) {
+        router.replace('/auth/login');
+      }
       dispatch(authActions.logout());
     } catch (error) {
       console.log('handleLogout Error: ', error);

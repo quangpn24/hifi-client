@@ -174,4 +174,5 @@ export type {
   User,
   Notification,
   Chatter,
+  Application,
 };

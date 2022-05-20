@@ -60,7 +60,7 @@ const Skills = ({}: Props) => {
     <>
       <div className='mb-8'>
         <Header
-          text={'Skills'.toUpperCase()}
+          text={'Skills'}
           action={
             <Button
               icon={<EditOutlined />}

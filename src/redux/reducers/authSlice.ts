@@ -1,9 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { login, register } from 'redux/actions/authActions';
 import { User } from 'types';
-// import { AppState } from 'redux/store';
 
-// const hydrate = createAction<AppState>(HYDRATE);
 export type AuthState = Partial<{
   accessToken: string;
   refreshToken: string;
