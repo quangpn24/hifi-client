@@ -50,7 +50,7 @@ const AboutMe = () => {
     <>
       <div className='mb-8'>
         <Header
-          text={'About Me'.toUpperCase()}
+          text={'About Me'}
           action={
             !!about && (
               <Button

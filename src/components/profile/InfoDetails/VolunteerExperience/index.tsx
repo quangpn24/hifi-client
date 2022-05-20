@@ -82,7 +82,7 @@ const VolunteerExperience = (props: Props) => {
     <>
       <div className='mb-8'>
         <Header
-          text={'ORGANIZATIONAL & VOLUNTEERING EXPERIENCES'.toUpperCase()}
+          text={'Organizational & Volunteering Experiences'}
           action={
             volunteerings.length > 0 ? (
               <Button icon={<EditOutlined />} type='text' onClick={() => setVisible(true)}>

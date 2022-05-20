@@ -82,7 +82,7 @@ const JobInterests = () => {
     <>
       <div className='mb-8'>
         <Header
-          text={'JOB INTERESTS & PREFERENCES'.toUpperCase()}
+          text={'Job intesrests & preferences'}
           action={
             <Button icon={<EditOutlined />} type='text' onClick={() => setVisible(true)}>
               Edit

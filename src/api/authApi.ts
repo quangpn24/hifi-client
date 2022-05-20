@@ -10,7 +10,11 @@ const authApi = {
     }
     const {
       data: { data: user },
-    } = await axiosClient.get('job-seeker/auth');
+    } = await axiosClient.get('job-seeker/auth', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
     return { user };
   },

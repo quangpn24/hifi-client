@@ -28,7 +28,7 @@ const SegmentItem = ({ title, subtitle, timeline, last, descrition, onDelete, on
           [styles['last-item']]: last,
         })}
       >
-        <h3 className='text-xl font-bold'>{title}</h3>
+        <h3 className='text-lg font-bold'>{title}</h3>
         <p className='!mb-1 text-base'>{subtitle}</p>
         <p className='!mb-1 text-gray-500'>{timeline}</p>
         {descrition && <p className='!mb-0 text-gray-500'>{descrition}</p>}

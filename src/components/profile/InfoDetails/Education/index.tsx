@@ -80,7 +80,7 @@ const Education = () => {
     <>
       <div className='mb-8'>
         <Header
-          text={'Education'.toUpperCase()}
+          text={'Education'}
           action={
             <Button icon={<EditOutlined />} type='text' onClick={() => setVisible(true)}>
               ADD EDUCATION
