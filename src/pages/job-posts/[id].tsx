@@ -6,6 +6,7 @@ import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useEffect, useState } from 'react';
+import { useAppSelector } from 'redux/hooks';
 import { Post } from 'types';
 import { HeroIcon } from 'utils/HeroIcon';
 
@@ -17,15 +18,16 @@ const JobDetails = (props: Props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { post } = props;
   const [isLiked, setIsLiked] = useState(post?.isFavorited);
+  const idUser = useAppSelector((state) => state.auth.user?._id);
   const showModal = () => {
     setIsModalVisible(true);
   };
   const handleLike = async () => {
     try {
       if (isLiked) {
-        const result = await postApi.deleteFavoritePost('6253d28a27aa74eb68b2988e', post?._id);
+        const result = await postApi.deleteFavoritePost(idUser, post?._id);
       } else {
-        const result = await postApi.addFavoritePost('6253d28a27aa74eb68b2988e', post?._id);
+        const result = await postApi.addFavoritePost(idUser, post?._id);
       }
       setIsLiked(!isLiked);
     } catch (error) {

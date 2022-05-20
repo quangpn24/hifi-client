@@ -13,15 +13,15 @@ const postApi = {
     return await axiosClient.get(`${url}/filter-option`);
   },
   addFavoritePost: async (userId: any, postId: any) => {
-    return await axiosClient.post(`job-seeker/${userId}/favorite/add`, { userId, postId });
+    return await axiosClient.post(`job-seeker/profile/${userId}/favorite/add`, { userId, postId });
   },
   deleteFavoritePost: async (userId: any, postId: any) => {
-    return await axiosClient.delete(`job-seeker/${userId}/favorite/delete`, {
+    return await axiosClient.delete(`job-seeker/profile/${userId}/favorite/delete`, {
       data: { userId, postId },
     });
   },
   getFavoritePost: async (userId: any, query: String = '') => {
-    return await axiosClient.get(`job-seeker/${userId}/favorite-posts${query}`, userId);
+    return await axiosClient.get(`job-seeker/profile/${userId}/favorite-posts${query}`);
   },
 };
 export default postApi;

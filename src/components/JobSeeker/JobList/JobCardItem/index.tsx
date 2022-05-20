@@ -2,6 +2,7 @@ import { Card, Col, Image, Row, Tag } from 'antd';
 import postApi from 'api/postApi';
 import Link from 'next/link';
 import React, { useState } from 'react';
+import { useAppSelector } from 'redux/hooks';
 import { Post } from 'types';
 import { timeAgo } from 'utils/date_time';
 import { HeroIcon } from 'utils/HeroIcon';
@@ -12,12 +13,13 @@ type Props = {
 
 const JobCardItem = (props: Props) => {
   const [isLiked, setIsLiked] = useState(props.data.isFavorited);
+  const idUser = useAppSelector((state) => state.auth.user?._id);
   const handleLike = async () => {
     try {
       if (isLiked) {
-        const result = await postApi.deleteFavoritePost('6253d28a27aa74eb68b2988e', props.data._id);
+        const result = await postApi.deleteFavoritePost(idUser, props.data._id);
       } else {
-        const result = await postApi.addFavoritePost('6253d28a27aa74eb68b2988e', props.data._id);
+        const result = await postApi.addFavoritePost(idUser, props.data._id);
       }
       setIsLiked(!isLiked);
     } catch (error) {

@@ -11,6 +11,7 @@ const { Search } = Input;
 type Props = {
   posts: Post[];
   categoryOption: Option[];
+  totalItems: number;
 };
 
 type Option = {
@@ -20,7 +21,7 @@ type Option = {
 const Jobs = (props: Props) => {
   const { categoryOption } = props;
   const [posts, setPosts] = useState<Post[]>(props.posts);
-  const [totalSize, setTotalSize] = useState<number>(0);
+  const [totalSize, setTotalSize] = useState<number>(props.totalItems);
   const [query, setQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<Array<String | Number>>([]);
   const [selectedSalary, setSelectedSalary] = useState<String | Number>();
@@ -89,7 +90,7 @@ const Jobs = (props: Props) => {
     }
   };
 
-  const handleNextPage = async (currPage: number) => {
+  const handleChangePage = async (currPage: number) => {
     router.push(`${router.basePath}?page=${currPage}`);
     try {
       const tmp = query.length > 0 ? `${query}&page=${currPage}` : `?page=${currPage}`;
@@ -157,7 +158,7 @@ const Jobs = (props: Props) => {
             total={totalSize}
             pageSize={PAGE_SIZE}
             showSizeChanger={false}
-            onChange={(currPage) => handleNextPage(currPage)}
+            onChange={(currPage) => handleChangePage(currPage)}
           />
         )}
       </Row>
@@ -169,7 +170,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const resPosts = await postApi.getPosts();
     const resFilterOption = await postApi.getFilterOption();
-    const res = await postApi.getFilterOption();
     return {
       props: {
         posts: resPosts.data.data,
@@ -179,6 +179,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             value: e._id,
           };
         }),
+        totalItems: resPosts.data.totalItems,
       },
     };
   } catch (error) {
