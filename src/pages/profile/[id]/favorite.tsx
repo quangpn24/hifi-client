@@ -4,33 +4,14 @@ import JobCardItem from 'components/JobSeeker/JobList/JobCardItem';
 import { PAGE_SIZE } from 'constant/others';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { PostItem } from 'types';
+import { Post } from 'types';
 
 type Props = {};
 
 const FavoriteList = (props: Props) => {
-  const [data, setData] = useState<Array<PostItem>>([]);
+  const [data, setData] = useState<Array<Post>>([]);
   const [totalSize, setTotalSize] = useState<number>(0);
   const router = useRouter();
-  const convertToPostType = (data: any) => {
-    const posts: Array<PostItem> = data.map((e: any) => {
-      const post = e.post;
-      return {
-        title: post.title,
-        companyName: post.company?.name,
-        jobCategories: post.jobCategories,
-        _id: post._id,
-        skill: post.skillTags,
-        address: post?.locations[0],
-        image: '',
-        salary: post.salary,
-        updatedAt: new Date(post.updatedAt),
-        isFavorited: true,
-      };
-    });
-    console.log(posts);
-    return posts;
-  };
 
   // const handleSearch = async (value: String) => {
   //   if (value.length > 0) router.push(`${router.basePath}?search=${value}`);
@@ -52,8 +33,7 @@ const FavoriteList = (props: Props) => {
     try {
       const res = await postApi.getFavoritePost(`?page=${currPage}`);
       if (res.data.data) {
-        const posts = convertToPostType(res.data.data);
-        setData(posts);
+        setData(res.data.data);
         setTotalSize(res.data.totalItems);
       }
     } catch (error) {
@@ -66,8 +46,7 @@ const FavoriteList = (props: Props) => {
       try {
         const res = await postApi.getFavoritePost('6253d28a27aa74eb68b2988e');
         if (res.data.data) {
-          const posts = convertToPostType(res.data.data);
-          setData(posts);
+          setData(res.data.data.post);
           setTotalSize(res.data.totalItems);
         }
       } catch (error) {

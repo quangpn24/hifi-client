@@ -21,6 +21,7 @@ const Jobs = (props: Props) => {
   const { categoryOption } = props;
   const [posts, setPosts] = useState<Post[]>(props.posts);
   const [totalSize, setTotalSize] = useState<number>(0);
+  const [query, setQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<Array<String | Number>>([]);
   const [selectedSalary, setSelectedSalary] = useState<String | Number>();
   const router = useRouter();
@@ -48,38 +49,39 @@ const Jobs = (props: Props) => {
 
   const handleFilter = async () => {
     try {
-      let query = '';
+      let queryTmp = '';
       if (selectedCategory.length > 0) {
-        query = `?jobCategory=${selectedCategory.join(',')}`;
+        queryTmp = `?jobCategory=${selectedCategory.join(',')}`;
       } else {
-        query = '?';
+        queryTmp = '?';
       }
       if (selectedSalary) {
-        if (query.length > 1) query += '&';
+        if (queryTmp.length > 1) queryTmp += '&';
         switch (selectedSalary) {
           case '0': {
-            query += 'salary[end]=10000000';
+            queryTmp += 'salary[end]=10000000';
             break;
           }
           case '1': {
-            query += 'salary[start]=10000000&salary[end]=20000000';
+            queryTmp += 'salary[start]=10000000&salary[end]=20000000';
             break;
           }
           case '2': {
-            query += 'salary[start]=20000000';
+            queryTmp += 'salary[start]=20000000';
             break;
           }
           case '3': {
-            query += 'salary[negotiable]=true';
+            queryTmp += 'salary[negotiable]=true';
             break;
           }
           case 'all': {
-            query += '';
+            queryTmp += '';
             break;
           }
         }
       }
-      const res = await postApi.getPosts(query);
+      setQuery(queryTmp);
+      const res = await postApi.getPosts(queryTmp);
       setPosts(res.data.data);
       setTotalSize(res.data.totalItems);
     } catch (error) {
@@ -90,6 +92,7 @@ const Jobs = (props: Props) => {
   const handleNextPage = async (currPage: number) => {
     router.push(`${router.basePath}?page=${currPage}`);
     try {
+      const tmp = query.length > 0 ? `${query}&page=${currPage}` : `?page=${currPage}`;
       const res = await postApi.getPosts(`?page=${currPage}`);
       if (res.data.data) {
         setPosts(res.data.data);
