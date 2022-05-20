@@ -5,6 +5,7 @@ import axios from 'axios';
 import { validateMessages } from 'constant/validateMessages';
 import dayjs from 'dayjs';
 import React, { useImperativeHandle, useState } from 'react';
+import { User } from 'types';
 import Avatar from '../Avatar';
 interface IProps {
   user?: User;

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse, NextFetchEvent } from 'next/server';
 
 const noAuthPaths = ['/auth/login', '/auth/register'];
-const publicPaths = ['/'];
+const publicPaths = ['/', '/job-posts'];
 export function middleware(req: NextRequest, ev: NextFetchEvent) {
   const url = req.nextUrl.clone();
 
@@ -17,6 +17,5 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
       return NextResponse.redirect(url);
     }
   }
-
   return NextResponse.next();
 }

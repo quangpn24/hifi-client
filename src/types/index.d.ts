@@ -46,15 +46,16 @@ type Post = Partial<{
   _id: string;
   title: string;
   jobType: string;
-  categories: string[];
+  jobCategory: Subcategory;
   salary: Salary;
-  description: string;
+  description: any;
   skillTags: Skill[];
   preferedLangs: string[];
   locations: WorkLocation[];
   photoFile: any;
   postPhoto: string;
   company: Company;
+  updatedAt: string;
 }>;
 
 type Skill = {
@@ -81,9 +82,8 @@ type Salary = {
 };
 
 type WorkLocation = {
-  id: string;
-  name?: string;
-  city?: string;
+  _id: string;
+  officeName?: string;
   address?: string;
 };
 
@@ -160,19 +160,4 @@ type Application = {
   post: Post;
   createAt: Date;
   updatedAt: Date;
-};
-
-export type {
-  Post,
-  Salary,
-  Skill,
-  WorkLocation,
-  Category,
-  Subcategory,
-  Message,
-  Room,
-  User,
-  Notification,
-  Chatter,
-  Application,
 };

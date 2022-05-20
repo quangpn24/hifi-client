@@ -12,6 +12,7 @@ import { GetServerSideProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import dayjs from 'dayjs';
 import { ApplicationStatusMap } from 'components/application/StatusSideBar';
+import { Application } from 'types';
 type Props = {
   application: Application;
 };
