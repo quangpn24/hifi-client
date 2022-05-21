@@ -1,6 +1,7 @@
 import { DownOutlined, MenuOutlined } from '@ant-design/icons';
 import { Button, Col, Drawer, Menu, Row } from 'antd';
 import axios from 'axios';
+import { NO_AUTH_PATHS } from 'constant';
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { authActions } from 'redux/reducers/authSlice';
 import { selectUser } from 'redux/selectors';
+import Utils from 'utils';
 import logo from '/public/images/Logo.svg';
 const { SubMenu } = Menu;
 
@@ -22,8 +24,7 @@ interface menuData {
 interface Props {
   menu: Array<menuData>;
 }
-const noAuthPaths = ['/auth/login', '/auth/register'];
-const publicPaths = ['/', '/job-posts', '/companies'];
+
 const Header: NextPage<Props> = (props) => {
   const { menu } = props;
   const user = useAppSelector(selectUser);
@@ -59,8 +60,8 @@ const Header: NextPage<Props> = (props) => {
   const handleLogout = async () => {
     try {
       await axios.get('/api/auth/logout');
-      if (!(noAuthPaths.includes(router.pathname) || publicPaths.includes(router.pathname))) {
-        router.replace('/auth/login');
+      if (!(NO_AUTH_PATHS.includes(router.pathname) || Utils.matchPublicPaths(router.pathname))) {
+        router.replace('/auth/login' + '?redirect_url=' + router.pathname);
       }
       dispatch(authActions.logout());
     } catch (error) {

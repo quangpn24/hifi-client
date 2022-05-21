@@ -106,6 +106,14 @@ const UpdateInfoForm = React.forwardRef<any, IProps>(({ onSubmit, user, formType
           {
             required: true,
           },
+          {
+            validator: (rule, value) => {
+              if (value && !/^\d{10}$/.test(value)) {
+                return Promise.reject('Phone number must be 10 digits');
+              }
+              return Promise.resolve();
+            },
+          },
         ]}
         required={false}
       >

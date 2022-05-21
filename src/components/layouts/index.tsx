@@ -7,6 +7,7 @@ import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { authActions } from 'redux/reducers/authSlice';
+import Utils from 'utils';
 import LoadingPage from '../Loading';
 
 const menu = [
@@ -43,7 +44,9 @@ const Layout: React.FC = ({ children }) => {
           if (error?.response?.status === 401) {
             dispatch(authActions.logout());
             axios.get('/api/auth/logout');
-            if (!(noAuthPaths.includes(router.pathname) || publicPaths.includes(router.pathname))) {
+            if (
+              !(noAuthPaths.includes(router.pathname) || Utils.matchPublicPaths(router.pathname))
+            ) {
               Router.replace('/auth/login');
             }
           }
