@@ -8,6 +8,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { authActions } from 'redux/reducers/authSlice';
 import { selectUser } from 'redux/selectors';
+import { Post } from 'types';
 import ResumeInput from './ResumeInput';
 
 type Props = {

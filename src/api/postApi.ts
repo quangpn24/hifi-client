@@ -1,20 +1,16 @@
-import axios from 'axios';
 import axiosClient from './axiosClient';
 
+const url = '/job-seeker/posts';
 const postApi = {
-  getPosts: async () => {
-    const {
-      data: { data },
-    } = await axiosClient.get('job-seeker/posts');
-
-    return data;
+  getPosts: async (query: String = '') => {
+    return await axiosClient.get(`${url}${query}`);
   },
-  getPostDetail: async (postId: string) => {
-    const {
-      data: { data },
-    } = await axiosClient.get('job-seeker/posts/' + postId);
 
-    return data;
+  getById: async (id: any) => {
+    return await axiosClient.get(`${url}/${id}`);
+  },
+  getFilterOption: async () => {
+    return await axiosClient.get(`${url}/filter-option`);
   },
 };
 export default postApi;

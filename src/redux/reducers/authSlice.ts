@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { login, register } from 'redux/actions/authActions';
+import { User } from 'types';
 
 export type AuthState = Partial<{
   accessToken: string;

@@ -43,15 +43,16 @@ type Post = Partial<{
   _id: string;
   title: string;
   jobType: string;
-  categories: string[];
+  jobCategory: Subcategory;
   salary: Salary;
-  description: string;
+  description: any;
   skillTags: Skill[];
   preferedLangs: string[];
   locations: WorkLocation[];
   photoFile: any;
   postPhoto: string;
   company: Company;
+  updatedAt: string;
 }>;
 type Skill = {
   _id: string;
@@ -75,9 +76,8 @@ type Salary = {
 };
 
 type WorkLocation = {
-  id: string;
-  name?: string;
-  city?: string;
+  _id: string;
+  officeName?: string;
   address?: string;
 };
 type Award = {
@@ -89,15 +89,6 @@ type Award = {
   notes: string;
 };
 
-type Category = {
-  _id: string;
-  name: string;
-  subcategories: Subcategory[];
-};
-type Subcategory = {
-  _id: string;
-  name: string;
-};
 type UploadFile = {
   fileName: string;
   url: string;
@@ -112,4 +103,18 @@ type Application = {
   post: Post;
   createAt: Date;
   updatedAt: Date;
+};
+export type {
+  User,
+  Company,
+  Gender,
+  Post,
+  Salary,
+  Skill,
+  WorkLocation,
+  Category,
+  Subcategory,
+  Award,
+  UploadFile,
+  Application,
 };
