@@ -6,6 +6,7 @@ import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useEffect, useState } from 'react';
+import { useAppSelector } from 'redux/hooks';
 import { Post } from 'types';
 import { HeroIcon } from 'utils/HeroIcon';
 
@@ -16,8 +17,22 @@ type Props = {
 const JobDetails = (props: Props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { post } = props;
+  const [isLiked, setIsLiked] = useState(post?.isFavorited);
+  const idUser = useAppSelector((state) => state.auth.user?._id);
   const showModal = () => {
     setIsModalVisible(true);
+  };
+  const handleLike = async () => {
+    try {
+      if (isLiked) {
+        const result = await postApi.deleteFavoritePost(idUser, post?._id);
+      } else {
+        const result = await postApi.addFavoritePost(idUser, post?._id);
+      }
+      setIsLiked(!isLiked);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className='px-16'>
@@ -37,13 +52,14 @@ const JobDetails = (props: Props) => {
                     icon='ShareIcon'
                     className='!h-[30px] !w-[30px] mr-[10px] border-[1px] border-[#00ADEF] rounded-[4px] p-[2px] text-[#00ADEF]'
                   />
-                  <Tooltip title='Đánh dấu bài viết'>
+                  <div onClick={() => handleLike()}>
                     <HeroIcon
                       icon='HeartIcon'
-                      outline={true}
-                      className='!h-[30px] !w-[30px] mr-[10px] border-[1px] border-[#8B7A9F] rounded-[4px] p-[2px]'
+                      outline={!isLiked}
+                      color={isLiked ? '!text-[#D82727]' : ''}
+                      className='!h-[30px] !w-[30px] mr-[10px] border-[1px] border-[#8B7A9F] rounded-[4px] p-[2px] hover:!text-[#D82727]'
                     />
-                  </Tooltip>
+                  </div>
                 </Col>
               </Row>
 

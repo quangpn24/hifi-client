@@ -1,5 +1,8 @@
 import { Card, Col, Image, Row, Tag } from 'antd';
+import postApi from 'api/postApi';
+import Link from 'next/link';
 import React, { useState } from 'react';
+import { useAppSelector } from 'redux/hooks';
 import { Post } from 'types';
 import { timeAgo } from 'utils/date_time';
 import { HeroIcon } from 'utils/HeroIcon';
@@ -9,9 +12,19 @@ type Props = {
 };
 
 const JobCardItem = (props: Props) => {
-  const [isLike, setIsLike] = useState(false);
-  const Like = () => {
-    setIsLike(!isLike);
+  const [isLiked, setIsLiked] = useState(props.data.isFavorited);
+  const idUser = useAppSelector((state) => state.auth.user?._id);
+  const handleLike = async () => {
+    try {
+      if (isLiked) {
+        const result = await postApi.deleteFavoritePost(idUser, props.data._id);
+      } else {
+        const result = await postApi.addFavoritePost(idUser, props.data._id);
+      }
+      setIsLiked(!isLiked);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <Row className=' mb-[10px] last:mb-0 hover:opacity-90 hover:shadow-lg'>
@@ -64,12 +77,12 @@ const JobCardItem = (props: Props) => {
                 </Tag>
               </Col>
               <Col span={4} className='!flex justify-end'>
-                <div onClick={() => Like()}>
+                <div onClick={() => handleLike()}>
                   <HeroIcon
                     icon='HeartIcon'
-                    outline={!isLike}
+                    outline={!isLiked}
                     size='h-[22px]'
-                    color={isLike ? '!text-[#D82727]' : ''}
+                    color={isLiked ? '!text-[#D82727]' : ''}
                     className=' hover:!text-[#D82727]'
                   />
                 </div>
