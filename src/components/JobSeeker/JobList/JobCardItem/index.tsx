@@ -1,6 +1,7 @@
 import { Card, Col, Image, Row, Tag } from 'antd';
 import postApi from 'api/postApi';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
 import { Post } from 'types';
@@ -14,14 +15,19 @@ type Props = {
 const JobCardItem = (props: Props) => {
   const [isLiked, setIsLiked] = useState(props.data.isFavorited);
   const idUser = useAppSelector((state) => state.auth.user?._id);
+  const router = useRouter();
   const handleLike = async () => {
     try {
-      if (isLiked) {
-        const result = await postApi.deleteFavoritePost(idUser, props.data._id);
+      if (idUser) {
+        if (isLiked) {
+          const result = await postApi.deleteFavoritePost(idUser, props.data._id);
+        } else {
+          const result = await postApi.addFavoritePost(idUser, props.data._id);
+        }
+        setIsLiked(!isLiked);
       } else {
-        const result = await postApi.addFavoritePost(idUser, props.data._id);
+        router.push('/auth/login');
       }
-      setIsLiked(!isLiked);
     } catch (error) {
       console.log(error);
     }
