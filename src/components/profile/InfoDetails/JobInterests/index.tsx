@@ -29,7 +29,7 @@ const JobInterests = () => {
         setJobInterest(data);
       })
       .catch((err) => {
-        console.log('getJobInterest: ', err);
+        console.log('getJobInterest Error: ', err);
       });
   }, []);
 

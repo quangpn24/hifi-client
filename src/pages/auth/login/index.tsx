@@ -13,7 +13,10 @@ const LoginPage: NextPage<Props> = () => {
   const router = useRouter();
   useEffect(() => {
     if (accessToken) {
-      router.push('/');
+      const redirectUrl = (router.query.redirect_url as string)?.startsWith('/')
+        ? router.query.redirect_url
+        : '/';
+      router.push(redirectUrl as string);
     }
   }, [accessToken, router]);
 
