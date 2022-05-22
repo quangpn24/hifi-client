@@ -21,6 +21,7 @@ const { Option } = Select;
 const years = new Array(40)
   .fill(0)
   .map((_, index) => index + 1990)
+  .filter((year) => year <= new Date().getFullYear())
   .sort((a, b) => b - a);
 type MonthYear = {
   month?: number;

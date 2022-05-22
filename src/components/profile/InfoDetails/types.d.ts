@@ -32,13 +32,11 @@ type JobInterest = {
     job: string;
     role: string;
   }[];
-  preference: {
-    typesOfOpportunity: [];
-    currencyCode: string;
-    workLocation: string;
-    salaryExpectation: number;
-    willingToWorkRemotely: boolean;
-  };
+  typesOfOpportunity: [];
+  currencyCode: string;
+  workLocation: string;
+  salaryExpectation: number;
+  willingToWorkRemotely: boolean;
 };
 type InterestField = {
   job: string;

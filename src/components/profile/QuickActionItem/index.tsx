@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React from 'react';
 import styles from '../styles.module.css';
 type Props = {
@@ -8,9 +7,9 @@ type Props = {
 
 const QuickActionItem = ({ icon, text }: Props) => {
   return (
-    <div className={classNames(styles['action-item'])}>
+    <div className={styles['action-item']}>
       {icon}
-      <p className='mt-2 !mb-0'>{text}</p>
+      <p className='!mb-0 ml-1'>{text}</p>
     </div>
   );
 };

@@ -22,6 +22,7 @@ type User = {
     github: string;
     twitter: string;
   };
+  candidateStatus: 'I_AM_LOOKING_FOR_JOB' | 'OPEN_FOR_OPPORTUNITIES' | 'I_AM_NOT_INTERESTED_IN_JOB';
 };
 type Gender = 'MALE' | 'FEMALE';
 type Company = {

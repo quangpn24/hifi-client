@@ -33,7 +33,7 @@ const ApplicationList = (props: Props) => {
   }, [status]);
 
   return (
-    <div className='w-full ml-12'>
+    <div className='w-full ml-12 overflow-auto'>
       <h3 className='text-lg font-bold px-3'>{applications.length} Applications</h3>
       <Space direction='vertical' size={18} className='w-full max-h- overflow-auto p-3'>
         {loading ? (

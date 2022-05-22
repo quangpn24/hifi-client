@@ -8,7 +8,6 @@ const MainProfile = (props: Props) => {
   return (
     <div>
       <PersonalInfo />
-      <InfoDetails />
     </div>
   );
 };

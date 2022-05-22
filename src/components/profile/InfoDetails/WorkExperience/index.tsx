@@ -115,7 +115,8 @@ const WorkExperience = (props: Props) => {
             ))
           ) : (
             <ActionSuggestion
-              text='No'
+              text='77.9% of employers surveyed consider work experience to be a crucial data point in job applications.
+               So be sure to fill up this section to raise your chances of securing an interview!'
               textButton='Add work experience'
               onClick={() => {
                 setVisible(true);

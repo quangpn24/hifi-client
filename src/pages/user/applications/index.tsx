@@ -10,7 +10,7 @@ const ApplicationsPage = (props: Props) => {
   return (
     <div className='p-8'>
       <h1>My Applications</h1>
-      <div className='flex'>
+      <div className='flex min-h-screen max-h-32'>
         <StatusSideBar />
         <ApplicationList />
       </div>

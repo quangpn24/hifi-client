@@ -10,6 +10,7 @@ export const ApplicationStatusMap = new Map([
     {
       key: 'ALL',
       text: 'All',
+      color: 'primary',
     },
   ],
   [
@@ -17,6 +18,7 @@ export const ApplicationStatusMap = new Map([
     {
       key: 'NEW',
       text: 'Pending Review',
+      color: 'lime',
     },
   ],
   [
@@ -24,6 +26,7 @@ export const ApplicationStatusMap = new Map([
     {
       key: 'IN_PROGRESS',
       text: 'In Progress',
+      color: 'processing',
     },
   ],
   [
@@ -31,6 +34,7 @@ export const ApplicationStatusMap = new Map([
     {
       key: 'HIRED',
       text: 'Hired',
+      color: 'success',
     },
   ],
   [
@@ -38,6 +42,7 @@ export const ApplicationStatusMap = new Map([
     {
       key: 'UNSUITABLE',
       text: 'Unsuitable',
+      color: 'default',
     },
   ],
 ]);

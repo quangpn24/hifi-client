@@ -10,7 +10,7 @@ type Props = {
 const ActionSuggestion = ({ onClick, text, textButton }: Props) => {
   return (
     <div className='flex flex-col justify-center items-center'>
-      <p className='mb-2 text-gray-600 text-base'>{text}</p>
+      <p className='mb-2 text-gray-600 text-base text-center px-6'>{text}</p>
       <Button
         icon={<PlusCircleIcon className='w-5 h-5 text-primary-color' />}
         className='child:text-primary-color flex gap-1 items-center font-bold'

@@ -10,20 +10,17 @@ type Props = {
   awards?: Award[];
 };
 const { Header, Content, Footer } = Layout;
-const ProfilePage: NextPage<Props> = () => {
+const ProfilePreviewPage: NextPage<Props> = () => {
   return (
     <div className='py-6'>
+      <PersonalInfo />
       <Row gutter={[16, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
         <Col lg={16} md={24}>
-          <PersonalInfo />
-        </Col>
-        <Col lg={8} md={24}>
-          <ToolSidebar />
+          <InfoDetails />
         </Col>
       </Row>
-      <InfoDetails />
     </div>
   );
 };
 
-export default ProfilePage;
+export default ProfilePreviewPage;
