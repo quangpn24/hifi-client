@@ -54,6 +54,7 @@ type Post = Partial<{
   postPhoto: string;
   company: Company;
   updatedAt: string;
+  isFavorited: Boolean;
 }>;
 type Skill = {
   _id: string;
