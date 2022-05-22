@@ -32,6 +32,7 @@ const Header: NextPage<Props> = (props) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [visible, setVisible] = useState(false);
+  const idUser = useAppSelector((state) => state.auth.user?._id);
 
   const showDrawer = () => {
     setVisible(true);
@@ -121,6 +122,9 @@ const Header: NextPage<Props> = (props) => {
             </>
           ) : (
             <div className='space-x-4'>
+              <Button key='signup' type='dashed' href={`/profile/${idUser}/favorite`}>
+                <span className='font-semibold'>Favorite post</span>
+              </Button>
               <Button key='signup' type='dashed' href='/profile'>
                 <span className='font-semibold'>Profile</span>
               </Button>
