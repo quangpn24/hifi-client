@@ -1,54 +1,12 @@
 import { Menu, MenuProps } from 'antd';
+import { APPLICATION_STATUS_MAP } from 'constant';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
 type Props = {};
 
-export const ApplicationStatusMap = new Map([
-  [
-    'ALL',
-    {
-      key: 'ALL',
-      text: 'All',
-      color: 'primary',
-    },
-  ],
-  [
-    'NEW',
-    {
-      key: 'NEW',
-      text: 'Pending Review',
-      color: 'lime',
-    },
-  ],
-  [
-    'IN_PROGRESS',
-    {
-      key: 'IN_PROGRESS',
-      text: 'In Progress',
-      color: 'processing',
-    },
-  ],
-  [
-    'HIRED',
-    {
-      key: 'HIRED',
-      text: 'Hired',
-      color: 'success',
-    },
-  ],
-  [
-    'UNSUITABLE',
-    {
-      key: 'UNSUITABLE',
-      text: 'Unsuitable',
-      color: 'default',
-    },
-  ],
-]);
-
 const StatusSideBar = (props: Props) => {
-  const [status, setStatus] = useState(ApplicationStatusMap.keys().next().value);
+  const [status, setStatus] = useState(APPLICATION_STATUS_MAP.keys().next().value);
   const router = useRouter();
   const handleClick: MenuProps['onClick'] = (e) => {
     setStatus(e.key);
@@ -59,13 +17,13 @@ const StatusSideBar = (props: Props) => {
   return (
     <Menu
       style={{ width: 256 }}
-      mode={'vertical'}
+      mode={'inline'}
       theme={'light'}
       selectedKeys={[status]}
       onClick={handleClick}
     >
-      {Array.from(ApplicationStatusMap).map(([key, value]) => (
-        <Menu.Item key={value.key}>{value.text.toUpperCase()}</Menu.Item>
+      {Array.from(APPLICATION_STATUS_MAP).map(([key, value]) => (
+        <Menu.Item key={key}>{value.text.toUpperCase()}</Menu.Item>
       ))}
     </Menu>
   );

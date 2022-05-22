@@ -1,18 +1,15 @@
-import React, { useEffect } from 'react';
-import { ChevronLeftIcon } from '@heroicons/react/solid';
-import { Col, Divider, Row, Space } from 'antd';
-import ApplicationItem from 'components/application/ApplicationItem';
-import Image from 'next/image';
 import { CalendarIcon, ExternalLinkIcon, EyeIcon } from '@heroicons/react/outline';
-import JobDetails from 'components/application/JobDetails';
-import Link from 'next/link';
+import { ChevronLeftIcon } from '@heroicons/react/solid';
+import { Col, Divider, Row } from 'antd';
 import applicationApi from 'api/applicationApi';
-import { useRouter } from 'next/router';
-import { GetServerSideProps } from 'next';
-import { ParsedUrlQuery } from 'querystring';
+import JobDetails from 'components/application/JobDetails';
+import { APPLICATION_STATUS_MAP } from 'constant';
 import dayjs from 'dayjs';
-import { ApplicationStatusMap } from 'components/application/StatusSideBar';
-import { Application } from 'types';
+import { GetServerSideProps } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ParsedUrlQuery } from 'querystring';
+import React from 'react';
 type Props = {
   application: Application;
 };
@@ -55,7 +52,7 @@ const ApplicationDetail = ({ application }: Props) => {
                 </p>
               </div>
               <span className='bg-slate-600 px-3 py-1 text-center inline-block rounded-3xl text-white'>
-                {ApplicationStatusMap.get(application.status)?.text}
+                {APPLICATION_STATUS_MAP.get(application.status)?.text}
               </span>
             </div>
           </div>

@@ -1,24 +1,55 @@
-import { CheckCircleOutlined } from '@ant-design/icons';
 import { EyeIcon } from '@heroicons/react/outline';
 import { ChevronRightIcon } from '@heroicons/react/solid';
-import { Button, Col, Progress, Row } from 'antd';
-import React from 'react';
+import { Progress } from 'antd';
+import jobInterestedApi from 'api/jobInterestApi';
+import { JOBSEEKER_STATUS } from 'constant';
+import dayjs from 'dayjs';
+import React, { useEffect } from 'react';
+import { useAppSelector } from 'redux/hooks';
+import { selectUser } from 'redux/selectors';
 import InstructionItem from '../InstructionItem';
 import QuickActionItem from '../QuickActionItem';
-import ShortcutItem from '../QuickActionItem';
 import styles from '../styles.module.css';
 import UpdateStatusModal from './UpdateStatusModal';
 type Props = {};
 
 const ToolSidebar = (props: Props) => {
+  const user = useAppSelector(selectUser);
   const [visible, setVisible] = React.useState(false);
+  const [jobInterest, setJobInterest] = React.useState<JobInterest>();
+
+  useEffect(() => {
+    let isMounted = true;
+    jobInterestedApi
+      .getJobInterest()
+      .then((data) => {
+        if (isMounted) {
+          setJobInterest(data);
+        }
+      })
+      .catch((err) => {
+        console.log('getJobInterest Error: ', err);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <>
       <div>
         <h3 className='text-xl text-gray-600 tracking-wide'>Job Status</h3>
         <div className={styles.status} onClick={() => setVisible(true)}>
-          <p className='!mb-0 text-primary-color'>Select Status</p>
+          <p className='!mb-0 text-primary-color'>
+            {user?.candidateStatus
+              ? `${JOBSEEKER_STATUS.get(user.candidateStatus)?.status}${
+                  dayjs(jobInterest?.preferredStartDate).isSame(new Date(), 'day')
+                    ? ' (Immediately)'
+                    : ''
+                }`
+              : 'Select Status'}
+          </p>
           <ChevronRightIcon className='text-primary-color h-8 w-8' />
         </div>
         <h3 className='text-xl mt-4 text-gray-600 tracking-wide'>Quick Actions</h3>
@@ -44,7 +75,11 @@ const ToolSidebar = (props: Props) => {
           </div>
         </div>
       </div>
-      <UpdateStatusModal visible={visible} onCancel={() => setVisible(false)} />
+      <UpdateStatusModal
+        visible={visible}
+        onCancel={() => setVisible(false)}
+        preferredStartDate={jobInterest?.preferredStartDate}
+      />
     </>
   );
 };

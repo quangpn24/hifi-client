@@ -84,7 +84,6 @@ const ResumeSection = ({}: Props) => {
     setResume(user?.resume ? { ...user?.resume } : undefined);
   }, [user?.resume]);
 
-  console.log('resume: ', resume);
   return (
     <>
       <div className='mb-8'>

@@ -20,7 +20,7 @@ module.exports = {
         'text-secondary-color': '#685879',
         'text-link-color': '#5A69EB',
         'success-color': '#68D8B8',
-        'error-color': '#FF713B',
+        'error-color': '#ec272b',
         'warning-color': '#F7C96E',
         'white-color': '#FFFFFF',
       },

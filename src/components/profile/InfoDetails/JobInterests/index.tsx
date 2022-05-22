@@ -96,12 +96,10 @@ const JobInterests = () => {
   };
 
   const handleFieldsFormSubmit = async (value: any) => {
-    console.log('handleFieldsFormSubmit: ', value);
     setJobInterest((prev) => ({ ...prev, fields: [...value.fields] }));
     setFormSubmitState((prev) => ({ ...prev, fieldsForm: true }));
   };
   const handleReferenceFormSubmit = async (value: any) => {
-    console.log('handleReferenceFormSubmit: ', value);
     setJobInterest((prev) => (prev ? { ...prev, ...value } : { ...value }));
     setFormSubmitState((prev) => ({ ...prev, preferenceForm: true }));
   };

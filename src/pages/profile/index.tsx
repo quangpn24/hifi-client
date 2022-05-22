@@ -4,7 +4,6 @@ import PersonalInfo from 'components/profile/PersonalInfo';
 import ToolSidebar from 'components/profile/ToolSidebar';
 import { NextPage } from 'next';
 import React from 'react';
-import { Award } from 'types';
 
 type Props = {
   awards?: Award[];

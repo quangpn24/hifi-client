@@ -5,6 +5,7 @@ import { NO_AUTH_PATHS } from 'constant';
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import RightContent from './RightContent';
 import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
@@ -69,6 +70,7 @@ const Header: NextPage<Props> = (props) => {
       console.log('handleLogout Error: ', error);
     }
   };
+
   return (
     <div className='sticky inset-x-0 top-0 bg-white z-10 drop-shadow-xl'>
       <Row justify='space-between' className='px-16 py-4 '>
@@ -94,9 +96,12 @@ const Header: NextPage<Props> = (props) => {
           </div>
           <div className='mobileHidden'>
             <Row align='middle'>
-              <Button type='link' className='w-16' href='/'>
-                <Image alt='' src={logo} />
-              </Button>
+              <Link href='/' passHref={true}>
+                <Button type='link' className='w-16'>
+                  <Image alt='' src={logo} />
+                </Button>
+              </Link>
+
               <Menu
                 onClick={(e) => setPathname([e.key])}
                 selectedKeys={pathname}
@@ -111,31 +116,7 @@ const Header: NextPage<Props> = (props) => {
           </div>
         </Col>
         <Col>
-          {!user ? (
-            <>
-              <Button key='login' type='link' href='/auth/login'>
-                <span className='font-semibold text-text-secondary'>Login</span>
-              </Button>
-              <Button key='signup' type='primary' href='/auth/login'>
-                <span className='font-semibold text-[#fff] '>Sign up</span>
-              </Button>
-            </>
-          ) : (
-            <div className='space-x-4'>
-              <Button key='signup' type='dashed' href={`/profile/${idUser}/favorite`}>
-                <span className='font-semibold'>Favorite post</span>
-              </Button>
-              <Button key='signup' type='dashed' href='/profile'>
-                <span className='font-semibold'>Profile</span>
-              </Button>
-              <Button key='signup' type='dashed' href='/user/applications'>
-                <span className='font-semibold'>My Application</span>
-              </Button>
-              <Button key='signup' type='dashed' onClick={handleLogout}>
-                <span className='font-semibold'>Log out</span>
-              </Button>
-            </div>
-          )}
+          <RightContent />
         </Col>
       </Row>
     </div>

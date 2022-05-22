@@ -22,9 +22,16 @@ type User = {
     github: string;
     twitter: string;
   };
-  candidateStatus: 'I_AM_LOOKING_FOR_JOB' | 'OPEN_FOR_OPPORTUNITIES' | 'I_AM_NOT_INTERESTED_IN_JOB';
+  candidateStatus:
+    | 'I_AM_LOOKING_FOR_JOB'
+    | 'OPEN_FOR_OPPORTUNITIES'
+    | 'I_AM_NOT_INTERESTED_IN_JOB'
+    | string;
+  notifications: Noti[];
 };
+
 type Gender = 'MALE' | 'FEMALE';
+
 type Company = {
   _id: string;
   email: string;
@@ -56,15 +63,18 @@ type Post = Partial<{
   updatedAt: string;
   isFavorited: Boolean;
 }>;
+
 type Skill = {
   _id: string;
   text: string;
 };
+
 type Category = {
   _id: string;
   name: string;
   subcategories: Subcategory[];
 };
+
 type Subcategory = {
   _id: string;
   name: string;
@@ -82,6 +92,34 @@ type WorkLocation = {
   officeName?: string;
   address?: string;
 };
+
+type Message = {
+  userId: string;
+  content: string;
+  createdAt: string;
+};
+
+type Noti = {
+  message: string;
+  createdAt: Date;
+  redirectUrl: string;
+  _id: string;
+  isRead: boolean;
+};
+
+type Room = {
+  _id: string;
+  messages: Message[];
+  chatters: Chatter[];
+};
+
+type Chatter = {
+  chatterId: string;
+  name: string;
+  avatar: string;
+  type: string;
+};
+
 type Award = {
   _id: string;
   userId: string;
@@ -91,10 +129,22 @@ type Award = {
   notes: string;
 };
 
+type Category = {
+  _id: string;
+  name: string;
+  subcategories: Subcategory[];
+};
+
+type Subcategory = {
+  _id: string;
+  name: string;
+};
+
 type UploadFile = {
   fileName: string;
   url: string;
 };
+
 type Application = {
   id: string;
   resume: UploadFile;
@@ -105,18 +155,4 @@ type Application = {
   post: Post;
   createAt: Date;
   updatedAt: Date;
-};
-export type {
-  User,
-  Company,
-  Gender,
-  Post,
-  Salary,
-  Skill,
-  WorkLocation,
-  Category,
-  Subcategory,
-  Award,
-  UploadFile,
-  Application,
 };

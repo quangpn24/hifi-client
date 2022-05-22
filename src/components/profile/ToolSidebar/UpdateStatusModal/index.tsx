@@ -1,14 +1,19 @@
-import { Modal, Radio } from 'antd';
+import { message, Modal, Radio } from 'antd';
+import userApi from 'api/userApi';
+import axios from 'axios';
 import DatePicker from 'components/commons/DatePicker';
+import { JOBSEEKER_STATUS } from 'constant';
 import dayjs from 'dayjs';
 import React from 'react';
-import { useAppSelector } from 'redux/hooks';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { authActions } from 'redux/reducers/authSlice';
 import { selectUser } from 'redux/selectors';
 import StatusCard from '../StatusCard';
 
 type Props = {
   visible?: boolean;
   onCancel?: () => void;
+  preferredStartDate?: Date;
 };
 
 const WorkDateOption = [
@@ -16,25 +21,46 @@ const WorkDateOption = [
   { label: 'I can start after', value: 'AFTER' },
   { label: 'Not sure yet', value: 'NOT' },
 ];
-const statusOptions = [
-  { label: "I'm not open to opportunities", value: 'I_AM_NOT_INTERESTED_IN_JOB' },
-  { label: "I'm open to opportunities", value: 'OPEN_FOR_OPPORTUNITIES' },
-  { label: "I'm actively looking for job", value: 'I_AM_LOOKING_FOR_JOB' },
-];
-const UpdateStatusModal = ({ visible, onCancel }: Props) => {
+
+const UpdateStatusModal = ({
+  visible,
+  onCancel,
+  preferredStartDate: preferredStartDateData,
+}: Props) => {
   const user = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
   const [status, setStatus] = React.useState<string | undefined>(user?.candidateStatus);
-  const [preferredStartDate, setPreferredStartDate] = React.useState<Date | undefined>();
-  const [workDateOption, setWorkDateOption] = React.useState<string | undefined>();
-  const handleOk = () => {
-    console.log('status', status);
-    console.log('preferredStartDate', preferredStartDate);
-    console.log('workDateOption', workDateOption);
+  const [preferredStartDate, setPreferredStartDate] = React.useState<Date | undefined>(
+    preferredStartDateData
+  );
+  const [workDateOption, setWorkDateOption] = React.useState<string | undefined>(() => {
+    return !preferredStartDateData ? 'NOT' : 'IMMEDIATELY';
+  });
+  const handleOk = async () => {
+    if (!status) {
+      return;
+    }
+    try {
+      const user = await userApi.updateMe({ candidateStatus: status, preferredStartDate });
+      dispatch(
+        authActions.update({
+          user,
+        })
+      );
+      message.success('Update status successfully!');
+      onCancel?.();
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        message.error(error?.response?.data.message);
+      } else {
+        message.error('Failed to update status');
+      }
+    }
   };
 
   return (
     <Modal title='STATUS AVAILABILITY ' visible={visible} onOk={handleOk} onCancel={onCancel}>
-      {statusOptions.map((item) => (
+      {Array.from(JOBSEEKER_STATUS.values()).map((item) => (
         <StatusCard
           key={item.value}
           text={item.label}

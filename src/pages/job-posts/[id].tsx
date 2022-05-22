@@ -1,4 +1,4 @@
-import { Button, Card, Col, Divider, Image, Row, Tag, Tooltip } from 'antd';
+import { Button, Card, Col, Divider, Image, Row, Tag } from 'antd';
 import postApi from 'api/postApi';
 import ApplyJobFormModal from 'components/JobPost/ApplyJobForm';
 import DescriptionItem from 'components/JobSeeker/JobList/DescriptionItem';
@@ -6,7 +6,7 @@ import ShareModal from 'components/JobSeeker/JobList/ShareModal';
 import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { ParsedUrlQuery } from 'querystring';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
 import { Post } from 'types';
 import { HeroIcon } from 'utils/HeroIcon';

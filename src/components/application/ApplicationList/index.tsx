@@ -2,7 +2,6 @@ import { Space, Spin } from 'antd';
 import applicationApi from 'api/applicationApi';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { Application } from 'types';
 import ApplicationItem from '../ApplicationItem';
 
 type Props = {};

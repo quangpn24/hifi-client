@@ -1,7 +1,6 @@
-import { User } from 'types';
 import axiosClient from './axiosClient';
 const userApi = {
-  updateMe: async (updated: Partial<User>) => {
+  updateMe: async (updated: Partial<User & { password: string; preferredStartDate: Date }>) => {
     const {
       data: { data },
     } = await axiosClient.put('/job-seeker/me', updated);

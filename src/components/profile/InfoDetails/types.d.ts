@@ -33,6 +33,7 @@ type JobInterest = {
     role: string;
   }[];
   typesOfOpportunity: [];
+  preferredStartDate: Date;
   currencyCode: string;
   workLocation: string;
   salaryExpectation: number;

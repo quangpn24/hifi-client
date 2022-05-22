@@ -270,4 +270,5 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     };
   }
 };
+
 export default Home;
