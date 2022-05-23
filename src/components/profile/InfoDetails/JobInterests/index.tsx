@@ -90,7 +90,6 @@ const JobInterests = () => {
   }, [formSubmitState, mode]);
 
   const handleOk = () => {
-    console.log('jobInterest: ', jobInterest);
     fieldsFormRef.current?.submit();
     preferenceFormRef.current?.submit();
   };

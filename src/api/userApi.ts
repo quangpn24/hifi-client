@@ -17,7 +17,7 @@ const userApi = {
     const {
       data: { data },
     } = await axiosClient.post('job-seeker/me/skills', { skillIds });
-    return { user: data };
+    return { user: data as User };
   },
 };
 export default userApi;

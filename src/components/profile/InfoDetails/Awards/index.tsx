@@ -45,6 +45,7 @@ const AwardsSection: React.FC<Props> = ({ awards: data }: Props) => {
         try {
           await awardApi.deleteAward(value._id);
           setAwards(awards.filter((award) => award._id !== value._id));
+          if (awards.length === 0) changeOverview({ awards: false });
         } catch (error: any) {
           message.error(error.message);
         }
@@ -68,6 +69,7 @@ const AwardsSection: React.FC<Props> = ({ awards: data }: Props) => {
         setSelectedAward(undefined);
       } else {
         const newAward = await awardApi.createAward(data);
+        changeOverview({ awards: true });
         setAwards([...awards, newAward]);
       }
       formRef.current?.resetFields();

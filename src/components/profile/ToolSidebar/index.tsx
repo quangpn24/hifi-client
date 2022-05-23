@@ -15,21 +15,16 @@ import QuickActionItem from '../QuickActionItem';
 import styles from '../styles.module.css';
 import UpdateStatusModal from './UpdateStatusModal';
 type Props = {};
-type OptionsFlags = {
-  [Property in keyof ProfileOverviewType]: boolean;
-};
 const ToolSidebar = (props: Props) => {
   const { loading, profileOverview } = useProfileOverviewContext() as ProfileOverviewContextType;
   const user = useAppSelector(selectUser);
   const [visible, setVisible] = React.useState(false);
   const [jobInterest, setJobInterest] = React.useState<JobInterest>();
-  console.log('profileOverview', profileOverview);
   const keys = Object.keys(profileOverview) as Array<keyof typeof profileOverview>;
-  console.log('keys', keys);
   const completedRate = parseFloat(
     ((1.0 * keys.filter((key) => profileOverview[key] === true).length) / keys.length).toFixed(2)
   );
-  console.log('completedRate', completedRate);
+
   useEffect(() => {
     let isMounted = true;
     jobInterestedApi
@@ -55,11 +50,7 @@ const ToolSidebar = (props: Props) => {
         <div className={styles.status} onClick={() => setVisible(true)}>
           <p className='!mb-0 text-primary-color'>
             {user?.candidateStatus
-              ? `${JOBSEEKER_STATUS.get(user.candidateStatus)?.status}${
-                  dayjs(jobInterest?.preferredStartDate).isSame(new Date(), 'day')
-                    ? ' (Immediately)'
-                    : ''
-                }`
+              ? JOBSEEKER_STATUS.get(user.candidateStatus)?.status
               : 'Select Status'}
           </p>
           <ChevronRightIcon className='text-primary-color h-8 w-8' />

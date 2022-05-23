@@ -23,8 +23,6 @@ const JobDetails = (props: Props) => {
   const [isLiked, setIsLiked] = useState(post?.isFavorited);
   const idUser = useAppSelector((state) => state.auth.user?._id);
 
-  console.log(props.pageURL);
-
   const showModal = () => {
     setIsApplyModalVisible(true);
   };
@@ -178,7 +176,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const res = await postApi.getById(id);
     const host = context.req.headers.host;
     const path = context.req.url;
-    console.log(host);
     return {
       props: {
         post: res.data.data,

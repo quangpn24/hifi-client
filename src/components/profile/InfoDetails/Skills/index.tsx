@@ -11,6 +11,7 @@ import userApi from 'api/userApi';
 import { authActions } from 'redux/reducers/authSlice';
 import { useProfileOverviewContext } from 'context/ProfileContext';
 import HrefContainer from '../HrefContainer';
+import { UsersIcon } from '@heroicons/react/solid';
 
 type Props = {};
 
@@ -54,6 +55,11 @@ const Skills = ({}: Props) => {
     try {
       setLoading(true);
       const { user } = await userApi.updateSkills(data.map((d) => d._id));
+      if (user?.skills.length === 0) {
+        changeOverview({ skills: false });
+      } else {
+        changeOverview({ skills: true });
+      }
       dispatch(authActions.update({ user }));
       setLoading(false);
       setVisible(false);

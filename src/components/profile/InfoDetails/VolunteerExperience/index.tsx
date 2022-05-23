@@ -46,16 +46,21 @@ const VolunteerExperience = (props: Props) => {
     try {
       setLoading(true);
       if (selectedVolunteer) {
-        const updatedEdu = await volunteeringApi.updateVolunteering(selectedVolunteer._id, data);
+        const updatedVolunteering = await volunteeringApi.updateVolunteering(
+          selectedVolunteer._id,
+          data
+        );
         setVolunteerings((prev) => {
           const copy = [...prev];
-          const index = copy.findIndex((edu) => edu._id === updatedEdu._id);
+          const index = copy.findIndex((edu) => edu._id === updatedVolunteering._id);
           if (index !== -1) {
-            copy[index] = updatedEdu;
+            copy[index] = updatedVolunteering;
           }
 
           return copy;
         });
+        changeOverview({ volunteerings: true });
+
         message.success('Update successfully');
         setSelectedVolunteer(undefined);
       } else {
@@ -77,6 +82,9 @@ const VolunteerExperience = (props: Props) => {
         try {
           await volunteeringApi.deleteVolunteering(edu._id);
           setVolunteerings((prev) => prev.filter((e) => e._id !== edu._id));
+          if (volunteerings.length === 0 || volunteerings.length === 1) {
+            changeOverview({ volunteerings: false });
+          }
           message.success('Delete successfully');
         } catch (error: any) {
           message.error(error.message);

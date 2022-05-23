@@ -54,6 +54,7 @@ const Education = () => {
 
           return copy;
         });
+        changeOverview({ education: true });
         message.success('update successfully');
         setSelectedEdu(undefined);
       } else {
@@ -76,6 +77,7 @@ const Education = () => {
           await educationApi.deleteEducation(edu._id);
           setEducations((prev) => prev.filter((e) => e._id !== edu._id));
           message.success('delete successfully');
+          if (educations.length === 0) changeOverview({ education: false });
         } catch (error: any) {
           message.error(error.message);
         }

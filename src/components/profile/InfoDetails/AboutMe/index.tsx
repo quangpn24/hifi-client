@@ -10,11 +10,13 @@ import { selectUser } from 'redux/selectors';
 import { authActions } from 'redux/reducers/authSlice';
 import axios from 'axios';
 import HrefContainer from '../HrefContainer';
+import { useProfileOverviewContext } from 'context/ProfileContext';
 
 const { TextArea } = Input;
 
 const AboutMe = () => {
   const [visible, setVisible] = useState(false);
+  const { changeOverview } = useProfileOverviewContext() as ProfileOverviewContextType;
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const [about, setAbout] = useState<string | undefined>(user?.about);
@@ -24,6 +26,7 @@ const AboutMe = () => {
       setLoading(true);
       const newUser = await userApi.updateMe({ about });
       dispatch(authActions.update({ user: { ...(user ?? newUser), about: about ?? '' } }));
+      changeOverview({ about: true });
       message.success('Update about me successfully');
       setVisible(false);
     } catch (error: any) {

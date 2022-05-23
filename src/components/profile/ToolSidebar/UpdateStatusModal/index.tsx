@@ -88,6 +88,7 @@ const UpdateStatusModal = ({
             className='!mb-3'
           />
           <DatePicker
+            defaultValue={dayjs(preferredStartDateData)}
             disabled={workDateOption === 'NOT' || workDateOption === 'IMMEDIATELY'}
             value={preferredStartDate ? dayjs(preferredStartDate) : undefined}
             onChange={(value) => {

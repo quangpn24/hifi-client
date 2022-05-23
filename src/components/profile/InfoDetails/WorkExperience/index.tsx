@@ -56,11 +56,13 @@ const WorkExperience = (props: Props) => {
           return copyPrev;
         });
 
+        changeOverview({ experience: true });
         setSelectedExp(undefined);
         message.success('Edit work experience successfully');
       } else {
         const newWorkExp = await workExperienceApi.createWorkExperience(value);
         setExps((prev) => [...prev, newWorkExp]);
+        changeOverview({ experience: true });
         message.success('Add new work experience success');
       }
     } catch (error) {}
@@ -76,6 +78,7 @@ const WorkExperience = (props: Props) => {
         try {
           await workExperienceApi.deleteWorkExperience(value._id);
           setExps((prev) => prev.filter((e) => e._id !== value._id));
+          changeOverview({ experience: exps.length > 1 });
           message.success('Delete successfully');
         } catch (error: any) {
           message.error(error.message);

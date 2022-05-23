@@ -3,6 +3,7 @@ import { PaperClipIcon } from '@heroicons/react/outline';
 import { DocumentTextIcon, PencilIcon, TrashIcon } from '@heroicons/react/solid';
 import { Button, Divider, message, Modal } from 'antd';
 import userApi from 'api/userApi';
+import { useProfileOverviewContext } from 'context/ProfileContext';
 import { uploadFile } from 'firebase/services';
 import Link from 'next/link';
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
@@ -22,6 +23,7 @@ type Resume = {
 };
 const ResumeSection = ({}: Props) => {
   const user = useAppSelector(selectUser);
+  const { changeOverview } = useProfileOverviewContext() as ProfileOverviewContextType;
   const dispatch = useAppDispatch();
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -51,6 +53,7 @@ const ResumeSection = ({}: Props) => {
       dispatch(
         authActions.update({ user: { ...(user ? user : updatedUser), resume: updatedUser.resume } })
       );
+      changeOverview({ resume: true });
       message.success('Update resume successfully');
       setVisible(false);
     } catch (error: any) {
