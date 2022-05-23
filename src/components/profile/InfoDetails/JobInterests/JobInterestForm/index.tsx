@@ -1,15 +1,9 @@
 import { MinusCircleIcon, PlusIcon } from '@heroicons/react/outline';
-import { Button, Divider, Form, Input } from 'antd';
-import jobInterestedApi from 'api/jobInterestApi';
+import { Button, Divider, Form } from 'antd';
 import suggestionApi from 'api/suggestionApi';
 import React, { useEffect, useImperativeHandle, useState } from 'react';
-import Utils from 'utils';
 import FieldsInput from './FieldsInput';
-const { TextArea } = Input;
-const layout = {
-  labelCol: { span: 6 },
-  wrapperCol: { span: 18 },
-};
+
 interface IProps {
   fields?: InterestField[];
   formType?: 'update' | 'create';

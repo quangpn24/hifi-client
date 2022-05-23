@@ -1,18 +1,9 @@
-import { Checkbox, Divider, Form, Input, message, Select, Space } from 'antd';
-import { CheckboxValueType } from 'antd/lib/checkbox/Group';
-import suggestionApi from 'api/suggestionApi';
-import React, { useEffect, useImperativeHandle, useState } from 'react';
+import { Divider, Space } from 'antd';
+import React, { useImperativeHandle, useState } from 'react';
 import { Skill } from 'types';
-import Utils from 'utils';
 import Chip from '../Chip';
 import SkillCheckboxGroup from '../SkillCheckboxGroup';
-import SkillsList from '../SkillsList';
 
-const { TextArea } = Input;
-const layout = {
-  labelCol: { span: 6 },
-  wrapperCol: { span: 18 },
-};
 interface IProps {
   skills?: Skill[];
   formType?: 'update' | 'create';

@@ -7,7 +7,7 @@ import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { authActions } from 'redux/reducers/authSlice';
-import Utils from 'utils';
+import { routeHelper } from 'utils';
 import LoadingPage from '../Loading';
 
 const noAuthPaths = ['/auth/login', '/auth/register'];
@@ -33,7 +33,10 @@ const Layout: React.FC = ({ children }) => {
             dispatch(authActions.logout());
             axios.get('/api/auth/logout');
             if (
-              !(noAuthPaths.includes(router.pathname) || Utils.matchPublicPaths(router.pathname))
+              !(
+                noAuthPaths.includes(router.pathname) ||
+                routeHelper.matchPublicPaths(router.pathname)
+              )
             ) {
               Router.replace('/auth/login');
             }
