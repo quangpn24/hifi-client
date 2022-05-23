@@ -2,7 +2,7 @@ import { EditOutlined } from '@ant-design/icons';
 import { Button, Divider, FormInstance, message, Modal } from 'antd';
 import volunteeringApi from 'api/volunteeringApi';
 import React, { useEffect, useRef, useState } from 'react';
-import Utils from 'utils';
+import { dateTimeHelper } from 'utils';
 import ActionSuggestion from '../ActionSuggestion';
 import Header from '../Header';
 import SegmentItem from '../SegmentItem';
@@ -102,7 +102,7 @@ const VolunteerExperience = (props: Props) => {
                 key={vol._id}
                 title={vol.activityName}
                 subtitle={vol.role}
-                timeline={Utils.showTimeline(vol.startDate, vol.endDate)}
+                timeline={dateTimeHelper.showTimeline(vol.startDate, vol.endDate)}
                 descrition={vol.notes}
                 onEdit={() => {
                   setSelectedVolunteer(vol);

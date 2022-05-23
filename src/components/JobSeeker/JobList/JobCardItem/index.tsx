@@ -1,11 +1,10 @@
 import { Card, Col, Image, Row, Tag } from 'antd';
 import postApi from 'api/postApi';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
 import { Post } from 'types';
-import { timeAgo } from 'utils/date_time';
+import { dateTimeHelper } from 'utils';
 import { HeroIcon } from 'utils/HeroIcon';
 
 type Props = {
@@ -79,7 +78,7 @@ const JobCardItem = (props: Props) => {
                   </Tag>
                 ))}
                 <Tag className='!rounded-[4px]'>
-                  {timeAgo(new Date(props.data.updatedAt ?? ''))}
+                  {dateTimeHelper.timeAgo(new Date(props.data.updatedAt ?? ''))}
                 </Tag>
               </Col>
               <Col span={4} className='!flex justify-end'>

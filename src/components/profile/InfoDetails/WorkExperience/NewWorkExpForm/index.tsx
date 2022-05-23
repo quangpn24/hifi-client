@@ -1,7 +1,7 @@
 import { Checkbox, Form, Input } from 'antd';
 import { validateMessages } from 'constant/validateMessages';
 import React, { useEffect, useImperativeHandle, useState } from 'react';
-import Utils from 'utils';
+import { dateTimeHelper } from 'utils';
 import MonthYearSelect from '../../MonthYearSelect';
 
 const { TextArea } = Input;
@@ -33,8 +33,10 @@ const NewWorkExpForm = React.forwardRef<any, IProps>(({ onSubmit, workExp, formT
   }, [workExp?.isPresent]);
   const onFinish = (data: any) => {
     form.submit;
-    data.startDate = Utils.convertMonthYearToDate(data.startDate);
-    data.endDate = !data.isPresent ? Utils.convertMonthYearToDate(data.endDate) : undefined;
+    data.startDate = dateTimeHelper.convertMonthYearToDate(data.startDate);
+    data.endDate = !data.isPresent
+      ? dateTimeHelper.convertMonthYearToDate(data.endDate)
+      : undefined;
     onSubmit?.(data);
     form.resetFields();
   };
@@ -51,8 +53,8 @@ const NewWorkExpForm = React.forwardRef<any, IProps>(({ onSubmit, workExp, formT
       onFinish={onFinish}
       initialValues={{
         ...workExp,
-        startDate: Utils.convertReverseMonthYearToDate(workExp?.startDate),
-        endDate: Utils.convertReverseMonthYearToDate(workExp?.endDate),
+        startDate: dateTimeHelper.convertReverseMonthYearToDate(workExp?.startDate),
+        endDate: dateTimeHelper.convertReverseMonthYearToDate(workExp?.endDate),
       }}
     >
       <Form.Item

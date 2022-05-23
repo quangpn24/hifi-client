@@ -2,7 +2,7 @@ import { EditOutlined } from '@ant-design/icons';
 import { Button, Divider, FormInstance, message, Modal } from 'antd';
 import workExperienceApi from 'api/workExperienceApi';
 import React, { useEffect, useRef, useState } from 'react';
-import Utils from 'utils';
+import { dateTimeHelper } from 'utils';
 import ActionSuggestion from '../ActionSuggestion';
 import Header from '../Header';
 import SegmentItem from '../SegmentItem';
@@ -101,7 +101,7 @@ const WorkExperience = (props: Props) => {
                 key={exp._id}
                 title={exp.jobTitle}
                 subtitle={exp.company}
-                timeline={Utils.showTimeline(exp.startDate, exp.endDate)}
+                timeline={dateTimeHelper.showTimeline(exp.startDate, exp.endDate)}
                 descrition={exp.notes}
                 onEdit={() => {
                   setSelectedExp(exp);

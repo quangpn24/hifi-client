@@ -1,8 +1,8 @@
 import { EditOutlined } from '@ant-design/icons';
 import { Button, Divider, FormInstance, message, Modal } from 'antd';
 import educationApi from 'api/educationApi';
-import React, { useEffect, useRef, useState } from 'react';
-import Utils from 'utils';
+import { useEffect, useRef, useState } from 'react';
+import { dateTimeHelper } from 'utils';
 import Header from '../Header';
 import SegmentItem from '../SegmentItem';
 import NewEducationForm from './NewEducationForm';
@@ -95,7 +95,7 @@ const Education = () => {
               key={e._id}
               title={e.school}
               subtitle={e.fieldStudy}
-              timeline={Utils.showTimeline(e.startDate, e.endDate)}
+              timeline={dateTimeHelper.showTimeline(e.startDate, e.endDate)}
               descrition={e.notes}
               onEdit={() => {
                 setSelectedEdu(e);
