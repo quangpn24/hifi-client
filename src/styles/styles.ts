@@ -1,6 +1,6 @@
 import { Timeline } from 'antd';
 import styled from 'styled-components';
-import { colorHelper } from 'utils';
+import colorHelper from 'utils/colorHelper';
 
 export const TitleText = styled.div`
   font-size: 0.9rem;

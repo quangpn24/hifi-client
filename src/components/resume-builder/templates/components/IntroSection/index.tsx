@@ -2,7 +2,7 @@ import AppIcon from 'components/commons/AppIcon';
 import { IntroState } from 'redux/reducers/introReducer';
 import styled from 'styled-components';
 import { EmployerName, Role } from 'styles/styles';
-import { colorHelper } from 'utils';
+import colorHelper from 'utils/colorHelper';
 
 const ContacInfo = styled.div`
   font-size: 13.4px;

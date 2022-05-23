@@ -1,7 +1,7 @@
 import { Checkbox, Form, Input } from 'antd';
 import { validateMessages } from 'constant/validateMessages';
 import React, { useEffect, useImperativeHandle, useState } from 'react';
-import { dateTimeHelper } from 'utils';
+import dateTimeHelper from 'utils/dateTimeHelper';
 import MonthYearSelect from '../../MonthYearSelect';
 import DegreeSelect from '../DegreeSelect';
 import MajorSelect from '../MajorSelect';

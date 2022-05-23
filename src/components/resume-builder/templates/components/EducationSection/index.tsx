@@ -2,7 +2,7 @@ import MarkdownIt from 'markdown-it';
 import { Education } from 'redux/reducers/educationReducer';
 import styled from 'styled-components';
 import { FlexTimeline, ItalicText, TimelineItem, TitleText } from 'styles/styles';
-import { colorHelper } from 'utils';
+import colorHelper from 'utils/colorHelper';
 
 const BoldText = styled.div`
   font-weight: 500;

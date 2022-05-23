@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "preinstall": "npx npm-force-resolutions"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
@@ -19,11 +20,11 @@
     "array-move": "^4.0.0",
     "axios": "^0.26.0",
     "classnames": "^2.3.1",
-    "file-saver": "^2.0.5",
-    "firebase": "^9.6.8",
     "cookies": "^0.8.0",
     "dayjs": "^1.11.1",
     "express": "^4.17.3",
+    "file-saver": "^2.0.5",
+    "firebase": "^9.6.8",
     "javascript-time-ago": "^2.3.13",
     "less-loader": "^10.2.0",
     "lodash.debounce": "^4.0.8",
@@ -32,13 +33,14 @@
     "next-plugin-antd-less": "^1.8.0",
     "next-redux-wrapper": "^7.0.5",
     "next-share": "^0.13.0",
+    "npm-force-resolutions": "^0.0.10",
     "react": "17.0.2",
     "react-color": "^2.19.3",
     "react-device-detect": "^2.2.2",
     "react-dom": "17.0.2",
+    "react-dropzone": "^12.0.5",
     "react-icons": "^4.3.1",
     "react-markdown-editor-lite": "^1.3.2",
-    "react-dropzone": "^12.0.5",
     "react-quill": "^1.3.5",
     "react-redux": "^7.2.6",
     "react-sortable-hoc": "^2.0.0",
@@ -68,5 +70,8 @@
     "react-icons": "^4.3.1",
     "tailwindcss": "^3.0.23",
     "typescript": "4.5.5"
+  },
+  "resolutions": {
+    "@types/react": "17.0.30"
   }
 }

@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { authActions } from 'redux/reducers/authSlice';
 import { selectUser } from 'redux/selectors';
-import { routeHelper } from 'utils';
+import routeHelper from 'utils/routeHelper';
 import logo from '/public/images/Logo.svg';
 const { SubMenu } = Menu;
 

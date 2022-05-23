@@ -8,7 +8,7 @@ import {
 } from 'components/payroll';
 import { NextPage } from 'next';
 import React, { useEffect, useState } from 'react';
-import { stringHelper } from 'utils';
+import stringHelper from 'utils/stringHelper';
 
 interface FormData {
   totalSalary: number;

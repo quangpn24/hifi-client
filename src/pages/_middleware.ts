@@ -1,6 +1,6 @@
 import { NO_AUTH_PATHS, PUBLIC_PATHS } from 'constant';
 import { NextRequest, NextResponse, NextFetchEvent } from 'next/server';
-import { routeHelper } from 'utils';
+import routeHelper from 'utils/routeHelper';
 
 export function middleware(req: NextRequest, ev: NextFetchEvent) {
   const url = req.nextUrl.clone();

@@ -2,7 +2,7 @@ import MarkdownIt from 'markdown-it';
 import { Award } from 'redux/reducers/awardReducer';
 import styled from 'styled-components';
 import { TitleText } from 'styles/styles';
-import { colorHelper } from 'utils';
+import colorHelper from 'utils/colorHelper';
 
 const DateText = styled.div`
   font-size: 0.6rem;

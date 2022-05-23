@@ -7,7 +7,7 @@ import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { authActions } from 'redux/reducers/authSlice';
-import { routeHelper } from 'utils';
+import routeHelper from 'utils/routeHelper';
 import LoadingPage from '../Loading';
 
 const noAuthPaths = ['/auth/login', '/auth/register'];

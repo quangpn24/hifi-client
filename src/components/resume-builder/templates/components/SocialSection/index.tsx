@@ -1,7 +1,7 @@
 import AppIcon from 'components/commons/AppIcon';
 import { SocialState } from 'redux/reducers/socialReducer';
 import styled from 'styled-components';
-import { stringHelper } from 'utils';
+import stringHelper from 'utils/stringHelper';
 
 const SocialDiv = styled.div`
   padding: 8px;

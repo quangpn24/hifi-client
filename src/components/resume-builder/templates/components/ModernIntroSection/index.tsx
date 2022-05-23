@@ -3,7 +3,7 @@ import { IntroState } from 'redux/reducers/introReducer';
 import { SocialState } from 'redux/reducers/socialReducer';
 import styled from 'styled-components';
 import { EmployerName, Role } from 'styles/styles';
-import { stringHelper } from 'utils';
+import stringHelper from 'utils/stringHelper';
 import AvatarImage from '../AvatarImage';
 import { Contact } from '../IntroSection';
 

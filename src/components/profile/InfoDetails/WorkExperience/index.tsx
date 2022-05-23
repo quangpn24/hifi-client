@@ -2,7 +2,7 @@ import { EditOutlined } from '@ant-design/icons';
 import { Button, Divider, FormInstance, message, Modal } from 'antd';
 import workExperienceApi from 'api/workExperienceApi';
 import React, { useEffect, useRef, useState } from 'react';
-import { dateTimeHelper } from 'utils';
+import dateTimeHelper from 'utils/dateTimeHelper';
 import ActionSuggestion from '../ActionSuggestion';
 import Header from '../Header';
 import SegmentItem from '../SegmentItem';
