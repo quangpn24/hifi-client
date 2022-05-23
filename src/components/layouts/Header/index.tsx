@@ -25,7 +25,7 @@ interface Props {
   menu: Array<menuData>;
 }
 
-const Header: NextPage<Props> = (props) => {
+const Header = (props: Props) => {
   const { menu } = props;
   const user = useAppSelector(selectUser);
   const [pathname, setPathname] = useState(['home']);

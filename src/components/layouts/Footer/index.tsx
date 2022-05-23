@@ -1,9 +1,8 @@
 import { Button, Col, Divider, Row } from 'antd';
-import type { NextPage } from 'next';
 import Image from 'next/image';
 import logo from '/public/images/Logo.svg';
 
-const Footer: NextPage = (props) => {
+const Footer = () => {
   return (
     <div className='bg-white py-4 sticky  w-full'>
       <div className='contain'>
