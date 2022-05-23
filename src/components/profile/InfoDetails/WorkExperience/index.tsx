@@ -1,15 +1,18 @@
 import { EditOutlined } from '@ant-design/icons';
 import { Button, Divider, FormInstance, message, Modal } from 'antd';
 import workExperienceApi from 'api/workExperienceApi';
+import { useProfileOverviewContext } from 'context/ProfileContext';
 import React, { useEffect, useRef, useState } from 'react';
 import Utils from 'utils';
 import ActionSuggestion from '../ActionSuggestion';
 import Header from '../Header';
+import HrefContainer from '../HrefContainer';
 import SegmentItem from '../SegmentItem';
 import NewWorkExpForm from './NewWorkExpForm';
 
 type Props = {};
 const WorkExperience = (props: Props) => {
+  const { changeOverview } = useProfileOverviewContext() as ProfileOverviewContextType;
   const [visible, setVisible] = useState(false);
   const formRef = useRef<FormInstance<any> | null>(null);
   const [exps, setExps] = useState<WorkExperience[]>([]);
@@ -20,13 +23,16 @@ const WorkExperience = (props: Props) => {
 
     workExperienceApi
       .getWorkExperiences()
-      .then((data) => isMounted && setExps(data))
+      .then((data) => {
+        isMounted && setExps(data);
+        changeOverview({ experience: Array.isArray(data) ? data.length > 0 : false });
+      })
       .catch((err) => console.log(err));
 
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [changeOverview]);
 
   const handleOk = () => {
     formRef.current?.submit();
@@ -79,7 +85,7 @@ const WorkExperience = (props: Props) => {
   };
   return (
     <>
-      <div className='mb-8'>
+      <HrefContainer id='experience'>
         <Header
           text={'Work experience'.toUpperCase()}
           action={
@@ -124,7 +130,7 @@ const WorkExperience = (props: Props) => {
             />
           )}
         </div>
-      </div>
+      </HrefContainer>
 
       <Modal title='ADD WORK EXPERIENCE' visible={visible} onOk={handleOk} onCancel={handleCancel}>
         <NewWorkExpForm onSubmit={handleFormSubmit} workExp={selectedExp} ref={formRef} />

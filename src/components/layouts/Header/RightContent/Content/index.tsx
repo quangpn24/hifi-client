@@ -33,7 +33,7 @@ const Content = () => {
     {
       key: '1',
       icon: <EditOutlined />,
-      content: 'Edit Profile',
+      content: 'Profile',
       onClick: editProfile,
     },
     {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { DetailedHTMLProps, HTMLAttributes, useEffect, useRef, useState } from 'react';
 import { EditOutlined } from '@ant-design/icons';
 import { Button, Divider, message, Modal } from 'antd';
 import Header from '../Header';
@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { selectUser } from 'redux/selectors';
 import { authActions } from 'redux/reducers/authSlice';
 import axios from 'axios';
+import HrefContainer from '../HrefContainer';
 
 const { TextArea } = Input;
 
@@ -18,7 +19,6 @@ const AboutMe = () => {
   const user = useAppSelector(selectUser);
   const [about, setAbout] = useState<string | undefined>(user?.about);
   const [loading, setLoading] = useState(false);
-
   const handleOk = async () => {
     try {
       setLoading(true);
@@ -48,7 +48,7 @@ const AboutMe = () => {
 
   return (
     <>
-      <div className='mb-8'>
+      <HrefContainer id='about-me'>
         <Header
           text={'About Me'}
           action={
@@ -79,7 +79,7 @@ const AboutMe = () => {
             />
           )}
         </div>
-      </div>
+      </HrefContainer>
       <Modal
         title='About me'
         visible={visible}

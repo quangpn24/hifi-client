@@ -1,8 +1,10 @@
 import { EditOutlined } from '@ant-design/icons';
 import { Button, Divider, FormInstance, message, Modal, Tabs } from 'antd';
 import jobInterestedApi from 'api/jobInterestApi';
+import { useProfileOverviewContext } from 'context/ProfileContext';
 import React, { useEffect, useRef, useState } from 'react';
 import Header from '../Header';
+import HrefContainer from '../HrefContainer';
 import FieldsOfInterest from './FieldsOfInterest';
 import InterestSection from './InterestSection';
 import JobInterestsForm from './JobInterestForm';
@@ -13,6 +15,7 @@ type TabType = 'JOB INTERESTS' | 'PREFERENCES';
 type SaveModeType = 'create' | 'update';
 const JobInterests = () => {
   const [visible, setVisible] = useState(false);
+  const { changeOverview } = useProfileOverviewContext() as ProfileOverviewContextType;
   const [jobInterest, setJobInterest] = useState<Partial<JobInterest>>();
   const [tab, setTab] = useState<TabType>('JOB INTERESTS');
   const [loading, setLoading] = useState(false);
@@ -32,6 +35,7 @@ const JobInterests = () => {
         if (isMounted) {
           setJobInterest(data);
           setMode(data ? 'update' : 'create');
+          changeOverview({ interests: Array.isArray(data) ? data.length > 0 : false });
         }
       })
       .catch((err) => {
@@ -41,7 +45,7 @@ const JobInterests = () => {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [changeOverview]);
 
   useEffect(() => {
     if (formSubmitState.fieldsForm && formSubmitState.preferenceForm && jobInterest) {
@@ -106,7 +110,7 @@ const JobInterests = () => {
 
   return (
     <>
-      <div className='mb-8'>
+      <HrefContainer id='interests'>
         <Header
           text={'Job intesrests & preferences'}
           action={
@@ -156,7 +160,7 @@ const JobInterests = () => {
             data={jobInterest?.willingToWorkRemotely ? 'Yes' : 'No'}
           />
         </div>
-      </div>
+      </HrefContainer>
       <Modal
         title='ADD WORK EXPERIENCE'
         visible={visible}

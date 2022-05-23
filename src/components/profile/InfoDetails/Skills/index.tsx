@@ -9,10 +9,13 @@ import { selectUser } from 'redux/selectors';
 import SkillsList from './SkillsList';
 import userApi from 'api/userApi';
 import { authActions } from 'redux/reducers/authSlice';
+import { useProfileOverviewContext } from 'context/ProfileContext';
+import HrefContainer from '../HrefContainer';
 
 type Props = {};
 
 const Skills = ({}: Props) => {
+  const { changeOverview } = useProfileOverviewContext() as ProfileOverviewContextType;
   const [visible, setVisible] = useState(false);
   const formRef = useRef<any>(null);
   const user = useAppSelector(selectUser);
@@ -26,6 +29,9 @@ const Skills = ({}: Props) => {
       .then((res) => {
         if (mounted) {
           dispatch(authActions.update({ user: res.user }));
+          changeOverview({
+            skills: Array.isArray(res.user.skills) ? res.user.skills.length > 0 : false,
+          });
         }
       })
       .catch((err) => {
@@ -35,7 +41,7 @@ const Skills = ({}: Props) => {
     return () => {
       mounted = false;
     };
-  }, [dispatch]);
+  }, [dispatch, changeOverview]);
 
   const handleOk = () => {
     formRef.current?.submit();
@@ -58,7 +64,7 @@ const Skills = ({}: Props) => {
 
   return (
     <>
-      <div className='mb-8'>
+      <HrefContainer id='skills'>
         <Header
           text={'Skills'}
           action={
@@ -79,7 +85,7 @@ const Skills = ({}: Props) => {
         ) : (
           <p>No skills</p>
         )}
-      </div>
+      </HrefContainer>
       <Modal
         title='SKILLS'
         visible={visible}

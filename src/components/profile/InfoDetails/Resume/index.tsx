@@ -11,6 +11,7 @@ import { authActions } from 'redux/reducers/authSlice';
 import { selectUser } from 'redux/selectors';
 import ActionSuggestion from '../ActionSuggestion';
 import Header from '../Header';
+import HrefContainer from '../HrefContainer';
 
 type Props = {};
 
@@ -86,7 +87,7 @@ const ResumeSection = ({}: Props) => {
 
   return (
     <>
-      <div className='mb-8'>
+      <HrefContainer id='resume'>
         <Header
           text={'Resume'}
           action={
@@ -122,7 +123,7 @@ const ResumeSection = ({}: Props) => {
             }}
           />
         )}
-      </div>
+      </HrefContainer>
       <Modal
         title={user?.resume ? 'EDIT RESEME' : ' ADD RESEME'}
         visible={visible}

@@ -156,3 +156,21 @@ type Application = {
   createAt: Date;
   updatedAt: Date;
 };
+
+type ProfileOverviewContextType = {
+  profileOverview: ProfileOverviewType;
+  changeOverview: (data: Partial<ProfileOverviewType>) => void;
+  loading: boolean;
+};
+
+type ProfileOverviewType = {
+  basicInfo: boolean | null;
+  about: boolean | null;
+  education: boolean | null;
+  experience: boolean | null;
+  skills: boolean | null;
+  interests: boolean | null;
+  volunteerings: boolean | null;
+  awards: boolean | null;
+  resume: boolean | null;
+};

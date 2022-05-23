@@ -1,12 +1,15 @@
 import { EditOutlined } from '@ant-design/icons';
 import { Button, Divider, FormInstance, message, Modal } from 'antd';
 import educationApi from 'api/educationApi';
+import { useProfileOverviewContext } from 'context/ProfileContext';
 import React, { useEffect, useRef, useState } from 'react';
 import Utils from 'utils';
 import Header from '../Header';
+import HrefContainer from '../HrefContainer';
 import SegmentItem from '../SegmentItem';
 import NewEducationForm from './NewEducationForm';
 const Education = () => {
+  const { changeOverview } = useProfileOverviewContext() as ProfileOverviewContextType;
   const [visible, setVisible] = useState(false);
   const [educations, setEducations] = useState<Education[]>([]);
   const [selectedEdu, setSelectedEdu] = useState<Education>();
@@ -17,14 +20,17 @@ const Education = () => {
 
     educationApi
       .getEducations()
-      .then((data) => isMounted && setEducations(data))
+      .then((data) => {
+        isMounted && setEducations(data);
+        changeOverview({ education: Array.isArray(data) ? data.length > 0 : false });
+      })
       //TODO: toast error
       .catch((err) => console.log('get educationApi Error: ', err));
 
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [changeOverview]);
 
   const handleOk = () => {
     formRef.current?.submit();
@@ -78,7 +84,7 @@ const Education = () => {
   };
   return (
     <>
-      <div className='mb-8'>
+      <HrefContainer id='education'>
         <Header
           text={'Education'}
           action={
@@ -106,7 +112,7 @@ const Education = () => {
             />
           ))}
         </div>
-      </div>
+      </HrefContainer>
       <Modal
         title={selectedEdu ? 'EDIT EDUCATION' : ' ADD EDUCATION'}
         visible={visible}
