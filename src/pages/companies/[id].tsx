@@ -1,10 +1,10 @@
 import { Tabs } from 'antd';
 import CompanyAbout from 'components/companies/CompanyAbout';
-import CompanySummary from 'components/companies/CompanySummary';
+import CompanyImages from 'components/companies/CompanyImages';
 import CompanyLocation from 'components/companies/CompanyLocation';
+import CompanySummary from 'components/companies/CompanySummary';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import CompanyImages from 'components/companies/CompanyImages';
 const { TabPane } = Tabs;
 
 const Companies: NextPage = () => {

@@ -17,8 +17,15 @@
     "baseUrl": ".",
     "paths": {
       "*": ["src/*"]
-    }
+    },
+    "allowSyntheticDefaultImports": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/recruiter/job_posting/Label"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/components/recruiter/job_posting/Label",
+    "src/hoc/server.js"
+  ],
   "exclude": ["node_modules"]
 }
