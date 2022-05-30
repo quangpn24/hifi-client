@@ -1,6 +1,7 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { authSlice } from './reducers/authSlice';
 import awardReducer from './reducers/awardReducer';
+import { chattingSlice } from './reducers/chattingSlice';
 import educationReducer from './reducers/educationReducer';
 import introReducer from './reducers/introReducer';
 import labelReducer from './reducers/labelReducer';
@@ -20,6 +21,7 @@ export const store = configureStore({
     theme: themeReducer,
     template: templateReducer,
     auth: authSlice.reducer,
+    chatting: chattingSlice.reducer,
   },
   devTools: true,
 });

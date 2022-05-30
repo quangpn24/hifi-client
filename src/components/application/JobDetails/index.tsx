@@ -8,7 +8,7 @@ import {
 import { Col, Row } from 'antd';
 import Link from 'next/link';
 import React from 'react';
-import { Post } from 'types';
+
 type Props = {
   jobPost: Post;
 };

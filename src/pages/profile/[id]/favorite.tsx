@@ -6,7 +6,6 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
-import { Post } from 'types';
 
 type Props = {};
 type DataType = {

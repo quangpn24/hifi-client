@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky install",
-    "preinstall": "npx npm-force-resolutions"
+    "prepare": "husky install"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
@@ -16,10 +15,13 @@
     "@loadable/component": "^5.15.2",
     "@react-google-maps/api": "^2.7.0",
     "@reduxjs/toolkit": "^1.7.2",
+    "@types/emoji-mart": "^3.0.9",
+    "@types/react-linkify": "^1.0.1",
     "antd": "^4.18.8",
     "array-move": "^4.0.0",
     "axios": "^0.26.0",
     "classnames": "^2.3.1",
+    "emoji-mart": "^3.0.1",
     "cookies": "^0.8.0",
     "dayjs": "^1.11.1",
     "express": "^4.17.3",
@@ -38,6 +40,7 @@
     "react-color": "^2.19.3",
     "react-device-detect": "^2.2.2",
     "react-dom": "17.0.2",
+    "react-linkify": "^1.0.0-alpha",
     "react-dropzone": "^12.0.5",
     "react-icons": "^4.3.1",
     "react-markdown-editor-lite": "^1.3.2",
@@ -45,7 +48,9 @@
     "react-redux": "^7.2.6",
     "react-sortable-hoc": "^2.0.0",
     "react-to-print": "^2.14.7",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "react-router-dom": "^6.3.0",
+    "socket.io-client": "^4.4.1"
   },
   "devDependencies": {
     "@types/cookies": "^0.7.7",

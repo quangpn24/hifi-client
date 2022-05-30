@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { authActions } from 'redux/reducers/authSlice';
 import { selectUser } from 'redux/selectors';
 import routeHelper from 'utils/routeHelper';
+import RightContent from './RightContent';
 import logo from '/public/images/Logo.svg';
 const { SubMenu } = Menu;
 
@@ -70,6 +71,7 @@ const Header = (props: Props) => {
       console.log('handleLogout Error: ', error);
     }
   };
+
   return (
     <div className='sticky inset-x-0 top-0 bg-white z-10 drop-shadow-xl'>
       <Row justify='space-between' className='contain py-2 ' align='middle'>
@@ -95,9 +97,12 @@ const Header = (props: Props) => {
           </div>
           <div className='mobileHidden'>
             <Row align='middle'>
-              <Button type='link' className='w-16' href='/'>
-                <Image alt='' src={logo} />
-              </Button>
+              <Link href='/' passHref={true}>
+                <Button type='link' className='w-16'>
+                  <Image alt='' src={logo} />
+                </Button>
+              </Link>
+
               <Menu
                 onClick={(e) => setPathname([e.key])}
                 selectedKeys={pathname}
@@ -112,7 +117,8 @@ const Header = (props: Props) => {
           </div>
         </Col>
         <Col>
-          {!user ? (
+          <RightContent />
+          {/* {!user ? (
             <>
               <Button key='login' type='link' href='/auth/login'>
                 <span className='font-semibold text-text-secondary'>Login</span>
@@ -136,7 +142,7 @@ const Header = (props: Props) => {
                 <span className='font-semibold'>Log out</span>
               </Button>
             </div>
-          )}
+          )} */}
         </Col>
       </Row>
     </div>

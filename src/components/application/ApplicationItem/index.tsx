@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { Application } from 'types';
 import { ApplicationStatusMap } from '../StatusSideBar';
 
 type Props = {

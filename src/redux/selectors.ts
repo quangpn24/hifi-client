@@ -9,3 +9,4 @@ export const selectAward = (state: RootState) => state.award;
 export const selectTheme = (state: RootState) => state.theme;
 export const selectTemplate = (state: RootState) => state.template;
 export const selectUser = (state: RootState) => state.auth.user;
+export const chattingState = (state: RootState) => state.chatting;

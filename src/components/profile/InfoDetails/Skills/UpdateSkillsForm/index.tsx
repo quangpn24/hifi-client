@@ -1,6 +1,5 @@
 import { Divider, Space } from 'antd';
 import React, { useImperativeHandle, useState } from 'react';
-import { Skill } from 'types';
 import Chip from '../Chip';
 import SkillCheckboxGroup from '../SkillCheckboxGroup';
 

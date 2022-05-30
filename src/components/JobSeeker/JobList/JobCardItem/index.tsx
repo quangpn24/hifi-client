@@ -3,7 +3,6 @@ import postApi from 'api/postApi';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
-import { Post } from 'types';
 import dateTimeHelper from 'utils/dateTimeHelper';
 import { HeroIcon } from 'utils/HeroIcon';
 
