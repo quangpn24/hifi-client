@@ -8,7 +8,6 @@ import Link from 'next/link';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useEffect, useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
-import { Post } from 'types';
 import { HeroIcon } from 'utils/HeroIcon';
 
 type Props = {
