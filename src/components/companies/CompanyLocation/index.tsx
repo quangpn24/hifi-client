@@ -22,7 +22,7 @@ const CompanyLocation = (props: Props) => {
         </div>
       </Col>
       <Col span={16}>
-        <LoadScript googleMapsApiKey={key}>
+        {/* <LoadScript googleMapsApiKey={key}>
           <GoogleMap
             mapContainerStyle={{
               width: '100%',
@@ -33,7 +33,7 @@ const CompanyLocation = (props: Props) => {
           >
             <Marker position={props.location} />
           </GoogleMap>
-        </LoadScript>
+        </LoadScript> */}
       </Col>
     </Row>
   );

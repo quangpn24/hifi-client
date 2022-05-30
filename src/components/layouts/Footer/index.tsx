@@ -1,8 +1,6 @@
-import Icon from '@ant-design/icons';
-import { Row, Col, Button, Avatar, Divider } from 'antd';
-import type { NextPage } from 'next';
-import logo from '/public/images/Logo.svg';
+import { Button, Col, Divider, Row } from 'antd';
 import Image from 'next/image';
+import logo from '/public/images/Logo.svg';
 import { FC } from 'react';
 
 const Footer: FC = (props) => {

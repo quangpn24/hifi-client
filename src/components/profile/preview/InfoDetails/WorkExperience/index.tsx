@@ -1,7 +1,7 @@
 import { Divider } from 'antd';
 import workExperienceApi from 'api/workExperienceApi';
 import React, { useEffect, useState } from 'react';
-import Utils from 'utils';
+import dateTimeHelper from 'utils/dateTimeHelper';
 import Header from '../Header';
 import HrefContainer from '../HrefContainer';
 import SegmentItem from '../SegmentItem';
@@ -37,7 +37,7 @@ const WorkExperience = (props: Props) => {
                 key={exp._id}
                 title={exp.jobTitle}
                 subtitle={exp.company}
-                timeline={Utils.showTimeline(exp.startDate, exp.endDate)}
+                timeline={dateTimeHelper.showTimeline(exp.startDate, exp.endDate)}
                 descrition={exp.notes}
                 last={index === exps.length - 1}
               />

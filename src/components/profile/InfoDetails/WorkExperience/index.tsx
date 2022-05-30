@@ -3,7 +3,7 @@ import { Button, Divider, FormInstance, message, Modal } from 'antd';
 import workExperienceApi from 'api/workExperienceApi';
 import { useProfileOverviewContext } from 'context/ProfileContext';
 import React, { useEffect, useRef, useState } from 'react';
-import Utils from 'utils';
+import dateTimeHelper from 'utils/dateTimeHelper';
 import ActionSuggestion from '../ActionSuggestion';
 import Header from '../Header';
 import HrefContainer from '../HrefContainer';
@@ -110,7 +110,7 @@ const WorkExperience = (props: Props) => {
                 key={exp._id}
                 title={exp.jobTitle}
                 subtitle={exp.company}
-                timeline={Utils.showTimeline(exp.startDate, exp.endDate)}
+                timeline={dateTimeHelper.showTimeline(exp.startDate, exp.endDate)}
                 descrition={exp.notes}
                 onEdit={() => {
                   setSelectedExp(exp);

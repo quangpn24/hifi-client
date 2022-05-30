@@ -2,12 +2,13 @@ import { EditOutlined } from '@ant-design/icons';
 import { Button, Divider, FormInstance, message, Modal } from 'antd';
 import educationApi from 'api/educationApi';
 import { useProfileOverviewContext } from 'context/ProfileContext';
-import React, { useEffect, useRef, useState } from 'react';
-import Utils from 'utils';
+import { useEffect, useRef, useState } from 'react';
+import dateTimeHelper from 'utils/dateTimeHelper';
 import Header from '../Header';
 import HrefContainer from '../HrefContainer';
 import SegmentItem from '../SegmentItem';
 import NewEducationForm from './NewEducationForm';
+
 const Education = () => {
   const { changeOverview } = useProfileOverviewContext() as ProfileOverviewContextType;
   const [visible, setVisible] = useState(false);
@@ -103,7 +104,7 @@ const Education = () => {
               key={e._id}
               title={e.school}
               subtitle={e.fieldStudy}
-              timeline={Utils.showTimeline(e.startDate, e.endDate)}
+              timeline={dateTimeHelper.showTimeline(e.startDate, e.endDate)}
               descrition={e.notes}
               onEdit={() => {
                 setSelectedEdu(e);

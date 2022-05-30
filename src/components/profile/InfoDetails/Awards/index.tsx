@@ -4,7 +4,6 @@ import awardApi from 'api/awardApi';
 import { useProfileOverviewContext } from 'context/ProfileContext';
 import { NextPage } from 'next';
 import React, { useEffect, useRef, useState } from 'react';
-import Utils from 'utils';
 import ActionSuggestion from '../ActionSuggestion';
 import Header from '../Header';
 import HrefContainer from '../HrefContainer';

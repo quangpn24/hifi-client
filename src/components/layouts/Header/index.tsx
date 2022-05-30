@@ -2,16 +2,15 @@ import { DownOutlined, MenuOutlined } from '@ant-design/icons';
 import { Button, Col, Drawer, Menu, Row } from 'antd';
 import axios from 'axios';
 import { NO_AUTH_PATHS } from 'constant';
-import type { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import RightContent from './RightContent';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { authActions } from 'redux/reducers/authSlice';
 import { selectUser } from 'redux/selectors';
-import Utils from 'utils';
+import routeHelper from 'utils/routeHelper';
+import RightContent from './RightContent';
 import logo from '/public/images/Logo.svg';
 const { SubMenu } = Menu;
 
@@ -26,7 +25,7 @@ interface Props {
   menu: Array<menuData>;
 }
 
-const Header: NextPage<Props> = (props) => {
+const Header = (props: Props) => {
   const { menu } = props;
   const user = useAppSelector(selectUser);
   const [pathname, setPathname] = useState(['home']);
@@ -62,7 +61,9 @@ const Header: NextPage<Props> = (props) => {
   const handleLogout = async () => {
     try {
       await axios.get('/api/auth/logout');
-      if (!(NO_AUTH_PATHS.includes(router.pathname) || Utils.matchPublicPaths(router.pathname))) {
+      if (
+        !(NO_AUTH_PATHS.includes(router.pathname) || routeHelper.matchPublicPaths(router.pathname))
+      ) {
         router.replace('/auth/login' + '?redirect_url=' + router.pathname);
       }
       dispatch(authActions.logout());
@@ -73,7 +74,7 @@ const Header: NextPage<Props> = (props) => {
 
   return (
     <div className='sticky inset-x-0 top-0 bg-white z-10 drop-shadow-xl'>
-      <Row justify='space-between' className='px-16 py-4 '>
+      <Row justify='space-between' className='contain py-2 ' align='middle'>
         <Col className='items-center'>
           <div className='mobileVisible'>
             <Button type='primary' onClick={showDrawer}>

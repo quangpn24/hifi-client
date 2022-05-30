@@ -1,9 +1,7 @@
-import { Divider, FormInstance, message, Modal } from 'antd';
+import { Divider } from 'antd';
 import volunteeringApi from 'api/volunteeringApi';
-import { useProfileOverviewContext } from 'context/ProfileContext';
-import React, { useEffect, useRef, useState } from 'react';
-import Utils from 'utils';
-import ActionSuggestion from '../ActionSuggestion';
+import { useEffect, useState } from 'react';
+import dateTimeHelper from 'utils/dateTimeHelper';
 import Header from '../Header';
 import HrefContainer from '../HrefContainer';
 import SegmentItem from '../SegmentItem';
@@ -38,7 +36,7 @@ const VolunteerExperience = (props: Props) => {
                 key={vol._id}
                 title={vol.activityName}
                 subtitle={vol.role}
-                timeline={Utils.showTimeline(vol.startDate, vol.endDate)}
+                timeline={dateTimeHelper.showTimeline(vol.startDate, vol.endDate)}
                 descrition={vol.notes}
                 last={index === volunteerings.length - 1}
               />

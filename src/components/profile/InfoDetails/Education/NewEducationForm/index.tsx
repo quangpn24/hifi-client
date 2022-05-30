@@ -1,7 +1,7 @@
 import { Checkbox, Form, Input } from 'antd';
 import { validateMessages } from 'constant/validateMessages';
 import React, { useEffect, useImperativeHandle, useState } from 'react';
-import Utils from 'utils';
+import dateTimeHelper from 'utils/dateTimeHelper';
 import MonthYearSelect from '../../MonthYearSelect';
 import DegreeSelect from '../DegreeSelect';
 import MajorSelect from '../MajorSelect';
@@ -33,8 +33,10 @@ const NewEducationForm = React.forwardRef<any, IProps>(({ onSubmit, education },
     setIsPresent(education?.isPresent);
   }, [education?.isPresent]);
   const onFinish = (data: any) => {
-    data.startDate = Utils.convertMonthYearToDate(data.startDate);
-    data.endDate = !data.isPresent ? Utils.convertMonthYearToDate(data.endDate) : undefined;
+    data.startDate = dateTimeHelper.convertMonthYearToDate(data.startDate);
+    data.endDate = !data.isPresent
+      ? dateTimeHelper.convertMonthYearToDate(data.endDate)
+      : undefined;
     onSubmit?.(data);
   };
   const onIsPresentChange = (value: boolean) => {
@@ -50,8 +52,8 @@ const NewEducationForm = React.forwardRef<any, IProps>(({ onSubmit, education },
       onFinish={onFinish}
       initialValues={{
         ...education,
-        startDate: Utils.convertReverseMonthYearToDate(education?.startDate),
-        endDate: Utils.convertReverseMonthYearToDate(education?.endDate),
+        startDate: dateTimeHelper.convertReverseMonthYearToDate(education?.startDate),
+        endDate: dateTimeHelper.convertReverseMonthYearToDate(education?.endDate),
       }}
     >
       <Form.Item
