@@ -9,7 +9,6 @@ import { selectUser } from 'redux/selectors';
 import SkillsList from './SkillsList';
 import userApi from 'api/userApi';
 import { authActions } from 'redux/reducers/authSlice';
-import { Skill } from 'types';
 
 type Props = {};
 

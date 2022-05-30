@@ -1,4 +1,3 @@
-import { Application } from 'types';
 import axiosClient from './axiosClient';
 const ROUTE = '/job-seeker/me/applications';
 

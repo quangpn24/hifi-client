@@ -12,6 +12,7 @@ import { store } from 'redux/store';
 import 'tailwindcss/tailwind.css';
 require('../styles/App.less');
 require('../styles/global.less');
+
 const MyApp = ({ Component, pageProps, accessToken }: AppProps & { accessToken: string }) => {
   useEffect(() => {
     store.dispatch(authActions.update({ accessToken }));
@@ -25,6 +26,7 @@ const MyApp = ({ Component, pageProps, accessToken }: AppProps & { accessToken: 
     </Provider>
   );
 };
+
 MyApp.getInitialProps = async (appContext: AppContext) => {
   const appProps = await App.getInitialProps(appContext);
   let accessToken;
@@ -42,4 +44,5 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   }
   return { ...appProps, accessToken };
 };
+
 export default MyApp;

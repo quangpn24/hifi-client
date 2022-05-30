@@ -3,12 +3,14 @@ import { CheckboxValueType } from 'antd/lib/checkbox/Group';
 import suggestionApi from 'api/suggestionApi';
 import _debounce from 'lodash.debounce';
 import React, { useEffect, useMemo, useState } from 'react';
-import { Skill } from 'types';
+
 type Props = {
   defaultValues: Skill[];
   onChange: (skills: Skill[]) => void;
 };
+
 const { Search } = Input;
+
 const SkillCheckboxGroup = ({ onChange, defaultValues }: Props) => {
   const [skills, setSkills] = useState<Skill[]>([]);
   const [searching, setSearching] = useState(false);

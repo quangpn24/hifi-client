@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
-import { Post } from 'types';
 import { timeAgo } from 'utils/date_time';
 import { HeroIcon } from 'utils/HeroIcon';
 
