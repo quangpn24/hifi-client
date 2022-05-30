@@ -10,6 +10,7 @@ const { Search } = Input;
 type Props = {
   posts: Post[];
   categoryOption: Option[];
+  totalItems: number;
 };
 
 type Option = {
@@ -19,7 +20,8 @@ type Option = {
 const Jobs = (props: Props) => {
   const { categoryOption } = props;
   const [posts, setPosts] = useState<Post[]>(props.posts);
-  const [totalSize, setTotalSize] = useState<number>(0);
+  const [totalSize, setTotalSize] = useState<number>(props.totalItems);
+  const [query, setQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<Array<String | Number>>([]);
   const [selectedSalary, setSelectedSalary] = useState<String | Number>();
   const router = useRouter();
@@ -47,38 +49,39 @@ const Jobs = (props: Props) => {
 
   const handleFilter = async () => {
     try {
-      let query = '';
+      let queryTmp = '';
       if (selectedCategory.length > 0) {
-        query = `?jobCategory=${selectedCategory.join(',')}`;
+        queryTmp = `?jobCategory=${selectedCategory.join(',')}`;
       } else {
-        query = '?';
+        queryTmp = '?';
       }
       if (selectedSalary) {
-        if (query.length > 1) query += '&';
+        if (queryTmp.length > 1) queryTmp += '&';
         switch (selectedSalary) {
           case '0': {
-            query += 'salary[end]=10000000';
+            queryTmp += 'salary[end]=10000000';
             break;
           }
           case '1': {
-            query += 'salary[start]=10000000&salary[end]=20000000';
+            queryTmp += 'salary[start]=10000000&salary[end]=20000000';
             break;
           }
           case '2': {
-            query += 'salary[start]=20000000';
+            queryTmp += 'salary[start]=20000000';
             break;
           }
           case '3': {
-            query += 'salary[negotiable]=true';
+            queryTmp += 'salary[negotiable]=true';
             break;
           }
           case 'all': {
-            query += '';
+            queryTmp += '';
             break;
           }
         }
       }
-      const res = await postApi.getPosts(query);
+      setQuery(queryTmp);
+      const res = await postApi.getPosts(queryTmp);
       setPosts(res.data.data);
       setTotalSize(res.data.totalItems);
     } catch (error) {
@@ -86,9 +89,10 @@ const Jobs = (props: Props) => {
     }
   };
 
-  const handleNextPage = async (currPage: number) => {
+  const handleChangePage = async (currPage: number) => {
     router.push(`${router.basePath}?page=${currPage}`);
     try {
+      const tmp = query.length > 0 ? `${query}&page=${currPage}` : `?page=${currPage}`;
       const res = await postApi.getPosts(`?page=${currPage}`);
       if (res.data.data) {
         setPosts(res.data.data);
@@ -153,7 +157,7 @@ const Jobs = (props: Props) => {
             total={totalSize}
             pageSize={PAGE_SIZE}
             showSizeChanger={false}
-            onChange={(currPage) => handleNextPage(currPage)}
+            onChange={(currPage) => handleChangePage(currPage)}
           />
         )}
       </Row>
@@ -165,7 +169,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const resPosts = await postApi.getPosts();
     const resFilterOption = await postApi.getFilterOption();
-    const res = await postApi.getFilterOption();
     return {
       props: {
         posts: resPosts.data.data,
@@ -175,6 +178,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             value: e._id,
           };
         }),
+        totalItems: resPosts.data.totalItems,
       },
     };
   } catch (error) {

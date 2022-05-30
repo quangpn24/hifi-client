@@ -2,22 +2,45 @@ import { Button, Card, Col, Divider, Image, Row, Tag, Tooltip } from 'antd';
 import postApi from 'api/postApi';
 import ApplyJobFormModal from 'components/JobPost/ApplyJobForm';
 import DescriptionItem from 'components/JobSeeker/JobList/DescriptionItem';
+import ShareModal from 'components/JobSeeker/JobList/ShareModal';
 import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useEffect, useState } from 'react';
+import { useAppSelector } from 'redux/hooks';
+import { Post } from 'types';
 import { HeroIcon } from 'utils/HeroIcon';
 
 type Props = {
   post: Post;
+  pageURL: string;
 };
 
 const JobDetails = (props: Props) => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isApplyModalVisible, setIsApplyModalVisible] = useState(false);
+  const [isShareModalVisible, setIsShareModalVisible] = useState(false);
   const { post } = props;
+  const [isLiked, setIsLiked] = useState(post?.isFavorited);
+  const idUser = useAppSelector((state) => state.auth.user?._id);
+
+  console.log(props.pageURL);
+
   const showModal = () => {
-    setIsModalVisible(true);
+    setIsApplyModalVisible(true);
   };
+  const handleLike = async () => {
+    try {
+      if (isLiked) {
+        const result = await postApi.deleteFavoritePost(idUser, post?._id);
+      } else {
+        const result = await postApi.addFavoritePost(idUser, post?._id);
+      }
+      setIsLiked(!isLiked);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className='px-16'>
       <Card>
@@ -32,17 +55,25 @@ const JobDetails = (props: Props) => {
                   <span className=' text-3xl font-semibold'>{post?.title}</span>
                 </Col>
                 <Col span={6} className='!flex flex-row items-center text-[#685879] justify-end'>
-                  <HeroIcon
-                    icon='ShareIcon'
-                    className='!h-[30px] !w-[30px] mr-[10px] border-[1px] border-[#00ADEF] rounded-[4px] p-[2px] text-[#00ADEF]'
+                  <div onClick={() => setIsShareModalVisible(true)}>
+                    <HeroIcon
+                      icon='ShareIcon'
+                      className='!h-[30px] !w-[30px] mr-[10px] border-[1px] border-[#00ADEF] rounded-[4px] p-[2px] text-[#00ADEF]'
+                    />
+                  </div>
+                  <ShareModal
+                    visible={isShareModalVisible}
+                    onCancel={() => setIsShareModalVisible(false)}
+                    url={props.pageURL}
                   />
-                  <Tooltip title='Đánh dấu bài viết'>
+                  <div onClick={() => handleLike()}>
                     <HeroIcon
                       icon='HeartIcon'
-                      outline={true}
-                      className='!h-[30px] !w-[30px] mr-[10px] border-[1px] border-[#8B7A9F] rounded-[4px] p-[2px]'
+                      outline={!isLiked}
+                      color={isLiked ? '!text-[#D82727]' : ''}
+                      className='!h-[30px] !w-[30px] mr-[10px] border-[1px] border-[#8B7A9F] rounded-[4px] p-[2px] hover:!text-[#D82727]'
                     />
-                  </Tooltip>
+                  </div>
                 </Col>
               </Row>
 
@@ -128,9 +159,9 @@ const JobDetails = (props: Props) => {
       </Card>
       <ApplyJobFormModal
         title={`Apply ${post.title}`}
-        visible={isModalVisible}
+        visible={isApplyModalVisible}
         onCancel={() => {
-          setIsModalVisible(false);
+          setIsApplyModalVisible(false);
         }}
         post={post}
       />
@@ -145,9 +176,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.params as IParams;
   try {
     const res = await postApi.getById(id);
+    const host = context.req.headers.host;
+    const path = context.req.url;
+    console.log(host);
     return {
       props: {
         post: res.data.data,
+        pageURL: '' + host + path,
       },
     };
   } catch (error) {
