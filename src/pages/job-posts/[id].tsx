@@ -6,7 +6,7 @@ import ShareModal from 'components/JobSeeker/JobList/ShareModal';
 import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { ParsedUrlQuery } from 'querystring';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
 import { HeroIcon } from 'utils/HeroIcon';
 

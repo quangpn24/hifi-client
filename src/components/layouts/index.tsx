@@ -3,6 +3,7 @@ import authApi from 'api/authApi';
 import axios from 'axios';
 import Footer from 'components/layouts/Footer';
 import Header from 'components/layouts/Header';
+import { NO_AUTH_PATHS } from 'constant';
 import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
@@ -24,8 +25,6 @@ const menu = [
     icon: <HomeOutlined />,
   },
 ];
-const noAuthPaths = ['/auth/login', '/auth/register'];
-const publicPaths = ['/', '/job-posts', '/companies'];
 const Layout: React.FC = ({ children }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -44,7 +43,7 @@ const Layout: React.FC = ({ children }) => {
             dispatch(authActions.logout());
             axios.get('/api/auth/logout');
             if (
-              !(noAuthPaths.includes(router.pathname) || Utils.matchPublicPaths(router.pathname))
+              !(NO_AUTH_PATHS.includes(router.pathname) || Utils.matchPublicPaths(router.pathname))
             ) {
               Router.replace('/auth/login');
             }
