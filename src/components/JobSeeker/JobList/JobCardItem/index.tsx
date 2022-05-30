@@ -1,6 +1,5 @@
 import { Card, Col, Image, Row, Tag } from 'antd';
 import postApi from 'api/postApi';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useAppSelector } from 'redux/hooks';

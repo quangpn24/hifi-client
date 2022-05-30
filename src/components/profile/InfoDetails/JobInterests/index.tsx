@@ -1,8 +1,10 @@
 import { EditOutlined } from '@ant-design/icons';
 import { Button, Divider, FormInstance, message, Modal, Tabs } from 'antd';
 import jobInterestedApi from 'api/jobInterestApi';
+import { useProfileOverviewContext } from 'context/ProfileContext';
 import React, { useEffect, useRef, useState } from 'react';
 import Header from '../Header';
+import HrefContainer from '../HrefContainer';
 import FieldsOfInterest from './FieldsOfInterest';
 import InterestSection from './InterestSection';
 import JobInterestsForm from './JobInterestForm';
@@ -10,11 +12,14 @@ import PreferenceForm from './PreferenceForm';
 const { TabPane } = Tabs;
 
 type TabType = 'JOB INTERESTS' | 'PREFERENCES';
+type SaveModeType = 'create' | 'update';
 const JobInterests = () => {
   const [visible, setVisible] = useState(false);
+  const { changeOverview } = useProfileOverviewContext() as ProfileOverviewContextType;
   const [jobInterest, setJobInterest] = useState<Partial<JobInterest>>();
   const [tab, setTab] = useState<TabType>('JOB INTERESTS');
   const [loading, setLoading] = useState(false);
+  const [mode, setMode] = useState<SaveModeType>('create');
   const fieldsFormRef = useRef<FormInstance<any> | null>(null);
   const preferenceFormRef = useRef<FormInstance<any> | null>(null);
   const [formSubmitState, setFormSubmitState] = useState({
@@ -23,40 +28,66 @@ const JobInterests = () => {
   });
 
   useEffect(() => {
+    let isMounted = true;
     jobInterestedApi
       .getJobInterest()
       .then((data) => {
-        setJobInterest(data);
+        if (isMounted) {
+          setJobInterest(data);
+          setMode(data ? 'update' : 'create');
+          changeOverview({ interests: Array.isArray(data) ? data.length > 0 : false });
+        }
       })
       .catch((err) => {
         console.log('getJobInterest Error: ', err);
       });
-  }, []);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [changeOverview]);
 
   useEffect(() => {
     if (formSubmitState.fieldsForm && formSubmitState.preferenceForm && jobInterest) {
       setLoading(true);
-      jobInterestedApi
-        .updateJobInterest(jobInterest)
-        .then((updated) => {
-          setJobInterest(updated);
-          fieldsFormRef.current?.resetFields();
-          preferenceFormRef.current?.resetFields();
-          message.success('Update successfully');
-          setVisible(false);
-        })
-        .catch((err: any) => {
-          message.error(err.message);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+      mode === 'update' &&
+        jobInterestedApi
+          .updateJobInterest(jobInterest)
+          .then((updated) => {
+            setJobInterest(updated);
+            fieldsFormRef.current?.resetFields();
+            preferenceFormRef.current?.resetFields();
+            message.success('Update successfully');
+            setVisible(false);
+          })
+          .catch((err: any) => {
+            message.error(err.message);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      mode === 'create' &&
+        jobInterestedApi
+          .createJobInterest(jobInterest)
+          .then((created) => {
+            setJobInterest(created);
+            fieldsFormRef.current?.resetFields();
+            preferenceFormRef.current?.resetFields();
+            message.success('Update successfully');
+            setVisible(false);
+          })
+          .catch((err: any) => {
+            message.error(err.message);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
       setFormSubmitState({
         fieldsForm: false,
         preferenceForm: false,
       });
     }
-  }, [formSubmitState]);
+  }, [formSubmitState, mode]);
 
   const handleOk = () => {
     fieldsFormRef.current?.submit();
@@ -72,15 +103,13 @@ const JobInterests = () => {
     setFormSubmitState((prev) => ({ ...prev, fieldsForm: true }));
   };
   const handleReferenceFormSubmit = async (value: any) => {
-    setJobInterest((prev) =>
-      prev ? { ...prev, preference: { ...value } } : { preference: { ...value } }
-    );
+    setJobInterest((prev) => (prev ? { ...prev, ...value } : { ...value }));
     setFormSubmitState((prev) => ({ ...prev, preferenceForm: true }));
   };
 
   return (
     <>
-      <div className='mb-8'>
+      <HrefContainer id='interests'>
         <Header
           text={'Job intesrests & preferences'}
           action={
@@ -93,35 +122,33 @@ const JobInterests = () => {
         {/* <p className='my-4'>{content}</p> */}
         <div className='mt-4 gap-y-4'>
           {jobInterest?.fields && <FieldsOfInterest fields={jobInterest.fields} />}
-          {jobInterest && (jobInterest?.preference?.typesOfOpportunity?.length ?? 0) > 0 ? (
+          {jobInterest && (jobInterest.typesOfOpportunity?.length ?? 0) > 0 ? (
             <>
               <div className='h-4' />
               <InterestSection
                 label='Type of Opportunity'
                 type='list'
-                data={
-                  jobInterest?.preference?.typesOfOpportunity.map((t) => ({ id: t, text: t })) || []
-                }
+                data={jobInterest?.typesOfOpportunity?.map((t) => ({ id: t, text: t })) || []}
               />
             </>
           ) : null}
-          {jobInterest?.preference?.currencyCode && jobInterest?.preference.salaryExpectation && (
+          {jobInterest?.currencyCode && jobInterest?.salaryExpectation && (
             <>
               <div className='h-4' />
               <InterestSection
                 label='Salary Expectation'
                 type='text'
-                data={`${jobInterest?.preference.currencyCode} ${jobInterest?.preference.salaryExpectation}`}
+                data={`${jobInterest?.currencyCode} ${jobInterest?.salaryExpectation}`}
               />
             </>
           )}
-          {jobInterest?.preference?.workLocation && (
+          {jobInterest?.workLocation && (
             <>
               <div className='h-4' />
               <InterestSection
                 label='Work Location Preference'
                 type='text'
-                data={jobInterest?.preference?.workLocation}
+                data={jobInterest?.workLocation}
               />
             </>
           )}
@@ -129,10 +156,10 @@ const JobInterests = () => {
           <InterestSection
             label='Willing to Work Remotely'
             type='text'
-            data={jobInterest?.preference?.willingToWorkRemotely ? 'Yes' : 'No'}
+            data={jobInterest?.willingToWorkRemotely ? 'Yes' : 'No'}
           />
         </div>
-      </div>
+      </HrefContainer>
       <Modal
         title='ADD WORK EXPERIENCE'
         visible={visible}
@@ -160,7 +187,7 @@ const JobInterests = () => {
           <TabPane tab='PREFERENCES' key='PREFERENCES'>
             <PreferenceForm
               ref={preferenceFormRef}
-              data={jobInterest?.preference}
+              data={jobInterest}
               onSubmit={handleReferenceFormSubmit}
             />
           </TabPane>

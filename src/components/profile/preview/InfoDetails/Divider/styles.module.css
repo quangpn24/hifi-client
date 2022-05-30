@@ -1,0 +1,9 @@
+.divider::before {
+  content: '';
+  position: absolute;
+  left: calc(40%);
+  width: 3px;
+  height: calc(100% + 30px);
+  background-color: rgb(11, 174, 236);
+  margin-top: 7px;
+}

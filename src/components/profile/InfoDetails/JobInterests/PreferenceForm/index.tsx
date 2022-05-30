@@ -42,6 +42,24 @@ const PreferenceForm = React.forwardRef<any, IProps>(({ onSubmit, data }, ref) =
   }));
   useEffect(() => form.resetFields(), [data]);
   const onFinish = (data: any) => {
+    if (data.currencyCode && !data.salaryExpectation) {
+      form.setFields([
+        {
+          name: 'salaryExpectation',
+          errors: ['Please enter salary expectation'],
+        },
+      ]);
+      return;
+    }
+    if (!data.currencyCode && data.salaryExpectation) {
+      form.setFields([
+        {
+          name: 'currencyCode',
+          errors: ['Please enter currency code'],
+        },
+      ]);
+      return;
+    }
     onSubmit?.(data);
   };
 
@@ -52,6 +70,9 @@ const PreferenceForm = React.forwardRef<any, IProps>(({ onSubmit, data }, ref) =
       labelAlign='left'
       validateMessages={validateMessages}
       onFinish={onFinish}
+      onFinishFailed={(errorInfo: any) => {
+        console.log('Failed:', errorInfo);
+      }}
       labelWrap
       layout='vertical'
       initialValues={{
@@ -78,15 +99,7 @@ const PreferenceForm = React.forwardRef<any, IProps>(({ onSubmit, data }, ref) =
       <Form.Item label='Monthly Salary Expectation' wrapperCol={{ span: 24 }} className='!mb-0'>
         <Row gutter={[12, 0]}>
           <Col span={6}>
-            <Form.Item
-              name='currencyCode'
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-              required={false}
-            >
+            <Form.Item name='currencyCode'>
               <Select
                 showSearch
                 optionFilterProp='value'
@@ -103,15 +116,7 @@ const PreferenceForm = React.forwardRef<any, IProps>(({ onSubmit, data }, ref) =
             </Form.Item>
           </Col>
           <Col span={18}>
-            <Form.Item
-              name='salaryExpectation'
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-              required={false}
-            >
+            <Form.Item name='salaryExpectation'>
               <InputNumber className='!w-full' controls={false} />
             </Form.Item>
           </Col>

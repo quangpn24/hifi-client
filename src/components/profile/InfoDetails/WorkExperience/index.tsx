@@ -1,15 +1,18 @@
 import { EditOutlined } from '@ant-design/icons';
 import { Button, Divider, FormInstance, message, Modal } from 'antd';
 import workExperienceApi from 'api/workExperienceApi';
+import { useProfileOverviewContext } from 'context/ProfileContext';
 import React, { useEffect, useRef, useState } from 'react';
 import Utils from 'utils';
 import ActionSuggestion from '../ActionSuggestion';
 import Header from '../Header';
+import HrefContainer from '../HrefContainer';
 import SegmentItem from '../SegmentItem';
 import NewWorkExpForm from './NewWorkExpForm';
 
 type Props = {};
 const WorkExperience = (props: Props) => {
+  const { changeOverview } = useProfileOverviewContext() as ProfileOverviewContextType;
   const [visible, setVisible] = useState(false);
   const formRef = useRef<FormInstance<any> | null>(null);
   const [exps, setExps] = useState<WorkExperience[]>([]);
@@ -20,13 +23,16 @@ const WorkExperience = (props: Props) => {
 
     workExperienceApi
       .getWorkExperiences()
-      .then((data) => isMounted && setExps(data))
+      .then((data) => {
+        isMounted && setExps(data);
+        changeOverview({ experience: Array.isArray(data) ? data.length > 0 : false });
+      })
       .catch((err) => console.log(err));
 
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [changeOverview]);
 
   const handleOk = () => {
     formRef.current?.submit();
@@ -50,11 +56,13 @@ const WorkExperience = (props: Props) => {
           return copyPrev;
         });
 
+        changeOverview({ experience: true });
         setSelectedExp(undefined);
         message.success('Edit work experience successfully');
       } else {
         const newWorkExp = await workExperienceApi.createWorkExperience(value);
         setExps((prev) => [...prev, newWorkExp]);
+        changeOverview({ experience: true });
         message.success('Add new work experience success');
       }
     } catch (error) {}
@@ -70,6 +78,7 @@ const WorkExperience = (props: Props) => {
         try {
           await workExperienceApi.deleteWorkExperience(value._id);
           setExps((prev) => prev.filter((e) => e._id !== value._id));
+          changeOverview({ experience: exps.length > 1 });
           message.success('Delete successfully');
         } catch (error: any) {
           message.error(error.message);
@@ -79,7 +88,7 @@ const WorkExperience = (props: Props) => {
   };
   return (
     <>
-      <div className='mb-8'>
+      <HrefContainer id='experience'>
         <Header
           text={'Work experience'.toUpperCase()}
           action={
@@ -115,7 +124,8 @@ const WorkExperience = (props: Props) => {
             ))
           ) : (
             <ActionSuggestion
-              text='No'
+              text='77.9% of employers surveyed consider work experience to be a crucial data point in job applications.
+               So be sure to fill up this section to raise your chances of securing an interview!'
               textButton='Add work experience'
               onClick={() => {
                 setVisible(true);
@@ -123,7 +133,7 @@ const WorkExperience = (props: Props) => {
             />
           )}
         </div>
-      </div>
+      </HrefContainer>
 
       <Modal title='ADD WORK EXPERIENCE' visible={visible} onOk={handleOk} onCancel={handleCancel}>
         <NewWorkExpForm onSubmit={handleFormSubmit} workExp={selectedExp} ref={formRef} />

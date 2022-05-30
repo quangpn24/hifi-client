@@ -117,31 +117,6 @@ const Header: NextPage<Props> = (props) => {
         </Col>
         <Col>
           <RightContent />
-          {/* {!user ? (
-            <>
-              <Button key='login' type='link' href='/auth/login'>
-                <span className='font-semibold text-text-secondary'>Login</span>
-              </Button>
-              <Button key='signup' type='primary' href='/auth/login'>
-                <span className='font-semibold text-[#fff] '>Sign up</span>
-              </Button>
-            </>
-          ) : (
-            <div className='space-x-4'>
-              <Button key='signup' type='dashed' href={`/profile/${idUser}/favorite`}>
-                <span className='font-semibold'>Favorite post</span>
-              </Button>
-              <Button key='signup' type='dashed' href='/profile'>
-                <span className='font-semibold'>Profile</span>
-              </Button>
-              <Button key='signup' type='dashed' href='/user/applications'>
-                <span className='font-semibold'>My Application</span>
-              </Button>
-              <Button key='signup' type='dashed' onClick={handleLogout}>
-                <span className='font-semibold'>Log out</span>
-              </Button>
-            </div>
-          )} */}
         </Col>
       </Row>
     </div>

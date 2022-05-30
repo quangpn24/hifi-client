@@ -1,4 +1,4 @@
-import { Button, Card, Col, Divider, Image, Row, Tag, Tooltip } from 'antd';
+import { Button, Card, Col, Divider, Image, Row, Tag } from 'antd';
 import postApi from 'api/postApi';
 import ApplyJobFormModal from 'components/JobPost/ApplyJobForm';
 import DescriptionItem from 'components/JobSeeker/JobList/DescriptionItem';
@@ -21,8 +21,6 @@ const JobDetails = (props: Props) => {
   const { post } = props;
   const [isLiked, setIsLiked] = useState(post?.isFavorited);
   const idUser = useAppSelector((state) => state.auth.user?._id);
-
-  console.log(props.pageURL);
 
   const showModal = () => {
     setIsApplyModalVisible(true);
@@ -177,7 +175,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const res = await postApi.getById(id);
     const host = context.req.headers.host;
     const path = context.req.url;
-    console.log(host);
     return {
       props: {
         post: res.data.data,

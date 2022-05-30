@@ -75,7 +75,7 @@ const PersonalInfo = (props: Props) => {
               <Col span={12}>
                 <InfoItem label='Phone Number' value={user?.phoneNumber} />
                 <InfoItem label='Address' value={user?.address} />
-                <InfoItem label='Gender' value={user?.phoneNumber} />
+                <InfoItem label='Gender' value={user?.gender} />
               </Col>
               <Col span={12}>
                 <InfoItem

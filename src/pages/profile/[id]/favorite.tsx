@@ -2,7 +2,6 @@ import { Col, Pagination, Row } from 'antd';
 import postApi from 'api/postApi';
 import JobCardItem from 'components/JobSeeker/JobList/JobCardItem';
 import { PAGE_SIZE } from 'constant/others';
-import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useAppSelector } from 'redux/hooks';

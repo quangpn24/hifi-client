@@ -49,7 +49,6 @@ const SideNav: FC<IProps> = (props) => {
   useEffect(() => {
     if (chatting.rooms) {
       setRooms(chatting.rooms);
-      console.log(chatting);
     }
   }, [chatting]);
 
