@@ -111,16 +111,7 @@ const NewWorkExpForm = React.forwardRef<any, IProps>(({ onSubmit, workExp, formT
           I{"'"}m currently working in this company
         </Checkbox>
       </Form.Item>
-      <Form.Item
-        wrapperCol={{ span: 24 }}
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-        required={false}
-        name='notes'
-      >
+      <Form.Item wrapperCol={{ span: 24 }} name='notes'>
         <TextArea rows={5} placeholder='Additional information (optional)' />
       </Form.Item>
     </Form>

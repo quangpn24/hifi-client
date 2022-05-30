@@ -2,6 +2,7 @@ import authApi from 'api/authApi';
 import axios from 'axios';
 import Footer from 'components/layouts/Footer';
 import Header from 'components/layouts/Header';
+import { NO_AUTH_PATHS } from 'constant';
 import menu from 'constant/menu';
 import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -21,7 +22,6 @@ const Layout: React.FC = ({ children }) => {
 
   useEffect(() => {
     setLoading(true);
-    console.log('Check render: ', accessToken);
     if (accessToken) {
       authApi
         .verify(accessToken)
@@ -34,7 +34,7 @@ const Layout: React.FC = ({ children }) => {
             axios.get('/api/auth/logout');
             if (
               !(
-                noAuthPaths.includes(router.pathname) ||
+                NO_AUTH_PATHS.includes(router.pathname) ||
                 routeHelper.matchPublicPaths(router.pathname)
               )
             ) {

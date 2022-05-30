@@ -16,12 +16,13 @@ interface IParams extends ParsedUrlQuery {
 }
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { accountId, token } = context.params as IParams;
+  const { redirectPath } = context.query;
   try {
     await emailApi.verifyAccountToken(accountId, token);
     return {
       redirect: {
         permanent: false,
-        destination: '/profile',
+        destination: redirectPath || '/profile',
       },
       props: {},
     };

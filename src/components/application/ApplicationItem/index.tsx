@@ -1,10 +1,11 @@
 import { CalendarIcon } from '@heroicons/react/outline';
+import { Tag } from 'antd';
+import { APPLICATION_STATUS_MAP } from 'constant';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { ApplicationStatusMap } from '../StatusSideBar';
 
 type Props = {
   data: Application;
@@ -41,9 +42,9 @@ const ApplicationItem = ({ data }: Props) => {
                 Submitted on {dayjs(data.createAt).format('MMMM DD YYYY, HH:mm a')}
               </p>
             </div>
-            <span className='bg-slate-600 px-3 py-1 text-center inline-block rounded-3xl text-white'>
-              {ApplicationStatusMap.get(data.status)?.text}
-            </span>
+            <Tag color={APPLICATION_STATUS_MAP.get(data.status)?.color}>
+              {APPLICATION_STATUS_MAP.get(data.status)?.text}
+            </Tag>
           </div>
         </div>
       </a>

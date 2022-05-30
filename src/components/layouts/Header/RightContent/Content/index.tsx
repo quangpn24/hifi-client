@@ -1,12 +1,10 @@
+import { EditOutlined, FormOutlined, LogoutOutlined, SettingOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
-import React from 'react';
-import Icon, { EditOutlined, FormOutlined, LogoutOutlined } from '@ant-design/icons';
-import { Navigate, useNavigate } from 'react-router-dom';
-import { useAppDispatch } from 'redux/hooks';
-import { authActions } from 'redux/reducers/authSlice';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-
+import React from 'react';
+import { useAppDispatch } from 'redux/hooks';
+import { authActions } from 'redux/reducers/authSlice';
 const Content = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -27,12 +25,15 @@ const Content = () => {
   const viewApplications = () => {
     router.push('/user/applications');
   };
+  const viewAccountSettings = () => {
+    router.push('/settings');
+  };
 
   const contents = [
     {
       key: '1',
       icon: <EditOutlined />,
-      content: 'Edit Profile',
+      content: 'Profile',
       onClick: editProfile,
     },
     {
@@ -43,6 +44,12 @@ const Content = () => {
     },
     {
       key: '3',
+      icon: <SettingOutlined />,
+      content: 'Account Settings',
+      onClick: viewAccountSettings,
+    },
+    {
+      key: '4',
       icon: <LogoutOutlined />,
       content: 'Log Out',
       onClick: handleLogout,

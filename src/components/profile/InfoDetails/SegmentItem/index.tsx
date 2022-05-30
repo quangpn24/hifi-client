@@ -24,9 +24,13 @@ const SegmentItem = ({ title, subtitle, timeline, last, descrition, onDelete, on
     >
       {/* <Divider /> */}
       <div
-        className={classNames('ml-8 relative', styles.item, {
-          [styles['last-item']]: last,
-        })}
+        className={classNames(
+          'ml-8 relative max-w-xs md:max-w-sm lg:max-w-3xl xl:max-w-4xl',
+          styles.item,
+          {
+            [styles['last-item']]: last,
+          }
+        )}
       >
         <h3 className='text-lg font-bold'>{title}</h3>
         <p className='!mb-1 text-base'>{subtitle}</p>
@@ -34,7 +38,7 @@ const SegmentItem = ({ title, subtitle, timeline, last, descrition, onDelete, on
         {descrition && <p className='!mb-0 text-gray-500'>{descrition}</p>}
       </div>
       {showActions && (
-        <div className='flex gap-2 absolute right-4'>
+        <div className='flex gap-2 right-4 z-20 md:absolute'>
           <Button
             type='text'
             className='flex gap-1 items-center '

@@ -1,9 +1,12 @@
 import { EditOutlined } from '@ant-design/icons';
 import { Button, Divider, FormInstance, message, Modal } from 'antd';
 import awardApi from 'api/awardApi';
+import { useProfileOverviewContext } from 'context/ProfileContext';
+import { NextPage } from 'next';
 import React, { useEffect, useRef, useState } from 'react';
 import ActionSuggestion from '../ActionSuggestion';
 import Header from '../Header';
+import HrefContainer from '../HrefContainer';
 import SegmentItem from '../SegmentItem';
 import AwardForm from './AwardForm';
 type Props = {
@@ -11,23 +14,28 @@ type Props = {
 };
 
 const AwardsSection: React.FC<Props> = ({ awards: data }: Props) => {
+  const { changeOverview } = useProfileOverviewContext() as ProfileOverviewContextType;
   const [visible, setVisible] = useState(false);
   const [awards, setAwards] = useState<Award[]>([]);
   const [selectedAward, setSelectedAward] = useState<Award>();
   const formRef = useRef<FormInstance<any> | null>(null);
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     let isMounted = true;
 
     awardApi
       .getAwards()
-      .then((data) => isMounted && setAwards(data))
+      .then((data) => {
+        isMounted && setAwards(data);
+        changeOverview({ awards: Array.isArray(data) ? data.length > 0 : false });
+      })
       //TODO: error
       .catch((err) => console.log('getAwards Error: ', err));
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [changeOverview]);
 
   const handleDelete = async (value: Award) => {
     Modal.confirm({
@@ -36,6 +44,7 @@ const AwardsSection: React.FC<Props> = ({ awards: data }: Props) => {
         try {
           await awardApi.deleteAward(value._id);
           setAwards(awards.filter((award) => award._id !== value._id));
+          if (awards.length === 0) changeOverview({ awards: false });
         } catch (error: any) {
           message.error(error.message);
         }
@@ -59,6 +68,7 @@ const AwardsSection: React.FC<Props> = ({ awards: data }: Props) => {
         setSelectedAward(undefined);
       } else {
         const newAward = await awardApi.createAward(data);
+        changeOverview({ awards: true });
         setAwards([...awards, newAward]);
       }
       formRef.current?.resetFields();
@@ -70,7 +80,7 @@ const AwardsSection: React.FC<Props> = ({ awards: data }: Props) => {
   };
   return (
     <>
-      <div className='mb-8'>
+      <HrefContainer id='awards'>
         <Header
           text={'Awards'}
           action={
@@ -112,7 +122,7 @@ const AwardsSection: React.FC<Props> = ({ awards: data }: Props) => {
             />
           )}
         </div>
-      </div>
+      </HrefContainer>
       <Modal
         title={selectedAward ? 'EDIT EDUCATION' : ' ADD EDUCATION'}
         visible={visible}

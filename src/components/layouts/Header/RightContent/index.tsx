@@ -37,7 +37,10 @@ const RightContent: FC<IProps> = (props) => {
           </Col>
           <Col>
             <Popover placement='bottomRight' content={<Notifications />} trigger='hover'>
-              <Badge count={user?.notifications.filter((noti) => !noti.isRead).length} size='small'>
+              <Badge
+                count={user?.notifications?.filter((noti) => !noti.isRead).length}
+                size='small'
+              >
                 <Button icon={<BellFilled />} key='chatting' type='link' />
               </Badge>
             </Popover>

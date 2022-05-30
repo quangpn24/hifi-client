@@ -16,6 +16,7 @@ interface IProps {
 const years = new Array(40)
   .fill(0)
   .map((_, index) => index + 1990)
+  .filter((year) => year <= new Date().getFullYear())
   .sort((a, b) => b - a);
 const AwardForm = React.forwardRef<any, IProps>(({ onSubmit, award }, ref) => {
   const [form] = Form.useForm();

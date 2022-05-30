@@ -22,6 +22,11 @@ type User = {
     github: string;
     twitter: string;
   };
+  candidateStatus:
+    | 'I_AM_LOOKING_FOR_JOB'
+    | 'OPEN_FOR_OPPORTUNITIES'
+    | 'I_AM_NOT_INTERESTED_IN_JOB'
+    | string;
   notifications: Noti[];
 };
 
@@ -150,4 +155,22 @@ type Application = {
   post: Post;
   createAt: Date;
   updatedAt: Date;
+};
+
+type ProfileOverviewContextType = {
+  profileOverview: ProfileOverviewType;
+  changeOverview: (data: Partial<ProfileOverviewType>) => void;
+  loading: boolean;
+};
+
+type ProfileOverviewType = {
+  basicInfo: boolean | null;
+  about: boolean | null;
+  education: boolean | null;
+  experience: boolean | null;
+  skills: boolean | null;
+  interests: boolean | null;
+  volunteerings: boolean | null;
+  awards: boolean | null;
+  resume: boolean | null;
 };
