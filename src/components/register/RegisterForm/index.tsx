@@ -35,7 +35,6 @@ const RegisterForm = () => {
   };
 
   const handleGoogleLogin = async () => {
-    console.log('Auth firebase', firebaseAuth);
     setLoading(true);
     const { error, user } = await signInWithGoogle();
     if (!user || error) {

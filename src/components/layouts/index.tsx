@@ -1,35 +1,25 @@
-import { HomeOutlined } from '@ant-design/icons';
 import authApi from 'api/authApi';
 import axios from 'axios';
 import Footer from 'components/layouts/Footer';
 import Header from 'components/layouts/Header';
 import { NO_AUTH_PATHS } from 'constant';
+import menu from 'constant/menu';
 import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { authActions } from 'redux/reducers/authSlice';
-import Utils from 'utils';
+import routeHelper from 'utils/routeHelper';
 import LoadingPage from '../Loading';
 
-const menu = [
-  {
-    id: 1,
-    name: 'Jobs',
-    url: '/job-posts',
-    icon: <HomeOutlined />,
-  },
-  {
-    id: 2,
-    name: 'Companies',
-    url: '/companies',
-    icon: <HomeOutlined />,
-  },
-];
+const noAuthPaths = ['/auth/login', '/auth/register'];
+const publicPaths = ['/', '/job-posts', '/companies'];
+
 const Layout: React.FC = ({ children }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const accessToken = useAppSelector((state) => state.auth.accessToken);
+
   useEffect(() => {
     setLoading(true);
     if (accessToken) {
@@ -43,7 +33,10 @@ const Layout: React.FC = ({ children }) => {
             dispatch(authActions.logout());
             axios.get('/api/auth/logout');
             if (
-              !(NO_AUTH_PATHS.includes(router.pathname) || Utils.matchPublicPaths(router.pathname))
+              !(
+                NO_AUTH_PATHS.includes(router.pathname) ||
+                routeHelper.matchPublicPaths(router.pathname)
+              )
             ) {
               Router.replace('/auth/login');
             }

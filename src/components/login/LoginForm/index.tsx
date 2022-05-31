@@ -1,7 +1,6 @@
 import { unwrapResult } from '@reduxjs/toolkit';
 import { Button, Col, Form, Input, message, Radio, Row } from 'antd';
 import { validateMessages } from 'constant/validateMessages';
-import { firebaseAuth } from 'firebase';
 import { signInWithEmailPassword, signInWithGoogle } from 'firebase/services';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -42,6 +41,23 @@ const LoginForm = () => {
     setLoading(false);
   };
   const onFinishFailed = (data: any) => {};
+
+  const handleGoogleLogin = async () => {
+    setLoading(true);
+    const { error, user } = await signInWithGoogle();
+    if (!user || error) {
+      error && message.error(error);
+      return;
+    }
+    try {
+      const result = await dispatch(authActions.login(user!!));
+      await unwrapResult(result);
+      message.success('Login successfully!');
+    } catch (errorLogin: any) {
+      message.error(errorLogin.message);
+      setLoading(false);
+    }
+  };
 
   return (
     <div className='bg-white-color h-screen'>

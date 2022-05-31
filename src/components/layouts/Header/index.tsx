@@ -1,13 +1,10 @@
 import { DownOutlined, MenuOutlined } from '@ant-design/icons';
 import { Button, Col, Drawer, Menu, Row } from 'antd';
-import type { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import RightContent from './RightContent';
 import logo from '/public/images/Logo.svg';
-const { SubMenu } = Menu;
-
 interface menuData {
   id: number;
   name: String;
@@ -19,7 +16,7 @@ interface Props {
   menu: Array<menuData>;
 }
 
-const Header: NextPage<Props> = (props) => {
+const Header = (props: Props) => {
   const { menu } = props;
   const [pathname, setPathname] = useState(['home']);
   const [visible, setVisible] = useState(false);
@@ -50,7 +47,7 @@ const Header: NextPage<Props> = (props) => {
 
   return (
     <div className='sticky inset-x-0 top-0 bg-white z-10 drop-shadow-xl'>
-      <Row justify='space-between' className='px-16 py-4 '>
+      <Row justify='space-between' className='contain py-2 ' align='middle'>
         <Col className='items-center'>
           <div className='mobileVisible'>
             <Button type='primary' onClick={showDrawer}>

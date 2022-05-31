@@ -1,7 +1,7 @@
 import { Checkbox, Form, Input } from 'antd';
 import { validateMessages } from 'constant/validateMessages';
 import React, { useEffect, useImperativeHandle, useState } from 'react';
-import Utils from 'utils';
+import dateTimeHelper from 'utils/dateTimeHelper';
 import MonthYearSelect from '../../MonthYearSelect';
 
 const { TextArea } = Input;
@@ -32,8 +32,10 @@ const VolunteeringForm = React.forwardRef<any, IProps>(({ onSubmit, volunteering
   }, [volunteering?.isPresent]);
   const onFinish = (data: any) => {
     form.submit;
-    data.startDate = Utils.convertMonthYearToDate(data.startDate);
-    data.endDate = !data.isPresent ? Utils.convertMonthYearToDate(data.endDate) : undefined;
+    data.startDate = dateTimeHelper.convertMonthYearToDate(data.startDate);
+    data.endDate = !data.isPresent
+      ? dateTimeHelper.convertMonthYearToDate(data.endDate)
+      : undefined;
     onSubmit?.(data);
     form.resetFields();
   };
@@ -50,8 +52,8 @@ const VolunteeringForm = React.forwardRef<any, IProps>(({ onSubmit, volunteering
       onFinish={onFinish}
       initialValues={{
         ...volunteering,
-        startDate: Utils.convertReverseMonthYearToDate(volunteering?.startDate),
-        endDate: Utils.convertReverseMonthYearToDate(volunteering?.endDate),
+        startDate: dateTimeHelper.convertReverseMonthYearToDate(volunteering?.startDate),
+        endDate: dateTimeHelper.convertReverseMonthYearToDate(volunteering?.endDate),
       }}
     >
       <Form.Item

@@ -8,7 +8,7 @@ import {
 } from 'components/payroll';
 import { NextPage } from 'next';
 import React, { useEffect, useState } from 'react';
-import { removedComma } from 'utils/removedComma';
+import stringHelper from 'utils/stringHelper';
 
 interface FormData {
   totalSalary: number;
@@ -65,12 +65,12 @@ const PayrollPage: NextPage = () => {
     const incomeBeforeTax = gross - (socialInsurance + healthInsurance + unemployment + union);
     const incomeTaxes =
       incomeBeforeTax -
-        removedComma(data.personalDeductions.toString()) -
-        removedComma(data.familyAllowances.toString()) >
+        stringHelper.removeComma(data.personalDeductions.toString()) -
+        stringHelper.removeComma(data.familyAllowances.toString()) >
       0
         ? incomeBeforeTax -
-          removedComma(data.personalDeductions.toString()) -
-          removedComma(data.familyAllowances.toString())
+          stringHelper.removeComma(data.personalDeductions.toString()) -
+          stringHelper.removeComma(data.familyAllowances.toString())
         : 0;
     let personalIncomeTax: number = 0;
     if (incomeTaxes <= 0) {
@@ -101,8 +101,8 @@ const PayrollPage: NextPage = () => {
       unemployment,
       union,
       incomeBeforeTax,
-      personalDeductions: removedComma(data.personalDeductions.toString()),
-      familyAllowances: removedComma(data.familyAllowances.toString()),
+      personalDeductions: stringHelper.removeComma(data.personalDeductions.toString()),
+      familyAllowances: stringHelper.removeComma(data.familyAllowances.toString()),
       incomeTaxes,
       personalIncomeTax,
       net,

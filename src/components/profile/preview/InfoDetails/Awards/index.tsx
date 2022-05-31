@@ -1,11 +1,6 @@
-import { EditOutlined } from '@ant-design/icons';
-import { Button, Divider, FormInstance, message, Modal } from 'antd';
+import { Divider } from 'antd';
 import awardApi from 'api/awardApi';
-import { useProfileOverviewContext } from 'context/ProfileContext';
-import { NextPage } from 'next';
-import React, { useEffect, useRef, useState } from 'react';
-import Utils from 'utils';
-import ActionSuggestion from '../ActionSuggestion';
+import React, { useEffect, useState } from 'react';
 import Header from '../Header';
 import HrefContainer from '../HrefContainer';
 import SegmentItem from '../SegmentItem';

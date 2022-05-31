@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { useAppDispatch } from 'redux/hooks';
 import { authActions } from 'redux/reducers/authSlice';
-import Utils from 'utils';
+import routeHelper from 'utils/routeHelper';
 const Content = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -17,7 +17,9 @@ const Content = () => {
     try {
       await axios.get('/api/auth/logout');
       await signOut(firebaseAuth);
-      if (!(NO_AUTH_PATHS.includes(router.pathname) || Utils.matchPublicPaths(router.pathname))) {
+      if (
+        !(NO_AUTH_PATHS.includes(router.pathname) || routeHelper.matchPublicPaths(router.pathname))
+      ) {
         router.replace('/auth/login' + '?redirect_url=' + router.pathname);
       }
       dispatch(authActions.logout());
