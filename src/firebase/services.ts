@@ -8,7 +8,7 @@ import {
   signInWithPopup,
 } from 'firebase/auth';
 import { deleteObject, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { auth, googleProvider, storage } from './';
+import { firebaseAuth as auth, googleProvider, storage } from './';
 
 function instanceOfRcFile(object: any): object is RcFile {
   return 'uid' in object;

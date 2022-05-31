@@ -1,6 +1,4 @@
-import { ExclamationCircleIcon } from '@heroicons/react/solid';
-import { Button, Card, Form, Input, message, Spin } from 'antd';
-import emailApi from 'api/emailApi';
+import { Button, Card, Form, Input, message } from 'antd';
 import userApi from 'api/userApi';
 import axios from 'axios';
 import React, { useState } from 'react';

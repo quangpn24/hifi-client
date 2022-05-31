@@ -1,17 +1,10 @@
 import { DownOutlined, MenuOutlined } from '@ant-design/icons';
 import { Button, Col, Drawer, Menu, Row } from 'antd';
-import axios from 'axios';
-import { NO_AUTH_PATHS } from 'constant';
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import RightContent from './RightContent';
-import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { authActions } from 'redux/reducers/authSlice';
-import { selectUser } from 'redux/selectors';
-import Utils from 'utils';
+import RightContent from './RightContent';
 import logo from '/public/images/Logo.svg';
 const { SubMenu } = Menu;
 
@@ -28,12 +21,8 @@ interface Props {
 
 const Header: NextPage<Props> = (props) => {
   const { menu } = props;
-  const user = useAppSelector(selectUser);
   const [pathname, setPathname] = useState(['home']);
-  const dispatch = useAppDispatch();
-  const router = useRouter();
   const [visible, setVisible] = useState(false);
-  const idUser = useAppSelector((state) => state.auth.user?._id);
 
   const showDrawer = () => {
     setVisible(true);
@@ -58,18 +47,6 @@ const Header: NextPage<Props> = (props) => {
       ))}
     </>
   );
-
-  const handleLogout = async () => {
-    try {
-      await axios.get('/api/auth/logout');
-      if (!(NO_AUTH_PATHS.includes(router.pathname) || Utils.matchPublicPaths(router.pathname))) {
-        router.replace('/auth/login' + '?redirect_url=' + router.pathname);
-      }
-      dispatch(authActions.logout());
-    } catch (error) {
-      console.log('handleLogout Error: ', error);
-    }
-  };
 
   return (
     <div className='sticky inset-x-0 top-0 bg-white z-10 drop-shadow-xl'>

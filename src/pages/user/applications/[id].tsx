@@ -1,6 +1,6 @@
 import { CalendarIcon, ExternalLinkIcon, EyeIcon } from '@heroicons/react/outline';
 import { ChevronLeftIcon } from '@heroicons/react/solid';
-import { Col, Divider, Row } from 'antd';
+import { Col, Divider, Row, Tag } from 'antd';
 import applicationApi from 'api/applicationApi';
 import JobDetails from 'components/application/JobDetails';
 import { APPLICATION_STATUS_MAP } from 'constant';
@@ -51,9 +51,12 @@ const ApplicationDetail = ({ application }: Props) => {
                   {dayjs(application.updatedAt).fromNow()}
                 </p>
               </div>
-              <span className='bg-slate-600 px-3 py-1 text-center inline-block rounded-3xl text-white'>
+              <Tag color={APPLICATION_STATUS_MAP.get(application.status)?.color}>
                 {APPLICATION_STATUS_MAP.get(application.status)?.text}
-              </span>
+              </Tag>
+              {/* <span className='px-3 py-1 text-center inline-block rounded-3xl text-white'>
+                {APPLICATION_STATUS_MAP.get(application.status)?.text}
+              </span> */}
             </div>
           </div>
           <Divider />

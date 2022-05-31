@@ -1,10 +1,14 @@
 import { EditOutlined, FormOutlined, LogoutOutlined, SettingOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import axios from 'axios';
+import { NO_AUTH_PATHS } from 'constant';
+import { firebaseAuth } from 'firebase';
+import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useAppDispatch } from 'redux/hooks';
 import { authActions } from 'redux/reducers/authSlice';
+import Utils from 'utils';
 const Content = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -12,6 +16,10 @@ const Content = () => {
   const handleLogout = async () => {
     try {
       await axios.get('/api/auth/logout');
+      await signOut(firebaseAuth);
+      if (!(NO_AUTH_PATHS.includes(router.pathname) || Utils.matchPublicPaths(router.pathname))) {
+        router.replace('/auth/login' + '?redirect_url=' + router.pathname);
+      }
       dispatch(authActions.logout());
     } catch (error) {
       console.log('handleLogout Error: ', error);
