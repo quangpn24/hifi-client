@@ -131,10 +131,16 @@ const JobDetails = (props: Props) => {
                 </Col>
                 <Col span={4}>
                   <Link href={'/'}>
-                    <div className='flex items-center text-red-700 text-base hover:cursor-pointer'>
-                      Go to company page
-                      <HeroIcon icon='ArrowRightIcon' outline={true} className=' -rotate-45 ml-2' />
-                    </div>
+                    <a>
+                      <div className='flex items-center text-red-700 text-base hover:cursor-pointer'>
+                        Go to company page
+                        <HeroIcon
+                          icon='ArrowRightIcon'
+                          outline={true}
+                          className=' -rotate-45 ml-2'
+                        />
+                      </div>
+                    </a>
                   </Link>
                 </Col>
               </Row>
