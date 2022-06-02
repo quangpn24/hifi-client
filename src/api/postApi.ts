@@ -6,6 +6,10 @@ const postApi = {
     return await axiosClient.get(`${url}${query}`);
   },
 
+  getPostsLandingPage: async (categoryId: String) => {
+    return await axiosClient.get(`/suggestion/${categoryId}/posts`);
+  },
+
   getById: async (id: any) => {
     return await axiosClient.get(`${url}/${id}`);
   },

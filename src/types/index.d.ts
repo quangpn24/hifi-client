@@ -62,6 +62,7 @@ type Post = Partial<{
   company: Company;
   updatedAt: string;
   isFavorited: Boolean;
+  applicationDeadline: Date;
 }>;
 
 type Skill = {
@@ -72,6 +73,7 @@ type Skill = {
 type Category = {
   _id: string;
   name: string;
+  jobs: number;
   subcategories: Subcategory[];
 };
 

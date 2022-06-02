@@ -16,10 +16,10 @@ type Props = {
 const CheckboxMenu = (props: Props) => {
   const [selectedItems, setSelectedItems] = useState<Array<string | number>>([]);
   useEffect(() => {
-    if (props.defaultValue?.length) {
+    if (props.defaultValue) {
       setSelectedItems([...props.defaultValue]);
     }
-  }, []);
+  }, [props.defaultValue]);
 
   const onChange = (selection: any) => {
     setSelectedItems([...selection]);
