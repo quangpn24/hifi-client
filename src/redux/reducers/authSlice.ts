@@ -19,6 +19,9 @@ export const authSlice = createSlice({
     logout: () => {
       return initialState;
     },
+    setUser: (state, action: PayloadAction<User>) => {
+      state.user = action.payload;
+    },
   },
   extraReducers: (builder) => {
     [login, register].forEach((thunk) =>

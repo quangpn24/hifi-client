@@ -1,11 +1,14 @@
 import { Col, Input, Row, Button, Card, Select, Pagination } from 'antd';
 import postApi from 'api/postApi';
+import subcategoryApi from 'api/subcategoryApi';
 import CheckboxMenu from 'components/commons/CheckboxMenu';
 import JobCardItem from 'components/JobSeeker/JobList/JobCardItem';
 import { PAGE_SIZE } from 'constant/others';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
+import { ParsedUrlQuery } from 'querystring';
 import React, { useEffect, useState } from 'react';
+
 const { Search } = Input;
 type Props = {
   posts: Post[];
@@ -22,7 +25,9 @@ const Jobs = (props: Props) => {
   const [posts, setPosts] = useState<Post[]>(props.posts);
   const [totalSize, setTotalSize] = useState<number>(props.totalItems);
   const [query, setQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<Array<String | Number>>([]);
+  const [selectedCategory, setSelectedCategory] = useState<Array<string | number>>([]);
+  const [defaultCategory, setDefaultCategory] = useState<Array<string | number>>();
+  const [defaultSearch, setDefaultSearch] = useState<string>();
   const [selectedSalary, setSelectedSalary] = useState<String | Number>();
   const router = useRouter();
   const salaryOption = [
@@ -50,6 +55,7 @@ const Jobs = (props: Props) => {
   const handleFilter = async () => {
     try {
       let queryTmp = '';
+
       if (selectedCategory.length > 0) {
         queryTmp = `?jobCategory=${selectedCategory.join(',')}`;
       } else {
@@ -103,6 +109,42 @@ const Jobs = (props: Props) => {
     }
   };
 
+  useEffect(() => {
+    const { categoryId, search } = router.query;
+    if (categoryId) {
+      subcategoryApi
+        .getSubByCategoryId(categoryId as string)
+        .then((res) => {
+          const selectCategory = res.data.value.map((category: any) => {
+            return category._id;
+          });
+          setDefaultCategory(selectCategory);
+          setSelectedCategory(selectCategory);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      setDefaultCategory([]);
+    }
+
+    if (search) {
+      setDefaultSearch(search as string);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (defaultCategory) {
+      handleFilter();
+    }
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    if (defaultSearch) {
+      handleSearch(defaultSearch);
+    }
+  }, [defaultSearch]);
+
   return (
     <Row>
       <Row className='w-full px-16 py-[40px] bg-white'>
@@ -117,7 +159,7 @@ const Jobs = (props: Props) => {
               allowClear
               size='large'
               enterButton='Search'
-              onSearch={(value) => handleSearch(value)}
+              onSearch={handleSearch}
             />
           </div>
         </Col>
@@ -125,6 +167,7 @@ const Jobs = (props: Props) => {
           <div className='flex w-auto'>
             <div>
               <CheckboxMenu
+                defaultValue={defaultCategory}
                 options={categoryOption}
                 onChange={(selectedValue: any) => setSelectedCategory(selectedValue)}
                 keyword='Category'
@@ -164,6 +207,10 @@ const Jobs = (props: Props) => {
     </Row>
   );
 };
+
+interface IParams extends ParsedUrlQuery {
+  categoryId: string;
+}
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {

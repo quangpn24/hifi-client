@@ -7,15 +7,8 @@ import Jobhunt from '/public/images/Job-hunt.svg';
 import Title from 'antd/lib/typography/Title';
 import { useRouter } from 'next/router';
 
-interface categoryData {
-  id: number;
-  name: String;
-  image: string;
-  jobs: number;
-}
-
 interface IProps {
-  category: categoryData;
+  category: Category;
 }
 
 const CategoryCard: React.FC<IProps> = (props) => {
@@ -26,12 +19,12 @@ const CategoryCard: React.FC<IProps> = (props) => {
     <Card
       className='cursor-pointer overflow-hidden'
       onClick={() => {
-        router.push(`/categories/${category.id}`);
+        router.push(`/job-posts/?categoryId=${category._id}`);
       }}
     >
       <Row>
         <Col span={8}>
-          <Image src={category.image} alt='' width={500} height={500}></Image>
+          <Image src={Jobhunt} alt='' width={500} height={500}></Image>
         </Col>
         <Col span={16}>
           <h2 className='font-bold text-xl text-text-primary'>{category.name}</h2>

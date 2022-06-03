@@ -11,19 +11,19 @@ const menu: IMenu[] = [
   {
     id: 1,
     name: 'Jobs',
-    url: './jobs',
+    url: '/job-posts',
     icon: <HomeOutlined />,
   },
   {
     id: 2,
     name: 'Companies',
-    url: './companies',
+    url: '/companies',
     icon: <HomeOutlined />,
   },
   {
     id: 3,
     name: 'Resume builder',
-    url: './resume-builder',
+    url: '/resume-builder',
     icon: <HomeOutlined />,
   },
 ];

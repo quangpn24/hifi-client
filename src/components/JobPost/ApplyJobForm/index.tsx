@@ -9,6 +9,8 @@ import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { authActions } from 'redux/reducers/authSlice';
 import { selectUser } from 'redux/selectors';
 import ResumeInput from './ResumeInput';
+import moment from 'moment';
+import notificationSocket from 'utils/notificationSocket';
 
 type Props = {
   title?: string;
@@ -69,6 +71,16 @@ const ApplyJobFormModal = ({ post, title, visible, onCancel, onSuccess }: Props)
       }
 
       message.success('Send application successfully');
+
+      const sendData = {
+        receiverType: 'company',
+        receiver: post.company?._id,
+        message: 'New application from ' + user?.name,
+        redirectUrl: '/manage-candidates',
+        createdAt: moment(),
+      };
+
+      notificationSocket.emit('sendNotification', sendData);
       onCancel?.();
     } catch (error: any) {
       if (fileUrl) {

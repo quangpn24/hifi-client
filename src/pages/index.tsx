@@ -3,12 +3,18 @@ import { Button, Col, Image as AntImage, Input, Row, Tabs } from 'antd';
 import axios from 'axios';
 import CategoryCard from 'components/landing_page/CategoryCard';
 import JobCard from 'components/landing_page/JobCard';
+import ReactFullpage from '@fullpage/react-fullpage';
 import type { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import Jobhunt from '/public/images/Job-hunt.svg';
 const { TabPane } = Tabs;
 const { Search } = Input;
+import categoryApi from 'api/categoryApi';
+import postApi from 'api/postApi';
+import companyApi from 'api/companyApi';
+import Footer from 'components/layouts/Footer';
 
 //define type for data
 interface Data {
@@ -26,226 +32,177 @@ interface Props {
 const Home: NextPage<Props> = (props) => {
   const { data } = props;
   const router = useRouter();
-  const categories = [
-    {
-      id: 1,
-      name: 'ABC',
-      image: Jobhunt,
-      jobs: 123,
-    },
-    {
-      id: 2,
-      name: 'DEF',
-      image: Jobhunt,
-      jobs: 153,
-    },
-    {
-      id: 3,
-      name: 'YUT',
-      image: Jobhunt,
-      jobs: 53,
-    },
-    {
-      id: 4,
-      name: 'RFG',
-      image: Jobhunt,
-      jobs: 253,
-    },
-    {
-      id: 5,
-      name: 'JKI',
-      image: Jobhunt,
-      jobs: 113,
-    },
-    {
-      id: 6,
-      name: 'NMH',
-      image: Jobhunt,
-      jobs: 153,
-    },
-  ];
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [companies, setCompanies] = useState<Company[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [activeKey, setActiveKey] = useState<string>();
+  const anchors = ['welcome', 'categories', 'jobs', 'companies'];
 
-  const jobs = [
-    {
-      id: 1,
-      companyName: 'Tiki',
-      logo: Jobhunt,
-      title: 'Frontend Engineer Intern - Social Commerce Platform',
-      location: 'HCM',
-      timesheet: 'Full time',
-      time: '12/03/2022 10:10',
-    },
-    {
-      id: 2,
-      companyName: 'Lazada',
-      logo: Jobhunt,
-      title: 'Frontend Engineer Senior',
-      location: 'HCM',
-      timesheet: 'Full time',
-      time: '12/03/2022 10:10',
-    },
-    {
-      id: 3,
-      companyName: 'VNG',
-      logo: Jobhunt,
-      title: 'Frontend Engineer Intern - Social Commerce Platform',
-      location: 'HCM',
-      timesheet: 'Full time',
-      time: '12/03/2022 10:10',
-    },
-    {
-      id: 4,
-      companyName: 'Elca',
-      logo: Jobhunt,
-      title: 'Frontend Engineer Intern - Social Commerce Platform',
-      location: 'HCM',
-      timesheet: 'Full time',
-      time: '12/03/2022 10:10',
-    },
-    {
-      id: 5,
-      companyName: 'Fossil',
-      logo: Jobhunt,
-      title: 'Frontend Engineer Intern - Social Commerce Platform ',
-      location: 'HCM',
-      timesheet: 'Full time',
-      time: '12/03/2022 10:10',
-    },
-    {
-      id: 6,
-      companyName: 'Zalo',
-      logo: Jobhunt,
-      title: 'Frontend Engineer Intern - Social Commerce Platform',
-      location: 'HCM',
-      timesheet: 'Full time',
-      time: '12/03/2022 10:10',
-    },
-  ];
+  const handleChangeTab = (activeKey: string) => {
+    setActiveKey(activeKey);
+  };
 
-  const companies = [
-    {
-      id: 1,
-      logo: 'https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBM3g1SHc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--c535e18eca3ff84fd6857746a6ea66ed9cb31b69/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtCcWpBPSIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--623b1a923c4c6ecbacda77c459f93960558db010/logo2.png',
-    },
-    {
-      id: 2,
-      logo: 'https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBN1RFRWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--fd973422c6f688d8007a832ba2ed146a33b8dc15/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtCcWpBPSIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--623b1a923c4c6ecbacda77c459f93960558db010/Logo%20xanh%20d%C6%B0%C6%A1ng.png',
-    },
-    {
-      id: 3,
-      logo: 'https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMmZvSXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--a72d8a6545664966af9f6674fde5e1164b55ced4/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtCcWpBPSIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--623b1a923c4c6ecbacda77c459f93960558db010/Logo%20MB%20he%20mau%20RGB%2001.png',
-    },
-    {
-      id: 4,
-      logo: 'https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNXNuSWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--8b784f1c4b281934c44c4353eb3fc7f4c06f6745/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtCcWpBPSIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--623b1a923c4c6ecbacda77c459f93960558db010/FossilGroup-logo.png',
-    },
-    {
-      id: 5,
-      logo: 'https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOXdVRlE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--911d57240c287c9f97546479f528a92ee4198990/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtCcWpBPSIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--623b1a923c4c6ecbacda77c459f93960558db010/zalocareers_blue_2.png',
-    },
-    {
-      id: 6,
-      logo: 'https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOEJwSFE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--61bb4901a74cef186408525de025b905e8ecf1ea/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtCcWpBPSIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--623b1a923c4c6ecbacda77c459f93960558db010/logo%20FSOFT%20d%E1%BB%8Dc.png',
-    },
-  ];
+  const handleSearch = (value: string) => {
+    router.push(`/job-posts/?search=${value}`);
+  };
 
-  const handleSearch = () => {};
+  const order = (a: any, b: any) => {
+    return a.jobs > b.jobs ? -1 : a.jobs < b.jobs ? 1 : 0;
+  };
+
+  useEffect(() => {
+    categoryApi
+      .getCategories()
+      .then((res) => {
+        const categories = res.data.value;
+        setCategories(categories.sort(order));
+        setActiveKey(categories[0]._id);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    companyApi
+      .getCompanies()
+      .then((res) => {
+        setCompanies(res.data.value);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (activeKey) {
+      postApi
+        .getPostsLandingPage(activeKey)
+        .then((res) => {
+          setPosts(res.data.value);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [activeKey]);
+
   return (
     <div className='px-16 py-8'>
-      <Row justify='space-between' gutter={[20, 20]}>
-        <Col md={8} xs={24}>
-          <h3 className='font-bold text-3xl text-text-primary'>
-            Find your future! Hire your future!
-          </h3>
-          <h5 className='text-text-tertiary inline-block'>
-            {`Find your future. Let't go to discover the world!. Your oppornities are in your hand ^^`}
-          </h5>
-          <Row className='mt-8'>
-            <Col span={24}>
-              <Search
-                size='large'
-                placeholder='Search'
-                allowClear
-                enterButton
-                onSearch={handleSearch}
-              />
-            </Col>
-          </Row>
-        </Col>
-        <Col md={6} xs={0}></Col>
-        <Col md={10} xs={24}>
-          <div className='w-400'>
-            <Image src={Jobhunt} alt='' width={500} height={500}></Image>
-          </div>
-        </Col>
-      </Row>
-      <Row justify='space-between' className='mb-4'>
-        <Col>
-          <h3 className='font-bold text-3xl text-text-primary'>Categories!</h3>
-        </Col>
-        <Col>
-          <Button type='link' href='categories'>
-            <span className='text-text-tertiary'>All categories</span>
-            <ArrowRightOutlined style={{ color: '#8B7A9F' }} />
-          </Button>
-        </Col>
-      </Row>
-      <Row gutter={[20, 20]}>
-        {categories.map((category) => (
-          <Col lg={8} md={12} key={category.id}>
-            <CategoryCard category={category} />
-          </Col>
-        ))}
-      </Row>
-      <Row justify='center' className='pt-8'>
-        <h3 className='font-bold text-3xl text-text-primary'>Exciting jobs!</h3>
-      </Row>
-      <Row justify='center'>
-        <h5 className='text-text-tertiary max-w-md text-center'>
-          {`Find your future. Let't go to discover the world!. Your oppornities are in your hand ^^`}
-        </h5>
-      </Row>
-      <Tabs defaultActiveKey='1' centered size='large'>
-        {categories.map((category) => (
-          <TabPane tab={category.name} key={category.id}>
-            <Row gutter={[20, 20]}>
-              {jobs.map((job) => (
-                <Col md={12} lg={6} key={category.id}>
-                  <JobCard job={job} key={job.id} />
-                </Col>
-              ))}
-            </Row>
-          </TabPane>
-        ))}
-      </Tabs>
-      <Row justify='center' className='pt-8'>
-        <Button type='primary' size='large' href='/jobs'>
-          Explore more jobs
-        </Button>
-      </Row>
-      <Row justify='center' className='pt-8'>
-        <h3 className='font-bold text-3xl text-text-primary'>Top Companies!</h3>
-      </Row>
-      <Row justify='center'>
-        <h5 className='text-text-tertiary max-w-md text-center'>
-          {`Find your future. Let't go to discover the world!. Your oppornities are in your hand ^^`}
-        </h5>
-      </Row>
-      <Row className='p-8' gutter={[32, 16]}>
-        {companies.map((company) => (
-          <Col span={8} key={company.id} className='text-center h-44'>
-            <AntImage
-              preview={false}
-              src={company.logo}
-              className='max-h-44  cursor-pointer'
-              alt=''
-              onClick={() => {
-                router.push('/companies/id');
-              }}
-            ></AntImage>
-          </Col>
-        ))}
-      </Row>
+      <ReactFullpage
+        anchors={anchors}
+        navigation
+        navigationTooltips={anchors}
+        render={({ state, fullpageApi }) => {
+          return (
+            <ReactFullpage.Wrapper>
+              <div className='section fp-auto-height'>
+                <Row justify='space-between' gutter={[20, 20]}>
+                  <Col md={8} xs={24}>
+                    <h3 className='font-bold text-3xl text-text-primary'>
+                      Find your future! Hire your future!
+                    </h3>
+                    <h5 className='text-text-tertiary inline-block'>
+                      {`Find your future. Let't go to discover the world!. Your oppornities are in your hand ^^`}
+                    </h5>
+                    <Row className='mt-8'>
+                      <Col span={24}>
+                        <Search
+                          size='large'
+                          placeholder='Search'
+                          allowClear
+                          enterButton
+                          onSearch={handleSearch}
+                        />
+                      </Col>
+                    </Row>
+                  </Col>
+                  <Col md={6} xs={0}></Col>
+                  <Col md={10} xs={24}>
+                    <div className='w-400'>
+                      <Image src={Jobhunt} alt='' width={500} height={500}></Image>
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+              <div className='section fp-auto-height'>
+                <Row justify='space-between' className='mb-4'>
+                  <Col>
+                    <h3 className='font-bold text-3xl text-text-primary'>Categories!</h3>
+                  </Col>
+                  <Col>
+                    <Button type='link' href='categories'>
+                      <span className='text-text-tertiary'>All categories</span>
+                      <ArrowRightOutlined style={{ color: '#8B7A9F' }} />
+                    </Button>
+                  </Col>
+                </Row>
+                <Row gutter={[20, 20]}>
+                  {categories.map((category) => (
+                    <Col lg={8} md={12} key={category?._id}>
+                      <CategoryCard category={category} />
+                    </Col>
+                  ))}
+                </Row>
+              </div>
+              <div className='section fp-auto-height'>
+                <Row justify='center' className='pt-8'>
+                  <h3 className='font-bold text-3xl text-text-primary'>Exciting jobs!</h3>
+                </Row>
+                <Row justify='center'>
+                  <h5 className='text-text-tertiary max-w-md text-center'>
+                    {`Find your future. Let't go to discover the world!. Your oppornities are in your hand ^^`}
+                  </h5>
+                </Row>
+                <Tabs defaultActiveKey={activeKey} centered size='large' onChange={handleChangeTab}>
+                  {categories.map((category) => (
+                    <TabPane tab={category.name} key={category._id}>
+                      <Row gutter={[20, 20]}>
+                        {posts.map((post) => (
+                          <Col md={12} lg={6} key={post._id}>
+                            <JobCard post={post} key={post._id} />
+                          </Col>
+                        ))}
+                      </Row>
+                    </TabPane>
+                  ))}
+                </Tabs>
+                <Row justify='center' className='pt-8'>
+                  <Button type='primary' size='large' href='/job-posts'>
+                    Explore more jobs
+                  </Button>
+                </Row>
+              </div>
+              <div className='section fp-auto-height pb-64'>
+                <Row justify='center' className='pt-8'>
+                  <h3 className='font-bold text-3xl text-text-primary'>Top Companies!</h3>
+                </Row>
+                <Row justify='center'>
+                  <h5 className='text-text-tertiary max-w-md text-center'>
+                    {`Find your future. Let't go to discover the world!. Your oppornities are in your hand ^^`}
+                  </h5>
+                </Row>
+                <Row className='p-8' gutter={[32, 16]}>
+                  {companies.map((company) => (
+                    <Col span={8} key={company._id} className='text-center h-44'>
+                      <AntImage
+                        preview={false}
+                        src={
+                          company.logo ||
+                          'https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBM3g1SHc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--c535e18eca3ff84fd6857746a6ea66ed9cb31b69/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtCcWpBPSIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--623b1a923c4c6ecbacda77c459f93960558db010/logo2.png'
+                        }
+                        className='max-h-44  cursor-pointer'
+                        alt=''
+                        onClick={() => {
+                          router.push(`/companies/${company._id}`);
+                        }}
+                      ></AntImage>
+                    </Col>
+                  ))}
+                </Row>
+              </div>
+            </ReactFullpage.Wrapper>
+          );
+        }}
+      />
     </div>
   );
 };

@@ -7,24 +7,15 @@ import Jobhunt from '/public/images/Job-hunt.svg';
 import Title from 'antd/lib/typography/Title';
 import Text from 'antd/lib/typography/Text';
 import { useRouter } from 'next/router';
-
-interface jobData {
-  id: number;
-  companyName: String;
-  logo: string;
-  title: string;
-  location: string;
-  timesheet: string;
-  time: string;
-}
+import moment from 'moment';
 
 interface IProps {
-  job: jobData;
+  post: Post;
 }
 
 const JobCard: React.FC<IProps> = (props) => {
   const router = useRouter();
-  const { job } = props;
+  const { post } = props;
 
   return (
     <Card
@@ -36,12 +27,12 @@ const JobCard: React.FC<IProps> = (props) => {
     >
       <Row justify='space-between'>
         <Col span={6}>
-          <Image src={job.logo} alt=''></Image>
+          <Image src={post.postPhoto || Jobhunt} alt=''></Image>
         </Col>
         <Col span={12} className='text-right'>
           <Button
             onClick={() => {
-              router.push(`/jobs/${job.id}`);
+              router.push(`/job-posts/${post._id}`);
             }}
             style={{
               borderRadius: '10px',
@@ -53,21 +44,23 @@ const JobCard: React.FC<IProps> = (props) => {
         </Col>
       </Row>
       <Row>
-        <Text className='font-bold text-lg text-text-primary' ellipsis={{ tooltip: job.title }}>
-          {job.title}
+        <Text className='font-bold text-lg text-text-primary' ellipsis={{ tooltip: post.title }}>
+          {post.title}
         </Text>
       </Row>
       <Row>
         <h5 className='font-bold text-md text-text-secondary'>
-          {job.location} - {job.timesheet}
+          {post.company?.locations?.[0].address} - {post.jobType}
         </h5>
       </Row>
       <Row justify='space-between' className='mt-8'>
-        <Col span={6}>
-          <h5 className='font-bold text-md text-text-primary'>{job.companyName}</h5>
+        <Col span={14}>
+          <h5 className='font-bold text-md text-text-primary'>{post.company?.name}</h5>
         </Col>
         <Col span={10}>
-          <h5 className='font-bold text-md text-text-secondary text-right'>{job.time}</h5>
+          <h5 className='font-bold text-md text-text-secondary text-right'>
+            {moment(post.applicationDeadline).fromNow()}
+          </h5>
         </Col>
       </Row>
     </Card>
