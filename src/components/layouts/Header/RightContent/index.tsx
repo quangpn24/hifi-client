@@ -1,8 +1,10 @@
 import { BellFilled, BellOutlined, WechatOutlined } from '@ant-design/icons';
 import { Avatar, Badge, Button, Col, Popover, Row, Tooltip } from 'antd';
-import React, { FC } from 'react';
-import { useAppSelector } from 'redux/hooks';
+import React, { FC, useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { authActions } from 'redux/reducers/authSlice';
 import { selectUser } from 'redux/selectors';
+import notificationSocket from 'utils/notificationSocket';
 import Content from './Content';
 import Notifications from './Notifications';
 import Title from './Title';
@@ -12,6 +14,22 @@ interface IProps {}
 const RightContent: FC<IProps> = (props) => {
   const user = useAppSelector(selectUser);
   const avatarUrl = 'https://joeschmoe.io/api/v1/random';
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (user) {
+      notificationSocket.connect();
+      notificationSocket.emit('joinNotification', {
+        receiver: user?._id,
+      });
+    }
+  }, [user]);
+
+  useEffect(() => {
+    notificationSocket.on('receiveNotification', (user) => {
+      dispatch(authActions.setUser(user));
+    });
+  }, [notificationSocket]);
 
   return (
     <Row gutter={[10, 10]}>
