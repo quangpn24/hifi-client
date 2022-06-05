@@ -3,6 +3,8 @@ import { Button, Card, Form, Input, message, Spin } from 'antd';
 import emailApi from 'api/emailApi';
 import userApi from 'api/userApi';
 import axios from 'axios';
+import { firebaseAuth } from 'firebase';
+import { getAuth, updatePassword } from 'firebase/auth';
 import React, { useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
 import { selectUser } from 'redux/selectors';
@@ -43,9 +45,14 @@ const LoginDetails = (props: Props) => {
     }
 
     try {
-      await userApi.updateMe({ password: values.password });
+      if (!firebaseAuth.currentUser) {
+        throw new Error('User is not logged in');
+      }
+      await updatePassword(firebaseAuth.currentUser, values.password);
+
       message.success('Password updated successfully');
     } catch (error) {
+      console.log('error: ', error);
       if (axios.isAxiosError(error)) {
         message.error(error?.response?.data.message);
       } else {

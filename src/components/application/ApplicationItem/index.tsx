@@ -27,15 +27,15 @@ const ApplicationItem = ({ data }: Props) => {
           }}
         >
           <Image
-            src={data.post.company?.logo || 'https://picsum.photos/200'}
+            src={data.post?.company?.logo || 'https://picsum.photos/200'}
             layout='fixed'
             width={50}
             height={50}
             alt='logo-company'
           />
           <div className='ml-4 w-full '>
-            <h4 className='!mb-0  text-xl'>{data.post.title}</h4>
-            <p className='!mt-1 !mb-0'>{data.post.company?.name} </p>
+            <h4 className='!mb-0  text-xl'>{data.post?.title}</h4>
+            <p className='!mt-1 !mb-0'>{data.post?.company?.name} </p>
             <div className='flex items-center my-2'>
               <CalendarIcon className='w-5 h-5 mr-2' />
               <p className='!mb-0'>

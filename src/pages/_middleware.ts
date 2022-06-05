@@ -1,5 +1,5 @@
-import { NO_AUTH_PATHS, PUBLIC_PATHS } from 'constant';
-import { NextRequest, NextResponse, NextFetchEvent } from 'next/server';
+import { NO_AUTH_PATHS } from 'constant';
+import { NextFetchEvent, NextRequest, NextResponse } from 'next/server';
 import routeHelper from 'utils/routeHelper';
 
 export function middleware(req: NextRequest, ev: NextFetchEvent) {

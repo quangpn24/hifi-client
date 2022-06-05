@@ -2,7 +2,6 @@ import { EditOutlined } from '@ant-design/icons';
 import { Button, Divider, FormInstance, message, Modal } from 'antd';
 import awardApi from 'api/awardApi';
 import { useProfileOverviewContext } from 'context/ProfileContext';
-import { NextPage } from 'next';
 import React, { useEffect, useRef, useState } from 'react';
 import ActionSuggestion from '../ActionSuggestion';
 import Header from '../Header';

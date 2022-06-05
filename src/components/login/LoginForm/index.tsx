@@ -32,31 +32,31 @@ const LoginForm = () => {
 
         const url = (router.query.redirect_url as string) ?? '/';
         router.push(url);
-        setLoading(false);
       } catch (errorLogin: any) {
         message.error(errorLogin.message);
       }
     } else {
       message.error(error);
     }
+    setLoading(false);
   };
   const onFinishFailed = (data: any) => {};
 
   const handleGoogleLogin = async () => {
     setLoading(true);
     const { error, user } = await signInWithGoogle();
-    if (error || !user) {
+    if (!user || error) {
       error && message.error(error);
       return;
     }
     try {
-      const result = await dispatch(authActions.login(user));
+      const result = await dispatch(authActions.login(user!!));
       await unwrapResult(result);
       message.success('Login successfully!');
     } catch (errorLogin: any) {
       message.error(errorLogin.message);
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (

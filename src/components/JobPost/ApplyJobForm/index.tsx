@@ -124,6 +124,7 @@ const ApplyJobFormModal = ({ post, title, visible, onCancel, onSuccess }: Props)
       confirmLoading={loading}
       onOk={handleOk}
       onCancel={handleCancel}
+      okText='Submit application'
     >
       <div>
         <p>You are about to apply to {post.title}</p>
@@ -187,7 +188,6 @@ const ApplyJobFormModal = ({ post, title, visible, onCancel, onSuccess }: Props)
           <Form.Item name='coverLetter' hidden={!haveCoverLetter}>
             <TextArea />
           </Form.Item>
-          <Button htmlType='submit'>Submit</Button>
         </Form>
       </div>
     </Modal>

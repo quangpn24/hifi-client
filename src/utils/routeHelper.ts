@@ -4,7 +4,7 @@ const routeHelper = {
   matchPublicPaths: (path: string) => {
     return (
       PUBLIC_PATHS.includes(path) ||
-      PUBLIC_PATHS.findIndex((p) => p.includes('*') && path.startsWith(p)) !== -1
+      PUBLIC_PATHS.findIndex((p) => p.includes('*') && p.startsWith(path)) !== -1
     );
   },
 };

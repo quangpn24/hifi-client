@@ -2,8 +2,9 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { Button, Col, Form, Input, message, Row } from 'antd';
 import { DEFAULT_IMAGE } from 'constant';
 import { validateMessages } from 'constant/validateMessages';
-import { auth } from 'firebase';
+import { firebaseAuth } from 'firebase';
 import { signInWithGoogle, signUpWithEmailPassword } from 'firebase/services';
+import Link from 'next/link';
 import React, { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { useAppDispatch } from 'redux/hooks';
@@ -24,13 +25,30 @@ const RegisterForm = () => {
         await unwrapResult(result);
         message.info('Sign up successfully', 1000);
       } catch (errorLogin: any) {
-        auth.currentUser?.delete();
+        firebaseAuth.currentUser?.delete();
         message.error(errorLogin.message);
       }
     } else {
       message.error(error);
     }
     setLoading(false);
+  };
+
+  const handleGoogleLogin = async () => {
+    setLoading(true);
+    const { error, user } = await signInWithGoogle();
+    if (!user || error) {
+      error && message.error(error);
+      return;
+    }
+    try {
+      const result = await dispatch(authActions.login(user!!));
+      await unwrapResult(result);
+      message.success('Login successfully!');
+    } catch (errorLogin: any) {
+      message.error(errorLogin.message);
+      setLoading(false);
+    }
   };
 
   return (
@@ -85,10 +103,14 @@ const RegisterForm = () => {
               size='large'
               block
               icon={<FcGoogle className='mr-4' />}
-              onClick={signInWithGoogle}
+              onClick={handleGoogleLogin}
             >
-              Sign In with google
+              Sign up with google
             </Button>
+
+            <div className='mt-4 '>
+              You have an account? <Link href={'/auth/login'}>Sign In</Link>
+            </div>
           </div>
         </Form>
       </Row>
