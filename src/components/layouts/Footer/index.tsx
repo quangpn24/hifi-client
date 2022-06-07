@@ -5,7 +5,7 @@ import { FC } from 'react';
 
 const Footer: FC = (props) => {
   return (
-    <div className='bg-white px-16 pb-4 w-full bottom-0 fixed'>
+    <div className='bg-white px-16 pb-4 w-full'>
       <Row>
         <Col span={8}>
           <Row className='items-center'>
