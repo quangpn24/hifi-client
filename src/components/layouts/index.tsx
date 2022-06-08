@@ -69,9 +69,9 @@ const Layout: React.FC = ({ children }) => {
   }
 
   return (
-    <div className='flex flex-col h-screen'>
+    <div className='flex flex-col'>
       <Header menu={menu} />
-      <main className='flex-1 bg-[#EBEFF7] px-16 pt-4 pb-32'>{children}</main>
+      <main className='bg-[#EBEFF7] px-16 pt-4 pb-32 !h-auto'>{children}</main>
       <Footer />
     </div>
   );

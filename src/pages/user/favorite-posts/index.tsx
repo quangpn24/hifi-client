@@ -5,6 +5,7 @@ import { PAGE_SIZE } from 'constant/others';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
+import AppHeading from 'components/commons/AppHeading';
 
 type Props = {};
 type DataType = {
@@ -61,23 +62,29 @@ const FavoriteList = (props: Props) => {
   }, []);
 
   return (
-    <Row className='w-full mt-[20px] px-16 pt-[20px] bg-[#FAFAFC]' justify='center'>
-      {data?.map((e) => (
-        <Col span={24} className='mb-4' key={`${e._id}`}>
-          <JobCardItem data={{ ...e.post, isFavorited: true }} />
-        </Col>
-      ))}
-      {data && data.length > 0 && (
-        <Pagination
-          className='!my-5'
-          defaultCurrent={1}
-          total={totalSize}
-          pageSize={PAGE_SIZE}
-          showSizeChanger={false}
-          onChange={(currPage) => handleChangePage(currPage)}
-        />
-      )}
-    </Row>
+    <div className='p-8'>
+      <h1>My favorite posts</h1>
+      <div className='w-full mt-[20px] px-16 pt-5 bg-[#FAFAFC] min-h-screen rounded flex'>
+        <Row justify='center' gutter={[20, 20]}>
+          {data?.map((e) => (
+            <Col span={24} className='mb-4' key={`${e._id}`}>
+              <JobCardItem data={{ ...e.post, isFavorited: true }} />
+            </Col>
+          ))}
+          {data && data.length > 0 && totalSize / PAGE_SIZE > 1 && (
+            <Pagination
+              className='!my-5'
+              defaultCurrent={1}
+              total={totalSize}
+              pageSize={PAGE_SIZE}
+              showSizeChanger={false}
+              onChange={(currPage) => handleChangePage(currPage)}
+            />
+          )}
+        </Row>
+        {data.length === 0 && <div className='text-center self-center w-full text-xl'>Nothing</div>}
+      </div>
+    </div>
   );
 };
 

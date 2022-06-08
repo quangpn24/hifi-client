@@ -111,7 +111,7 @@ const JobInterests = () => {
     <>
       <HrefContainer id='interests'>
         <Header
-          text={'Job intesrests & preferences'}
+          text={'Job interests & preferences'}
           action={
             <Button icon={<EditOutlined />} type='text' onClick={() => setVisible(true)}>
               Edit

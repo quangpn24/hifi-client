@@ -28,7 +28,7 @@ const WorkExperience = (props: Props) => {
   return (
     <>
       <HrefContainer id='experience'>
-        <Header text={'Work experience'.toUpperCase()} />
+        <Header text={'Work experience'} />
         <Divider className='!my-2' />
         <div className='mt-4 p-1'>
           {exps.length !== 0 &&

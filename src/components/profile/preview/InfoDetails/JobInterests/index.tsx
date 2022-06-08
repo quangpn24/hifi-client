@@ -29,7 +29,7 @@ const JobInterests = () => {
 
   return (
     <HrefContainer id='interests'>
-      <Header text={'Job intesrests & preferences'} />
+      <Header text={'Job interests & preferences'} />
       <Divider className='!my-2' />
       {/* <p className='my-4'>{content}</p> */}
       <div className='mt-4 gap-y-4'>

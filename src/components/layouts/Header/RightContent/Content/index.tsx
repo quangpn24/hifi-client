@@ -1,4 +1,10 @@
-import { EditOutlined, FormOutlined, LogoutOutlined, SettingOutlined } from '@ant-design/icons';
+import {
+  EditOutlined,
+  FormOutlined,
+  HeartOutlined,
+  LogoutOutlined,
+  SettingOutlined,
+} from '@ant-design/icons';
 import { Menu } from 'antd';
 import axios from 'axios';
 import { NO_AUTH_PATHS } from 'constant';
@@ -28,15 +34,8 @@ const Content = () => {
     }
   };
 
-  const editProfile = () => {
-    router.push('/profile');
-  };
-
-  const viewApplications = () => {
-    router.push('/user/applications');
-  };
-  const viewAccountSettings = () => {
-    router.push('/settings');
+  const navigate = (route: string) => {
+    router.push(route);
   };
 
   const contents = [
@@ -44,19 +43,25 @@ const Content = () => {
       key: '1',
       icon: <EditOutlined />,
       content: 'Profile',
-      onClick: editProfile,
+      onClick: () => navigate('/profile'),
     },
     {
       key: '2',
       icon: <FormOutlined />,
       content: 'My Applications',
-      onClick: viewApplications,
+      onClick: () => navigate('/user/applications'),
+    },
+    {
+      key: '3',
+      icon: <HeartOutlined />,
+      content: 'My Favorite Posts',
+      onClick: () => navigate('/user/favorite-posts'),
     },
     {
       key: '3',
       icon: <SettingOutlined />,
       content: 'Account Settings',
-      onClick: viewAccountSettings,
+      onClick: () => navigate('/setting'),
     },
     {
       key: '4',

@@ -90,7 +90,7 @@ const WorkExperience = (props: Props) => {
     <>
       <HrefContainer id='experience'>
         <Header
-          text={'Work experience'.toUpperCase()}
+          text={'Work experience'}
           action={
             exps.length > 0 ? (
               <Button icon={<EditOutlined />} type='text' onClick={() => setVisible(true)}>
