@@ -17,6 +17,7 @@ const SideNav: FC<IProps> = (props) => {
   const [rooms, setRooms] = useState<Room[]>([]);
   const [receivedData, setReceivedData] = useState<Room>();
   const [roomId, setRoomId] = useState<string>();
+  const [searchName, setSearchName] = useState<string>('');
   const dispatch = useAppDispatch();
   const chatting = useAppSelector(chattingState);
 
@@ -26,6 +27,10 @@ const SideNav: FC<IProps> = (props) => {
     rooms.forEach((room) => {
       socket.emit('joinRoom', room._id);
     });
+  };
+
+  const handleSearch = (value: string) => {
+    setSearchName(value);
   };
 
   useEffect(() => {
@@ -83,25 +88,33 @@ const SideNav: FC<IProps> = (props) => {
   }, [receivedData]);
 
   return (
-    <>
+    <div style={{ maxHeight: '100px', height: '100px' }}>
       <Title level={3}>Chats</Title>
       <Input
         prefix={<SearchOutlined />}
+        onChange={(event: any) => handleSearch(event.target.value)}
         placeholder='Search or start new chat'
         className='mb-2 !rounded-2xl'
       ></Input>
-      {rooms.map((room) => {
-        return (
-          <ChatUserItem
-            lastMessage={room.messages[room.messages.length - 1]}
-            key={room._id}
-            roomId={room._id}
-            chatter={room.chatters[0]}
-            selected={room._id === roomId}
-          />
-        );
-      })}
-    </>
+      {rooms
+        .filter((room) =>
+          room.chatters
+            .find((chatter) => chatter.chatterId != user?._id)
+            ?.name.toLowerCase()
+            .includes(searchName.toLowerCase())
+        )
+        .map((room) => {
+          return (
+            <ChatUserItem
+              lastMessage={room.messages[room.messages.length - 1]}
+              key={room._id}
+              roomId={room._id}
+              chatter={room.chatters[0]}
+              selected={room._id === roomId}
+            />
+          );
+        })}
+    </div>
   );
 };
 
