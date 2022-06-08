@@ -88,7 +88,7 @@ const SideNav: FC<IProps> = (props) => {
   }, [receivedData]);
 
   return (
-    <div style={{ maxHeight: '100px', height: '100px' }}>
+    <>
       <Title level={3}>Chats</Title>
       <Input
         prefix={<SearchOutlined />}
@@ -114,7 +114,7 @@ const SideNav: FC<IProps> = (props) => {
             />
           );
         })}
-    </div>
+    </>
   );
 };
 
