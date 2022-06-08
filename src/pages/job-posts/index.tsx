@@ -146,8 +146,8 @@ const Jobs = (props: Props) => {
   }, [defaultSearch]);
 
   return (
-    <Row>
-      <Row className='w-full px-16 py-[40px] bg-white'>
+    <div className='p-8 py-0'>
+      <Row className='w-full px-16 py-[40px]  bg-white'>
         {/* <Col span={24} className='my-[20px]'>
           <AppHeading text={'Find jobs'} />
         </Col> */}
@@ -204,7 +204,7 @@ const Jobs = (props: Props) => {
           />
         )}
       </Row>
-    </Row>
+    </div>
   );
 };
 

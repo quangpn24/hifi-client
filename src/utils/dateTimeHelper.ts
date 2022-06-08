@@ -23,6 +23,9 @@ const dateTimeHelper = {
       end
     )})`;
   },
+  dayLeft: (date: Date) => {
+    return Math.round((date.getTime() - Date.now()) / (1000 * 24 * 3600));
+  },
 };
 
 export default dateTimeHelper;

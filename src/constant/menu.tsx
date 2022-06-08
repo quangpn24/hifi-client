@@ -1,4 +1,5 @@
 import { HomeOutlined } from '@ant-design/icons';
+import PayrollPage from 'pages/payroll';
 
 interface IMenu {
   id: number;
@@ -25,6 +26,12 @@ const menu: IMenu[] = [
     name: 'Resume builder',
     url: '/resume-builder',
     icon: <HomeOutlined />,
+  },
+  {
+    id: 4,
+    name: 'Gross - Net',
+    url: '/payroll',
+    icon: <PayrollPage />,
   },
 ];
 
