@@ -9,13 +9,6 @@ interface IProp {}
 
 const Notifications: FC<IProp> = (props) => {
   const user = useAppSelector(selectUser);
-  const notification = {
-    _id: '123',
-    message: 'ABC',
-    createdAt: new Date(),
-    redirectUrl: 'ABC',
-    isRead: false,
-  };
 
   return (
     <div style={{ width: 300, overflowY: 'auto', overflowX: 'hidden', maxHeight: 500 }}>

@@ -50,11 +50,10 @@ const JobCardItem = (props: Props) => {
             </Col>
             <Col span={6} className='!flex justify-end'>
               <span>
-                Còn{' '}
                 <strong>
                   {dateTimeHelper.dayLeft(new Date(props.data.applicationDeadline ?? '1/1/2022'))}
                 </strong>{' '}
-                ngày để ứng tuyển
+                days left to apply
               </span>
             </Col>
           </Row>
