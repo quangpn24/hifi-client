@@ -26,10 +26,10 @@ const Chatting: NextPage = () => {
         md={6}
         className='px-4 py-2 border-r-2 border-0 border-r-primary border-solid'
       >
-        <SideNav></SideNav>
+        <SideNav />
       </Col>
       <Col xs={24} sm={24} md={18}>
-        <ChatBox setVisibleDrawer={handleSetVisible}></ChatBox>
+        <ChatBox setVisibleDrawer={handleSetVisible} />
       </Col>
     </Row>
   );

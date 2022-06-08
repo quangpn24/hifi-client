@@ -58,13 +58,13 @@ const Content = () => {
       onClick: () => navigate('/user/favorite-posts'),
     },
     {
-      key: '3',
+      key: '4',
       icon: <SettingOutlined />,
       content: 'Account Settings',
       onClick: () => navigate('/setting'),
     },
     {
-      key: '4',
+      key: '5',
       icon: <LogoutOutlined />,
       content: 'Log Out',
       onClick: handleLogout,
