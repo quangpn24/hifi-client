@@ -1,4 +1,5 @@
 import { Avatar, Col, Divider, Row, Tooltip, Typography } from 'antd';
+import { DEFAULT_IMAGE } from 'constant';
 import moment from 'moment';
 import React, { FC } from 'react';
 import { useAppSelector } from 'redux/hooks';
