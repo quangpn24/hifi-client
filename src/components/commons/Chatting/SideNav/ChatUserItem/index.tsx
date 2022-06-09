@@ -9,7 +9,7 @@ import styles from './index.module.less';
 interface IProps {
   lastMessage: Message;
   roomId: string;
-  chatter: Chatter;
+  chatter?: Chatter;
   selected: boolean;
 }
 
