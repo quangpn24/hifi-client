@@ -28,9 +28,9 @@ const JobDetails = (props: Props) => {
   const handleLike = async () => {
     try {
       if (isLiked) {
-        const result = await postApi.deleteFavoritePost(idUser, post?._id);
+        await postApi.deleteFavoritePost(idUser, post?._id);
       } else {
-        const result = await postApi.addFavoritePost(idUser, post?._id);
+        await postApi.addFavoritePost(idUser, post?._id);
       }
       setIsLiked(!isLiked);
     } catch (error) {
@@ -39,17 +39,23 @@ const JobDetails = (props: Props) => {
   };
 
   return (
-    <div className='px-16'>
+    <div className='lg:px-16 px-0'>
       <Card>
         <div>
           <Row className=' bg-white' gutter={[0, 20]}>
-            <Col span={2} className='mt-5'>
-              <Image width={80} height={80} className='bg-red-500' preview={false} />
+            <Col lg={2} sm={24} className='mt-5'>
+              <Image
+                width={80}
+                height={80}
+                className='bg-red-500'
+                preview={false}
+                alt='company-logo'
+              />
             </Col>
-            <Col span={22} className='mt-5'>
+            <Col lg={22} sm={24} className='lg:mt-5'>
               <Row>
                 <Col span={18}>
-                  <span className=' text-3xl font-semibold'>{post?.title}</span>
+                  <span className='text-3xl font-semibold'>{post?.title}</span>
                 </Col>
                 <Col span={6} className='!flex flex-row items-center text-[#685879] justify-end'>
                   <div onClick={() => setIsShareModalVisible(true)}>
@@ -118,7 +124,7 @@ const JobDetails = (props: Props) => {
             </Col>
             <Divider className='!mb-0' />
           </Row>
-          <Row className='text-[#685879] mt-[30px]'>
+          <Row className='text-[#685879] mt-[30px] px-5'>
             <div dangerouslySetInnerHTML={{ __html: post?.description }}></div>
           </Row>
           <Divider />

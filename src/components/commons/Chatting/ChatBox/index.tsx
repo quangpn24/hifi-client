@@ -25,12 +25,9 @@ const ChatBox: FC<IProps> = (props) => {
     <div className='flex flex-col p-2 h-full'>
       {room ? (
         <>
-          <ChatBoxHeader
-            setVisibleDrawer={setVisibleDrawer}
-            chatter={room.chatters[0]}
-          ></ChatBoxHeader>
+          <ChatBoxHeader setVisibleDrawer={setVisibleDrawer} chatter={room.chatters[0]} />
           <ChatBoxContent />
-          <ChatBoxInput roomId={room._id}></ChatBoxInput>
+          <ChatBoxInput roomId={room._id} />
         </>
       ) : (
         <div className='flex flex-col h-[calc(100vh-268px)] items-center justify-center'>

@@ -12,6 +12,7 @@ import { authActions } from 'redux/reducers/authSlice';
 import { useProfileOverviewContext } from 'context/ProfileContext';
 import HrefContainer from '../HrefContainer';
 import { UsersIcon } from '@heroicons/react/solid';
+import ActionSuggestion from '../ActionSuggestion';
 
 type Props = {};
 
@@ -89,7 +90,13 @@ const Skills = ({}: Props) => {
         {(!!user?.skills && user?.skills?.length) > 0 ? (
           <SkillsList skills={user?.skills} />
         ) : (
-          <p>No skills</p>
+          <ActionSuggestion
+            text='Now’s not the time to be humble. Share what you’re good at to attract the top companies.'
+            textButton='ADD SKILLS'
+            onClick={() => {
+              setVisible(true);
+            }}
+          />
         )}
       </HrefContainer>
       <Modal

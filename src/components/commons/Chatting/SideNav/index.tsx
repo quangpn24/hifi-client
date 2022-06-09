@@ -1,13 +1,12 @@
 import { SearchOutlined } from '@ant-design/icons';
 import { Input, Typography } from 'antd';
-import React, { FC, useEffect, useState } from 'react';
-import ChatUserItem from './ChatUserItem';
 import roomApi from 'api/roomApi';
+import React, { FC, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import socket from 'utils/messageSocket';
-import { setRoom } from 'redux/actions/chattingActions';
-import { chattingState, selectUser } from 'redux/selectors';
 import { setCurrentRoomState, setRoomsState } from 'redux/reducers/chattingSlice';
+import { chattingState, selectUser } from 'redux/selectors';
+import socket from 'utils/messageSocket';
+import ChatUserItem from './ChatUserItem';
 const { Title } = Typography;
 
 interface IProps {}
@@ -39,7 +38,14 @@ const SideNav: FC<IProps> = (props) => {
     roomApi
       .getRoomsByUserId(user?._id!)
       .then((res) => {
-        dispatch(setRoomsState(res.data.value));
+        dispatch(
+          setRoomsState([
+            ...res.data.value,
+            ...res.data.value,
+            ...res.data.value,
+            ...res.data.value,
+          ])
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -90,17 +96,19 @@ const SideNav: FC<IProps> = (props) => {
         placeholder='Search or start new chat'
         className='mb-2 !rounded-2xl'
       ></Input>
-      {rooms.map((room) => {
-        return (
-          <ChatUserItem
-            lastMessage={room.messages[room.messages.length - 1]}
-            key={room._id}
-            roomId={room._id}
-            chatter={room.chatters[0]}
-            selected={room._id === roomId}
-          />
-        );
-      })}
+      <div className='h-[312px] overflow-y-auto'>
+        {rooms.map((room) => {
+          return (
+            <ChatUserItem
+              lastMessage={room.messages[room.messages.length - 1]}
+              key={room._id}
+              roomId={room._id}
+              chatter={room.chatters[0]}
+              selected={room._id === roomId}
+            />
+          );
+        })}
+      </div>
     </>
   );
 };

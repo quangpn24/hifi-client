@@ -8,12 +8,12 @@ import notificationSocket from 'utils/notificationSocket';
 import Content from './Content';
 import Notifications from './Notifications';
 import Title from './Title';
+import { DEFAULT_IMAGE } from 'constant';
 
 interface IProps {}
 
 const RightContent: FC<IProps> = (props) => {
   const user = useAppSelector(selectUser);
-  const avatarUrl = 'https://joeschmoe.io/api/v1/random';
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const RightContent: FC<IProps> = (props) => {
               <Avatar
                 style={{ cursor: 'pointer' }}
                 shape='square'
-                src={user?.photoUrl ? user.photoUrl : avatarUrl}
+                src={user?.photoUrl ? user.photoUrl : DEFAULT_IMAGE}
               />
             </Popover>
           </Col>
