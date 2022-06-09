@@ -61,7 +61,7 @@ const Content = () => {
       key: '4',
       icon: <SettingOutlined />,
       content: 'Account Settings',
-      onClick: () => navigate('/setting'),
+      onClick: () => navigate('/settings'),
     },
     {
       key: '5',
