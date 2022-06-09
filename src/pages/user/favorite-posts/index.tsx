@@ -64,10 +64,10 @@ const FavoriteList = (props: Props) => {
   return (
     <div className='p-8'>
       <h1>My favorite posts</h1>
-      <div className='w-full mt-[20px] px-16 pt-5 bg-[#FAFAFC] min-h-screen rounded flex'>
-        <Row justify='center' gutter={[20, 20]}>
+      <div className='w-full mt-[20px] px-16 pt-5 bg-[#FAFAFC] min-h-screen rounded flex flex-col'>
+        <Row justify='center' className='w-full' gutter={[20, 20]}>
           {data?.map((e) => (
-            <Col span={24} className='mb-4' key={`${e._id}`}>
+            <Col span={24} key={`${e._id}`}>
               <JobCardItem data={{ ...e.post, isFavorited: true }} />
             </Col>
           ))}
@@ -82,7 +82,7 @@ const FavoriteList = (props: Props) => {
             />
           )}
         </Row>
-        {data.length === 0 && <div className='text-center self-center w-full text-xl'>Nothing</div>}
+        {data.length === 0 && <div className='text-center m-auto w-full text-xl'>Nothing</div>}
       </div>
     </div>
   );
