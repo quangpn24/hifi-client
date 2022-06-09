@@ -6,13 +6,16 @@ import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { setRoom } from 'redux/actions/chattingActions';
 import { selectUser } from 'redux/selectors';
 
-interface IProps {}
+interface IProps {
+  chatterAvatar?: string;
+}
 
 const ChatBoxContent: FC<IProps> = (props) => {
   const dispatch = useAppDispatch();
   const chatting = useAppSelector((state) => state.chatting);
   const [messageList, setMessageList] = useState<Message[]>([]);
   const user = useAppSelector(selectUser);
+  const { chatterAvatar } = props;
 
   useEffect(() => {
     socket.on('sendDataServer', (data: Room) => {
@@ -36,6 +39,7 @@ const ChatBoxContent: FC<IProps> = (props) => {
               isMine={message.userId === user?._id}
               message={message.content}
               date={message.createdAt}
+              avatar={message.userId === user?._id ? user.photoUrl : chatterAvatar}
             />
           );
         })}

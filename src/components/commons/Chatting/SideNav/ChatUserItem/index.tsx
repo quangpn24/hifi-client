@@ -28,7 +28,11 @@ const ChatUserItem: FC<IProps> = (props) => {
         onClick={handleJoinRoom}
       >
         <Col span={5} className='flex items-center bg-transparent'>
-          <Avatar src='https://joeschmoe.io/api/v1/random' alt='Han Solo' size={'large'} />
+          <Avatar
+            src={chatter?.avatar || 'https://joeschmoe.io/api/v1/random'}
+            alt={chatter?.name}
+            size={'large'}
+          />
         </Col>
         <Col span={19}>
           <Typography.Title level={5} className='!mb-0'>

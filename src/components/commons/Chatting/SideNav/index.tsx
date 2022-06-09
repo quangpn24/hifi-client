@@ -43,14 +43,7 @@ const SideNav: FC<IProps> = (props) => {
     roomApi
       .getRoomsByUserId(user?._id!)
       .then((res) => {
-        dispatch(
-          setRoomsState([
-            ...res.data.value,
-            ...res.data.value,
-            ...res.data.value,
-            ...res.data.value,
-          ])
-        );
+        dispatch(setRoomsState([...res.data.value]));
       })
       .catch((err) => {
         console.log(err);
