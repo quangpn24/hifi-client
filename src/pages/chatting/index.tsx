@@ -1,8 +1,8 @@
-import type { NextPage } from 'next';
 import { Col, Drawer, Row } from 'antd';
-import React, { useState } from 'react';
-import SideNav from 'components/commons/Chatting/SideNav';
 import ChatBox from 'components/commons/Chatting/ChatBox';
+import SideNav from 'components/commons/Chatting/SideNav';
+import type { NextPage } from 'next';
+import React, { useState } from 'react';
 
 const Chatting: NextPage = () => {
   const [visible, setVisible] = useState(false);

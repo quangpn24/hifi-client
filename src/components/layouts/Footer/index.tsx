@@ -5,7 +5,7 @@ import { FC } from 'react';
 
 const Footer: FC = (props) => {
   return (
-    <div className='bg-white px-16 pb-4 w-full'>
+    <div className='bg-[#001431] px-16 py-8 pb-4 w-full'>
       <Row>
         <Col span={8}>
           <Row className='items-center'>
@@ -15,14 +15,12 @@ const Footer: FC = (props) => {
               href='./'
               icon={<Image alt='' src={logo} />}
             ></Button>
-            <span className='font-bold text-xl text-text-primary'>HIFI</span>
+            <span className='font-bold text-xl text-white'>HIFI</span>
           </Row>
         </Col>
       </Row>
-      <Divider className='bg-tertiary m-4'></Divider>
-      <h5 className='text-text-tertiary inline-block'>
-        {`Copyright @ 2022. All right Reservered`}
-      </h5>
+      <Divider className='bg-white m-4'></Divider>
+      <h5 className='text-white inline-block'>{`Copyright @ 2022. All right Reservered`}</h5>
     </div>
   );
 };

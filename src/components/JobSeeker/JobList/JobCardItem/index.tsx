@@ -6,6 +6,7 @@ import { useAppSelector } from 'redux/hooks';
 import dateTimeHelper from 'utils/dateTimeHelper';
 import { HeroIcon } from 'utils/HeroIcon';
 
+import Jobhunt from '/public/images/Job-hunt.svg';
 type Props = {
   data: Post;
 };
@@ -18,9 +19,9 @@ const JobCardItem = ({ data }: Props) => {
     try {
       if (idUser) {
         if (isLiked) {
-          await postApi.deleteFavoritePost(idUser, data._id);
+          await postApi.deleteFavoritePost(idUser, props.data._id);
         } else {
-          await postApi.addFavoritePost(idUser, data._id);
+          await postApi.addFavoritePost(idUser, props.data._id);
         }
         setIsLiked(!isLiked);
       } else {
@@ -30,18 +31,22 @@ const JobCardItem = ({ data }: Props) => {
       console.log(error);
     }
   };
-
   return (
     <Row>
-      <Col span={3}>
+      <Col span={3} lg={2} className='mr-5'>
         <a href={`/job-posts/${data._id}`} target='_blank' rel='noopener noreferrer'>
-          <Image className='w-full h-full object-contain border border-slate-600' preview={false} />
+          <Image
+            className='w-full h-full object-contain border border-slate-600'
+            src={data?.company?.logo || Jobhunt}
+          />
         </a>
       </Col>
       <Col span={21} className='text-lg'>
         <Row>
           <Col span={24} className='text-[#8B7A9F] font-semibold flex justify-between'>
-            <div> {data.company?.name || ' '}</div>
+            <a href={`/companies/${data.company?._id}`} target='_blank' rel='noopener noreferrer'>
+              <div> {data.company?.name || ' '}</div>
+            </a>
             <div className='text-base'>
               <strong>
                 {dateTimeHelper.dayLeft(new Date(data.applicationDeadline ?? '1/1/2022'))}

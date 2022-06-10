@@ -1,4 +1,4 @@
-import { DocumentTextIcon, TrashIcon } from '@heroicons/react/solid';
+import { DocumentTextIcon, TrashIcon, XIcon } from '@heroicons/react/solid';
 import { Button } from 'antd';
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 
@@ -42,22 +42,33 @@ const ResumeInput = ({ value, onChange }: Props) => {
         style={{ display: 'none' }}
       />
       {resume ? (
-        <div className={'p-4 bg-slate-200 rounded-md my-4'}>
-          <p>{resume?.fileName}</p>
-          <div className='flex gap-2 right-4 mt-2'>
-            <Button
-              type='text'
-              className='flex gap-1 items-center '
-              icon={<TrashIcon className='h-5 w-5 text-red-500' />}
-              onClick={onDelete}
-            >
-              Remove file
-            </Button>
-          </div>
+        <div
+          className={
+            'p-3 rounded-md my-4 border-primary-color border-[2px] border-dashed flex items-center justify-between max-w-[40%]'
+          }
+        >
+          <p
+            className='!mb-0'
+            style={{
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
+            {resume?.fileName}
+          </p>
+          <Button
+            type='text'
+            shape='circle'
+            className='flex items-center justify-center '
+            onClick={onDelete}
+          >
+            <XIcon className='h-5 w-5' />
+          </Button>
         </div>
       ) : (
         <div
-          className='p-4 bg-slate-200 rounded-md my-4 flex justify-center items-center gap-2 cursor-pointer'
+          className='p-3 rounded-md border-[2px] border-dashed border-primary-color my-4 flex justify-center items-center gap-2 cursor-pointer  max-w-[40%]'
           onClick={() => {
             inputRef.current?.click();
           }}
