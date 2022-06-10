@@ -9,6 +9,7 @@ import { ParsedUrlQuery } from 'querystring';
 import React, { useEffect, useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
 import { HeroIcon } from 'utils/HeroIcon';
+import Jobhunt from '/public/images/Job-hunt.svg';
 
 type Props = {
   post: Post;
@@ -28,9 +29,9 @@ const JobDetails = (props: Props) => {
   const handleLike = async () => {
     try {
       if (isLiked) {
-        const result = await postApi.deleteFavoritePost(idUser, post?._id);
+        await postApi.deleteFavoritePost(idUser, post?._id);
       } else {
-        const result = await postApi.addFavoritePost(idUser, post?._id);
+        await postApi.addFavoritePost(idUser, post?._id);
       }
       setIsLiked(!isLiked);
     } catch (error) {
@@ -44,7 +45,7 @@ const JobDetails = (props: Props) => {
         <div>
           <Row className=' bg-white' gutter={[0, 20]}>
             <Col span={2} className='mt-5'>
-              <Image width={80} height={80} className='bg-red-500' preview={false} />
+              <Image width={80} height={80} preview={false} src={post?.company?.logo || Jobhunt} />
             </Col>
             <Col span={22} className='mt-5'>
               <Row>
@@ -75,7 +76,9 @@ const JobDetails = (props: Props) => {
               </Row>
 
               <Col span={24} className='text-[#685879] text-lg'>
-                {`${post?.company?.name} · ${post.company?.locations[0].address}`}
+                {`${post?.company?.name} · ${
+                  post.company?.locations.length == 0 ? '' : post.company?.locations[0].address
+                }`}
               </Col>
               <Row className='my-[20px]'>
                 {post?.skillTags?.map((e: any) => (
