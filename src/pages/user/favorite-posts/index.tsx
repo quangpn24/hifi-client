@@ -5,7 +5,6 @@ import { PAGE_SIZE } from 'constant/others';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
-import AppHeading from 'components/commons/AppHeading';
 
 type Props = {};
 type DataType = {

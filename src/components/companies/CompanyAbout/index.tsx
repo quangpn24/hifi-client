@@ -1,24 +1,13 @@
-import { Button, Card, Col, Input, Row } from 'antd';
-import Link from 'next/link';
-
 interface Props {
-  id: number;
-  logoUrl: string;
-  companyName: string;
-  address: string;
-  field: string;
-  jobs: number;
+  company: Company;
 }
 
-const CompanyAbout = () => {
+const CompanyAbout = ({ company }: Props) => {
   return (
-    <Row gutter={[20, 20]}>
-      <Col span={16}>
-        <h4 className='text-lg font-bold my-0'>companyName</h4>
-        <p className='my-0'>address</p>
-        <p>field</p>
-      </Col>
-    </Row>
+    <>
+      <h4 className='text-2xl font-semibold mb-2'>{company?.name}</h4>
+      <p className='my-0'>{company.summary}</p>
+    </>
   );
 };
 

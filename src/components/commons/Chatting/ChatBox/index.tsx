@@ -2,6 +2,7 @@ import { MessageOutlined } from '@ant-design/icons';
 import { Button, Col, Row, Typography } from 'antd';
 import React, { FC, useEffect, useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
+import { selectUser } from 'redux/selectors';
 import ChatBoxContent from './ChatBoxContent';
 import ChatBoxHeader from './ChatBoxHeader';
 import ChatBoxInput from './ChatBoxInput';
@@ -13,6 +14,7 @@ interface IProps {
 const ChatBox: FC<IProps> = (props) => {
   const { setVisibleDrawer } = props;
   const chatting = useAppSelector((state) => state.chatting);
+  const user = useAppSelector(selectUser);
   const [room, setRoom] = useState<Room>();
 
   useEffect(() => {
@@ -25,8 +27,13 @@ const ChatBox: FC<IProps> = (props) => {
     <div className='flex flex-col p-2 h-full'>
       {room ? (
         <>
-          <ChatBoxHeader setVisibleDrawer={setVisibleDrawer} chatter={room.chatters[0]} />
-          <ChatBoxContent />
+          <ChatBoxHeader
+            setVisibleDrawer={setVisibleDrawer}
+            chatter={room.chatters.find((chatter) => chatter.chatterId != user?._id)}
+          />
+          <ChatBoxContent
+            chatterAvatar={room.chatters.find((chatter) => chatter.chatterId != user?._id)?.avatar}
+          />
           <ChatBoxInput roomId={room._id} />
         </>
       ) : (

@@ -7,7 +7,7 @@ const withAntdLess = require('next-plugin-antd-less');
  **/
 module.exports = withAntdLess({
   modifyVars: {
-    '@primary-color': '#514CDD',
+    '@primary-color': '#446ffc',
     '@border-radius-base': '6px',
     '@box-shadow-base': '0px 2px 20px 0px rgba(111,126,201,0.5)',
   },
@@ -27,7 +27,12 @@ module.exports = withAntdLess({
   },
   reactStrictMode: true,
   images: {
-    domains: ['picsum.photos', 'firebasestorage.googleapis.com', 'itviec.com'],
+    domains: [
+      'picsum.photos',
+      'firebasestorage.googleapis.com',
+      'itviec.com',
+      'res.cloudinary.com',
+    ],
   },
   webpack(config) {
     return config;

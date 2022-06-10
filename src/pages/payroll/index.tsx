@@ -130,7 +130,7 @@ const PayrollPage: NextPage = () => {
         <Card className='!bg-white' title='BẢNG TÍNH LƯƠNG MẪU (GROSS to NET)'>
           <Salary />
 
-          <p className='uppercase text-[#514cdd] text-base font-bold flex justify-center'>
+          <p className='uppercase text-[#446ffc] text-base font-bold flex justify-center'>
             Insurance
           </p>
 
@@ -166,7 +166,7 @@ const PayrollPage: NextPage = () => {
 
           <Regions form={form} />
 
-          <p className='uppercase text-[#514cdd] text-base font-bold flex justify-center'>
+          <p className='uppercase text-[#446ffc] text-base font-bold flex justify-center'>
             Family allowances
           </p>
 

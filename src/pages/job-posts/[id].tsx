@@ -1,12 +1,14 @@
+import { DocumentTextIcon } from '@heroicons/react/solid';
 import { Button, Card, Col, Divider, Image, Row, Tag } from 'antd';
 import postApi from 'api/postApi';
 import ApplyJobFormModal from 'components/JobPost/ApplyJobForm';
 import DescriptionItem from 'components/JobSeeker/JobList/DescriptionItem';
 import ShareModal from 'components/JobSeeker/JobList/ShareModal';
+import dayjs from 'dayjs';
 import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { ParsedUrlQuery } from 'querystring';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
 import { HeroIcon } from 'utils/HeroIcon';
 import Jobhunt from '/public/images/Job-hunt.svg';
@@ -23,6 +25,7 @@ const JobDetails = (props: Props) => {
   const [isLiked, setIsLiked] = useState(post?.isFavorited);
   const idUser = useAppSelector((state) => state.auth.user?._id);
 
+  console.log('Post: ', post);
   const showModal = () => {
     setIsApplyModalVisible(true);
   };
@@ -56,7 +59,7 @@ const JobDetails = (props: Props) => {
                   <div onClick={() => setIsShareModalVisible(true)}>
                     <HeroIcon
                       icon='ShareIcon'
-                      className='!h-[30px] !w-[30px] mr-[10px] border-[1px] border-[#00ADEF] rounded-[4px] p-[2px] text-[#00ADEF]'
+                      className='!h-[30px] !w-[30px] mr-[10px] border-[1px] border-[#00ADEF] rounded-[4px] p-[2px] text-[#00ADEF] cursor-pointer'
                     />
                   </div>
                   <ShareModal
@@ -69,16 +72,20 @@ const JobDetails = (props: Props) => {
                       icon='HeartIcon'
                       outline={!isLiked}
                       color={isLiked ? '!text-[#D82727]' : ''}
-                      className='!h-[30px] !w-[30px] mr-[10px] border-[1px] border-[#8B7A9F] rounded-[4px] p-[2px] hover:!text-[#D82727]'
+                      className='!h-[30px] !w-[30px] mr-[10px] border-[1px] border-[#8B7A9F] rounded-[4px] p-[2px] hover:!text-[#D82727] cursor-pointer'
                     />
                   </div>
                 </Col>
               </Row>
-
-              <Col span={24} className='text-[#685879] text-lg'>
-                {`${post?.company?.name} · ${
-                  post.company?.locations.length == 0 ? '' : post.company?.locations[0].address
-                }`}
+              <Col span={24} className='text-[#685879] text-base mt-1'>
+                {`${post?.company?.name} · ${post.company?.locations
+                  ?.map((l) => l.city)
+                  .filter(function (item, pos, arr) {
+                    return arr.indexOf(item) == pos;
+                  })
+                  .join(' / ')}`}{' '}
+                ({post.workplaceType || 'On-site'}) {'  '}
+                {dayjs(post.updatedAt).fromNow()}
               </Col>
               <Row className='my-[20px]'>
                 {post?.skillTags?.map((e: any) => (
@@ -108,15 +115,34 @@ const JobDetails = (props: Props) => {
                 <Col span={24}>
                   <DescriptionItem
                     iconName='OfficeBuildingIcon'
-                    content={post?.jobCategory?.name}
+                    content={post?.jobCategory?.name + ` (${post?.company?.size} employees)`}
                   />
                 </Col>
               </Row>
 
               <Col span={10} className='mt-5'>
-                <Button type='primary' onClick={showModal}>
-                  Apply now
-                </Button>
+                {post?.application ? (
+                  <div className='flex items-center space-x-2'>
+                    <Button type='primary' disabled>
+                      Applied
+                    </Button>
+                    <div>
+                      <Link href={`/user/applications/${post.application.id}`} prefetch={false}>
+                        <a
+                          className='flex items-center space-x-2 text-primary-color hover:underline'
+                          target='_blank'
+                        >
+                          <DocumentTextIcon className='w-4 h-4 mr-1' />
+                          Your application
+                        </a>
+                      </Link>
+                    </div>
+                  </div>
+                ) : (
+                  <Button type='primary' onClick={showModal}>
+                    Apply now
+                  </Button>
+                )}
               </Col>
             </Col>
             <Divider className='!mb-0' />
@@ -134,7 +160,11 @@ const JobDetails = (props: Props) => {
                 </Col>
                 <Col span={4}>
                   <Link href={'/'}>
-                    <a>
+                    <a
+                      href={`/companies/${post.company?._id}`}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
                       <div className='flex items-center text-red-700 text-base hover:cursor-pointer'>
                         Go to company page
                         <HeroIcon
@@ -153,12 +183,12 @@ const JobDetails = (props: Props) => {
               {post?.company?.locations.map((e, index) => {
                 return (
                   <div key={index}>
-                    ● <strong>{e.officeName}</strong> - {e.address}
+                    ● <strong>{e.officeName}</strong> - {e.address}, {e.city}
                   </div>
                 );
               })}
               <h3 className=' text-[20px] mt-2'>Size</h3>
-              <div>{post?.company?.size}/people</div>
+              <div>{post?.company?.size} employees</div>
             </Col>
           </Row>
         </div>
