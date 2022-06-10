@@ -17,9 +17,9 @@ const JobCardItem = (props: Props) => {
     try {
       if (idUser) {
         if (isLiked) {
-          const result = await postApi.deleteFavoritePost(idUser, props.data._id);
+          await postApi.deleteFavoritePost(idUser, props.data._id);
         } else {
-          const result = await postApi.addFavoritePost(idUser, props.data._id);
+          await postApi.addFavoritePost(idUser, props.data._id);
         }
         setIsLiked(!isLiked);
       } else {
@@ -30,6 +30,7 @@ const JobCardItem = (props: Props) => {
     }
   };
 
+  console.log('test locations: ', props.data.locations);
   return (
     <div
       className='rounded p-5 shadow-md bg-white hover:opacity-90 hover:shadow-lg'
@@ -68,7 +69,11 @@ const JobCardItem = (props: Props) => {
             </a>
           </Col>
           <Col span={24} className='text-[14px] my-2'>
-            {props.data.locations && props.data?.locations[0].address}
+            {props.data.locations &&
+              props.data?.locations.map(
+                (location: WorkLocation) =>
+                  `${location.address}, ${location.city || 'TP.Hồ Chí Minh'}`
+              )}
           </Col>
           <Row>
             <Col span={20}>
@@ -88,7 +93,7 @@ const JobCardItem = (props: Props) => {
               </Tag>
             </Col>
             <Col span={4} className='!flex justify-end'>
-              <div onClick={() => handleLike()}>
+              <div onClick={() => handleLike()} className='cursor-pointer'>
                 <HeroIcon
                   icon='HeartIcon'
                   outline={!isLiked}

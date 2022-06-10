@@ -60,8 +60,12 @@ type Post = Partial<{
   photoFile: any;
   postPhoto: string;
   company: Company;
-  updatedAt: string;
+  workplaceType: 'remote' | 'on-site' | 'hybrid';
+  experienceLevel: 'Internship' | 'Entry level' | 'Associate' | 'Mid-Senior level' | 'Director';
+  updatedAt: Date;
+  createdAt: Date;
   isFavorited: Boolean;
+  application: Application;
   applicationDeadline: Date;
 }>;
 
@@ -92,6 +96,7 @@ type Salary = {
 type WorkLocation = {
   _id: string;
   officeName?: string;
+  city?: string;
   address?: string;
 };
 
