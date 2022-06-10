@@ -50,7 +50,7 @@ const JobCard: React.FC<IProps> = (props) => {
       </Row>
       <Row>
         <h5 className='font-bold text-md text-text-secondary'>
-          {post.company?.locations?.[0].address} - {post.jobType}
+          {post.company?.locations?.[0]?.address} - {post.jobType}
         </h5>
       </Row>
       <Row justify='space-between' className='mt-8'>
