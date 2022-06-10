@@ -63,9 +63,9 @@ const Home: NextPage<Props> = (props) => {
       });
 
     companyApi
-      .getCompanies()
+      .getCompanies('?limit=6')
       .then((res) => {
-        setCompanies(res.data.value);
+        setCompanies(res.data.data);
       })
       .catch((err) => {
         console.log(err);

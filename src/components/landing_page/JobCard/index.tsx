@@ -1,13 +1,9 @@
-import Icon, { ToolOutlined } from '@ant-design/icons';
-import { Row, Col, Button, Avatar, Card } from 'antd';
-import type { NextPage } from 'next';
-import logo from '/public/images/Logo.svg';
-import Image from 'next/image';
-import Jobhunt from '/public/images/Job-hunt.svg';
-import Title from 'antd/lib/typography/Title';
+import { Button, Card, Col, Row } from 'antd';
 import Text from 'antd/lib/typography/Text';
-import { useRouter } from 'next/router';
 import moment from 'moment';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import Jobhunt from '/public/images/Job-hunt.svg';
 
 interface IProps {
   post: Post;
@@ -18,13 +14,7 @@ const JobCard: React.FC<IProps> = (props) => {
   const { post } = props;
 
   return (
-    <Card
-      className='h-full'
-      style={{
-        borderRadius: '20px',
-        overflow: 'hidden',
-      }}
-    >
+    <Card className='h-full'>
       <Row justify='space-between'>
         <Col span={6}>
           <Image src={post.postPhoto || Jobhunt} alt=''></Image>
@@ -50,7 +40,7 @@ const JobCard: React.FC<IProps> = (props) => {
       </Row>
       <Row>
         <h5 className='font-bold text-md text-text-secondary'>
-          {post.company?.locations?.[0].address} - {post.jobType}
+          {post.company?.locations?.[0]?.address} - {post.jobType}
         </h5>
       </Row>
       <Row justify='space-between' className='mt-8'>

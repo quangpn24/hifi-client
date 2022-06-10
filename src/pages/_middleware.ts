@@ -6,7 +6,6 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
   const url = req.nextUrl.clone();
 
   const accessToken = req.cookies['accessToken'];
-
   if (NO_AUTH_PATHS.includes(url.pathname)) {
     if (accessToken) {
       url.pathname = url.searchParams.get('redirect_url') ?? '/';

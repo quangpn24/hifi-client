@@ -43,8 +43,10 @@ type Company = {
   size: string;
   contactName: string;
   summary: string;
+  images: string[];
   logo: string;
   accountStatus: 'pending' | 'rejected' | 'fullfilled';
+  posts?: Post[];
 };
 
 type Post = Partial<{
@@ -93,6 +95,7 @@ type WorkLocation = {
   _id: string;
   officeName?: string;
   address?: string;
+  city?: string;
 };
 
 type Message = {
