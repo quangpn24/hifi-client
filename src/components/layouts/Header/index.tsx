@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import RightContent from './RightContent';
-import logo from '/public/images/Logo.svg';
+import logo from '/public/apple-touch-icon.png';
 interface menuData {
   id: number;
   name: String;

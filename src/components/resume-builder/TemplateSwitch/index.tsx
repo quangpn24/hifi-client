@@ -28,7 +28,7 @@ const TemplateThumbnail = styled.label`
   transition: all 0.3s;
 
   .selected {
-    border: solid 2px #514cdd;
+    border: solid 2px #446ffc;
     border-radius: 8px;
   }
 `;

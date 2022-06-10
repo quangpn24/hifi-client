@@ -3,18 +3,17 @@ import { Button, Col, Image as AntImage, Input, Row, Tabs } from 'antd';
 import axios from 'axios';
 import CategoryCard from 'components/landing_page/CategoryCard';
 import JobCard from 'components/landing_page/JobCard';
-import ReactFullpage from '@fullpage/react-fullpage';
 import type { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import Jobhunt from '/public/images/Job-hunt.svg';
-const { TabPane } = Tabs;
-const { Search } = Input;
+import Hero from '/public/images/hero.png';
 import categoryApi from 'api/categoryApi';
 import postApi from 'api/postApi';
 import companyApi from 'api/companyApi';
-import Footer from 'components/layouts/Footer';
+
+const { TabPane } = Tabs;
+const { Search } = Input;
 
 //define type for data
 interface Data {
@@ -86,14 +85,14 @@ const Home: NextPage<Props> = (props) => {
   }, [activeKey]);
 
   return (
-    <div className='px-16 py-8 !h-auto'>
+    <div className='px-16 py-8 !h-auto '>
       <Row justify='space-between' gutter={[20, 20]}>
         <Col md={8} xs={24}>
           <h3 className='font-bold text-3xl text-text-primary'>
             Find your future! Hire your future!
           </h3>
           <h5 className='text-text-tertiary inline-block'>
-            {`Find your future. Let't go to discover the world!. Your oppornities are in your hand ^^`}
+            {`Find your future. Let't go to discover the world!. Your oppornities are in your hand`}
           </h5>
           <Row className='mt-8'>
             <Col span={24}>
@@ -110,7 +109,7 @@ const Home: NextPage<Props> = (props) => {
         <Col md={6} xs={0}></Col>
         <Col md={10} xs={24}>
           <div className='w-400'>
-            <Image src={Jobhunt} alt='' width={500} height={500}></Image>
+            <Image src={Hero} alt='hero-image' width={500} height={500}></Image>
           </div>
         </Col>
       </Row>
@@ -137,7 +136,7 @@ const Home: NextPage<Props> = (props) => {
       </Row>
       <Row justify='center'>
         <h5 className='text-text-tertiary max-w-md text-center'>
-          {`Find your future. Let't go to discover the world!. Your oppornities are in your hand ^^`}
+          {`Find your future. Let't go to discover the world!. Your oppornities are in your hand`}
         </h5>
       </Row>
       <Tabs defaultActiveKey={activeKey} centered size='large' onChange={handleChangeTab}>
@@ -163,7 +162,7 @@ const Home: NextPage<Props> = (props) => {
       </Row>
       <Row justify='center'>
         <h5 className='text-text-tertiary max-w-md text-center'>
-          {`Find your future. Let't go to discover the world!. Your oppornities are in your hand ^^`}
+          {`Find your future. Let't go to discover the world!. Your oppornities are in your hand`}
         </h5>
       </Row>
       <Row gutter={[32, 16]}>

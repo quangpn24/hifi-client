@@ -19,7 +19,7 @@ const StatusCard = ({ text, active = false, onClick }: Props) => {
       )}
       onClick={onClick}
     >
-      {active && <CheckCircleIcon className='absolute left-2 w-7 h-7' color='#514CDD' />}
+      {active && <CheckCircleIcon className='absolute left-2 w-7 h-7' color='#446ffc' />}
       {text}
     </div>
   );

@@ -74,7 +74,7 @@ const ToolSidebar = (props: Props) => {
             percent={completedRate * 100}
             strokeColor={{
               '0%': '#9f9cef',
-              '100%': '#514CDD',
+              '100%': '#446ffc',
             }}
             showInfo={false}
           />

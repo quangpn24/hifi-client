@@ -14,7 +14,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        'primary-color': '#514CDD',
+        'primary-color': '#446ffc',
         'secondary-color': '#F8937E',
         'text-primary-color': '#190134',
         'text-secondary-color': '#685879',
@@ -37,7 +37,7 @@ module.exports = {
     },
   ],
   colors: {
-    primary: '#514CDD',
+    primary: '#446ffc',
     tertiary: '#8B7A9F',
     'text-primary': '#190134',
     'text-secondary': '#685879',
