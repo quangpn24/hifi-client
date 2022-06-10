@@ -23,6 +23,7 @@ export const store = configureStore({
     auth: authSlice.reducer,
     chatting: chattingSlice.reducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
   devTools: true,
 });
 // const makeStore = () => store;
