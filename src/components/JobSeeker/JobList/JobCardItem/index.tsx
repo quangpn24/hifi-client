@@ -19,9 +19,9 @@ const JobCardItem = ({ data }: Props) => {
     try {
       if (idUser) {
         if (isLiked) {
-          await postApi.deleteFavoritePost(idUser, props.data._id);
+          await postApi.deleteFavoritePost(idUser, data._id);
         } else {
-          await postApi.addFavoritePost(idUser, props.data._id);
+          await postApi.addFavoritePost(idUser, data._id);
         }
         setIsLiked(!isLiked);
       } else {
