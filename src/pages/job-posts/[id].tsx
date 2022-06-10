@@ -11,6 +11,7 @@ import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
 import { HeroIcon } from 'utils/HeroIcon';
+import Jobhunt from '/public/images/Job-hunt.svg';
 
 type Props = {
   post: Post;
@@ -46,14 +47,8 @@ const JobDetails = (props: Props) => {
       <Card>
         <div>
           <Row className=' bg-white' gutter={[0, 20]}>
-            <Col lg={2} sm={24} className='mt-5'>
-              <Image
-                width={80}
-                height={80}
-                className='bg-red-500'
-                preview={false}
-                alt='company-logo'
-              />
+            <Col span={2} lg={2} sm={24} className='mt-5'>
+              <Image width={80} height={80} preview={false} src={post?.company?.logo || Jobhunt} />
             </Col>
             <Col lg={22} sm={24} className='lg:mt-5'>
               <Row>
@@ -82,7 +77,6 @@ const JobDetails = (props: Props) => {
                   </div>
                 </Col>
               </Row>
-
               <Col span={24} className='text-[#685879] text-base mt-1'>
                 {`${post?.company?.name} · ${post.company?.locations
                   ?.map((l) => l.city)

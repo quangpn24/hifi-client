@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
 import dateTimeHelper from 'utils/dateTimeHelper';
 import { HeroIcon } from 'utils/HeroIcon';
+import Jobhunt from '/public/images/Job-hunt.svg';
 type Props = {
   data: Post;
 };
@@ -41,7 +42,12 @@ const JobCardItem = (props: Props) => {
       <Row>
         <Col span={3}>
           <a href={`/job-posts/${props.data._id}`} target='_blank' rel='noopener noreferrer'>
-            <Image width={100} height={100} className='bg-red-500' preview={false} />
+            <Image
+              width={100}
+              height={100}
+              src={props.data.company?.logo || Jobhunt}
+              preview={false}
+            />
           </a>
         </Col>
         <Col span={21} className='text-lg pl-[10px]'>
