@@ -25,7 +25,6 @@ const JobDetails = (props: Props) => {
   const [isLiked, setIsLiked] = useState(post?.isFavorited);
   const idUser = useAppSelector((state) => state.auth.user?._id);
 
-  console.log('Post: ', post);
   const showModal = () => {
     setIsApplyModalVisible(true);
   };

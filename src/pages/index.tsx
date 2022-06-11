@@ -183,6 +183,11 @@ const Home: NextPage<Props> = (props) => {
           </Col>
         ))}
       </Row>
+      <Row justify='center' className='pt-8'>
+        <Button type='primary' size='large' href='/companies'>
+          Explore more companies
+        </Button>
+      </Row>
     </div>
   );
 };
