@@ -32,6 +32,7 @@ const ApplicationItem = ({ data }: Props) => {
             width={50}
             height={50}
             alt='logo-company'
+            objectFit='contain'
           />
           <div className='ml-4 w-full '>
             <h4 className='!mb-0  text-xl'>{data.post?.title}</h4>

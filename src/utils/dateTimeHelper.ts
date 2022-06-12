@@ -24,6 +24,7 @@ const dateTimeHelper = {
     )})`;
   },
   dayLeft: (date: Date) => {
+    return moment(date).diff(moment(), 'days');
     return Math.round((date.getTime() - Date.now()) / (1000 * 24 * 3600));
   },
 };

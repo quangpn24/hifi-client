@@ -1,18 +1,27 @@
 import { Menu, MenuProps } from 'antd';
 import { APPLICATION_STATUS_MAP } from 'constant';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 type Props = {};
 
 const StatusSideBar = (props: Props) => {
   const [status, setStatus] = useState(APPLICATION_STATUS_MAP.keys().next().value);
   const router = useRouter();
+  const { status: statusQuery } = router.query;
   const handleClick: MenuProps['onClick'] = (e) => {
     setStatus(e.key);
     router.query.status = e.key;
     router.push(router);
   };
+
+  useEffect(() => {
+    if (statusQuery) {
+      setStatus(statusQuery);
+    } else {
+      setStatus('ALL');
+    }
+  }, [statusQuery]);
 
   return (
     <Menu
