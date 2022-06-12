@@ -63,7 +63,7 @@ const FavoriteList = (props: Props) => {
   return (
     <div className='p-8 rounded-md'>
       <h1>My favorite posts</h1>
-      <div className='w-full mt-[20px] px-16 pt-5 bg-[#FAFAFC] min-h-screen rounded flex flex-col'>
+      <div className='w-full mt-[20px] py-5 rounded flex flex-col'>
         <Row justify='center' className='w-full' gutter={[20, 20]}>
           {data?.map((e) => (
             <Col span={24} key={`${e._id}`}>
