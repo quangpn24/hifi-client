@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
+import dateTimeHelper from 'utils/dateTimeHelper';
 import { HeroIcon } from 'utils/HeroIcon';
 import Jobhunt from '/public/images/Job-hunt.svg';
 
@@ -24,7 +25,7 @@ const JobDetails = (props: Props) => {
   const { post } = props;
   const [isLiked, setIsLiked] = useState(post?.isFavorited);
   const idUser = useAppSelector((state) => state.auth.user?._id);
-
+  const dayLeft = dateTimeHelper.dayLeft(new Date(post.applicationDeadline ?? '1/1/2022'));
   const showModal = () => {
     setIsApplyModalVisible(true);
   };
@@ -47,7 +48,16 @@ const JobDetails = (props: Props) => {
         <div>
           <Row className=' bg-white' gutter={[0, 20]}>
             <Col span={2} lg={2} sm={24} className='mt-5'>
-              <Image width={80} height={80} preview={false} src={post?.company?.logo || Jobhunt} />
+              <Image
+                width={80}
+                height={80}
+                preview={false}
+                src={post?.company?.logo || Jobhunt}
+                alt={post.title || 'company name'}
+                style={{
+                  objectFit: 'contain',
+                }}
+              />
             </Col>
             <Col lg={22} sm={24} className='lg:mt-5'>
               <Row>
@@ -79,7 +89,7 @@ const JobDetails = (props: Props) => {
               <Col span={24} className='text-[#685879] text-base mt-1'>
                 {`${post?.company?.name} · ${post.company?.locations
                   ?.map((l) => l.city)
-                  .filter(function (item, pos, arr) {
+                  .filter((item, pos, arr) => {
                     return arr.indexOf(item) == pos;
                   })
                   .join(' / ')}`}{' '}
@@ -120,27 +130,33 @@ const JobDetails = (props: Props) => {
               </Row>
 
               <Col span={10} className='mt-5'>
-                {post?.application ? (
-                  <div className='flex items-center space-x-2'>
-                    <Button type='primary' disabled>
-                      Applied
-                    </Button>
-                    <div>
-                      <Link href={`/user/applications/${post.application.id}`} prefetch={false}>
-                        <a
-                          className='flex items-center space-x-2 text-primary-color hover:underline'
-                          target='_blank'
-                        >
-                          <DocumentTextIcon className='w-4 h-4 mr-1' />
-                          Your application
-                        </a>
-                      </Link>
-                    </div>
-                  </div>
+                {dayLeft > 0 ? (
+                  <>
+                    {post?.application ? (
+                      <div className='flex items-center space-x-2'>
+                        <Button type='primary' disabled>
+                          Applied
+                        </Button>
+                        <div>
+                          <Link href={`/user/applications/${post.application.id}`} prefetch={false}>
+                            <a
+                              className='flex items-center space-x-2 text-primary-color hover:underline'
+                              target='_blank'
+                            >
+                              <DocumentTextIcon className='w-4 h-4 mr-1' />
+                              Your application
+                            </a>
+                          </Link>
+                        </div>
+                      </div>
+                    ) : (
+                      <Button type='primary' onClick={showModal}>
+                        Apply now
+                      </Button>
+                    )}
+                  </>
                 ) : (
-                  <Button type='primary' onClick={showModal}>
-                    Apply now
-                  </Button>
+                  <Tag color={'error'}>Expired</Tag>
                 )}
               </Col>
             </Col>

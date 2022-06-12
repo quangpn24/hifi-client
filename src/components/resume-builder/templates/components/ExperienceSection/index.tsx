@@ -31,7 +31,7 @@ const Company = ({ company }: any) => (
 const ExperienceSection = ({ companies, styles }: any) => {
   return (
     <FlexTimeline style={styles}>
-      {companies.map((company: any, index: number) => (
+      {companies?.map((company: any, index: number) => (
         <TimelineItem key={`${company.name}-${index}`}>
           <Company company={company} />
           <NormalText

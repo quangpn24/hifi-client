@@ -3,7 +3,7 @@ import { ChevronLeftIcon } from '@heroicons/react/solid';
 import { Col, Divider, Row, Tag } from 'antd';
 import applicationApi from 'api/applicationApi';
 import JobDetails from 'components/application/JobDetails';
-import { APPLICATION_STATUS_MAP } from 'constant';
+import { APPLICATION_STATUS_MAP, DEFAULT_IMAGE } from 'constant';
 import dayjs from 'dayjs';
 import { GetServerSideProps } from 'next';
 import Image from 'next/image';
@@ -29,11 +29,12 @@ const ApplicationDetail = ({ application }: Props) => {
         <Col span={16}>
           <div className='flex p-4 w-full rounded bg-white'>
             <Image
-              src={'https://picsum.photos/200'}
+              src={application.post.company?.logo || DEFAULT_IMAGE}
               layout='fixed'
               width={50}
               height={50}
               alt='logo-company'
+              objectFit='contain'
             />
             <div className='ml-4 w-full '>
               <h4 className='!mb-0  text-xl'>{application.post.title}</h4>
@@ -54,9 +55,6 @@ const ApplicationDetail = ({ application }: Props) => {
               <Tag color={APPLICATION_STATUS_MAP.get(application.status)?.color}>
                 {APPLICATION_STATUS_MAP.get(application.status)?.text}
               </Tag>
-              {/* <span className='px-3 py-1 text-center inline-block rounded-3xl text-white'>
-                {APPLICATION_STATUS_MAP.get(application.status)?.text}
-              </span> */}
             </div>
           </div>
           <Divider />

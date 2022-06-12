@@ -166,7 +166,7 @@ const Home: NextPage<Props> = (props) => {
         </h5>
       </Row>
       <Row gutter={[32, 16]}>
-        {companies.map((company) => (
+        {companies?.map((company) => (
           <Col span={8} key={company._id} className='text-center h-44'>
             <AntImage
               preview={false}

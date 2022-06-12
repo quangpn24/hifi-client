@@ -31,6 +31,7 @@ const JobCardItem = ({ data }: Props) => {
       console.log(error);
     }
   };
+  const dayLeft = dateTimeHelper.dayLeft(new Date(data.applicationDeadline ?? '1/1/2022'));
   return (
     <Row>
       <Col span={3} lg={2} className='mr-5'>
@@ -38,6 +39,7 @@ const JobCardItem = ({ data }: Props) => {
           <Image
             className='w-full h-full object-contain border border-slate-600'
             src={data?.company?.logo || Jobhunt}
+            alt={data.title || 'company name'}
           />
         </a>
       </Col>
@@ -48,10 +50,16 @@ const JobCardItem = ({ data }: Props) => {
               <div> {data.company?.name || ' '}</div>
             </a>
             <div className='text-base'>
-              <strong>
-                {dateTimeHelper.dayLeft(new Date(data.applicationDeadline ?? '1/1/2022'))}
-              </strong>
-              {' days left to apply'}
+              {dayLeft > 0 ? (
+                <>
+                  <strong>
+                    {dateTimeHelper.dayLeft(new Date(data.applicationDeadline ?? '1/1/2022'))}
+                  </strong>{' '}
+                  days left to apply
+                </>
+              ) : (
+                <p className='text-error-color'>Expired</p>
+              )}
             </div>
           </Col>
         </Row>
