@@ -127,7 +127,7 @@ const PayrollPage: NextPage = () => {
         wrapperCol={{ span: 14 }}
         layout='horizontal'
       >
-        <Card className='!bg-white' title='BẢNG TÍNH LƯƠNG MẪU (GROSS to NET)'>
+        <Card className='!bg-white' title='GROSS to NET salary calculator'>
           <Salary />
 
           <p className='uppercase text-[#446ffc] text-base font-bold flex justify-center'>

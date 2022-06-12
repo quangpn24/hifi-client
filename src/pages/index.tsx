@@ -62,9 +62,9 @@ const Home: NextPage<Props> = (props) => {
       });
 
     companyApi
-      .getCompanies()
+      .getCompanies('?limit=6')
       .then((res) => {
-        setCompanies(res.data.value);
+        setCompanies(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -182,6 +182,11 @@ const Home: NextPage<Props> = (props) => {
             ></AntImage>
           </Col>
         ))}
+      </Row>
+      <Row justify='center' className='pt-8'>
+        <Button type='primary' size='large' href='/companies'>
+          Explore more companies
+        </Button>
       </Row>
     </div>
   );

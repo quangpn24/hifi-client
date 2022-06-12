@@ -25,7 +25,6 @@ const JobDetails = (props: Props) => {
   const [isLiked, setIsLiked] = useState(post?.isFavorited);
   const idUser = useAppSelector((state) => state.auth.user?._id);
 
-  console.log('Post: ', post);
   const showModal = () => {
     setIsApplyModalVisible(true);
   };
@@ -160,7 +159,11 @@ const JobDetails = (props: Props) => {
                 </Col>
                 <Col span={4}>
                   <Link href={'/'}>
-                    <a>
+                    <a
+                      href={`/companies/${post.company?._id}`}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
                       <div className='flex items-center text-red-700 text-base hover:cursor-pointer'>
                         Go to company page
                         <HeroIcon

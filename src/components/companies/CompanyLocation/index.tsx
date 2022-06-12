@@ -1,42 +1,27 @@
-import React from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import { Col, Row } from 'antd';
+import { Card } from 'antd';
 import { HeroIcon } from 'components/commons/HeroIcon';
 
-const key = '';
-
 interface Props {
-  center: google.maps.LatLngLiteral;
-  location: google.maps.LatLngLiteral;
-  address: string;
+  locations: WorkLocation[];
 }
 
-const CompanyLocation = (props: Props) => {
+const CompanyLocation = ({ locations }: Props) => {
   return (
-    <Row gutter={[40, 20]}>
-      <Col span={8}>
-        <h3 className='text-2xl font-semibold'>Location</h3>
-        <div className='flex item-center gap-1'>
-          <HeroIcon icon='LocationMarkerIcon' />
-          <p>{props.address}</p>
+    <Card>
+      <h5 className='text-xl font-semibold'>Address</h5>
+      {locations.map((location) => (
+        <div key={location._id} className='mb-4'>
+          <div className='flex flex-row gap-2'>
+            <HeroIcon icon='LocationMarkerIcon' />
+            <p className='my-0 font-medium'>{location?.officeName}</p>
+          </div>
+          <p className='my-0'>
+            {location?.address} {location?.city}
+          </p>
         </div>
-      </Col>
-      <Col span={16}>
-        {/* <LoadScript googleMapsApiKey={key}>
-          <GoogleMap
-            mapContainerStyle={{
-              width: '100%',
-              height: '400px',
-            }}
-            center={props.center}
-            zoom={15}
-          >
-            <Marker position={props.location} />
-          </GoogleMap>
-        </LoadScript> */}
-      </Col>
-    </Row>
+      ))}
+    </Card>
   );
 };
 
-export default React.memo(CompanyLocation);
+export default CompanyLocation;
