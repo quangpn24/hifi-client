@@ -50,7 +50,8 @@
     "react-sortable-hoc": "^2.0.0",
     "react-to-print": "^2.14.7",
     "socket.io-client": "^4.4.1",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "universal-cookie": "^4.0.4"
   },
   "devDependencies": {
     "@types/cookies": "^0.7.7",
