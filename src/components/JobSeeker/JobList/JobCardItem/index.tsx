@@ -32,6 +32,7 @@ const JobCardItem = ({ data }: Props) => {
     }
   };
   const dayLeft = dateTimeHelper.dayLeft(new Date(data.applicationDeadline ?? '1/1/2022'));
+  console.log('data?.company?.logo', data?.company?.logo);
   return (
     <Row>
       <Col span={3} lg={2} className='mr-5'>

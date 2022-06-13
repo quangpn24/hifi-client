@@ -53,7 +53,6 @@ const AwardForm = React.forwardRef<any, IProps>(({ onSubmit, award }, ref) => {
             required: true,
           },
         ]}
-        required={false}
       >
         <Input />
       </Form.Item>
@@ -66,7 +65,6 @@ const AwardForm = React.forwardRef<any, IProps>(({ onSubmit, award }, ref) => {
             required: true,
           },
         ]}
-        required={false}
       >
         <Input />
       </Form.Item>
@@ -78,7 +76,6 @@ const AwardForm = React.forwardRef<any, IProps>(({ onSubmit, award }, ref) => {
             required: true,
           },
         ]}
-        required={false}
       >
         <Select>
           {years.map((year) => (

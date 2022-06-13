@@ -64,7 +64,6 @@ const VolunteeringForm = React.forwardRef<any, IProps>(({ onSubmit, volunteering
             required: true,
           },
         ]}
-        required={false}
       >
         <Input placeholder='Organization or Activity Name' />
       </Form.Item>
@@ -77,7 +76,6 @@ const VolunteeringForm = React.forwardRef<any, IProps>(({ onSubmit, volunteering
             required: true,
           },
         ]}
-        required={false}
       >
         <Input placeholder='Your role' />
       </Form.Item>
@@ -89,7 +87,6 @@ const VolunteeringForm = React.forwardRef<any, IProps>(({ onSubmit, volunteering
             required: true,
           },
         ]}
-        required={false}
       >
         <MonthYearSelect />
       </Form.Item>
@@ -110,16 +107,7 @@ const VolunteeringForm = React.forwardRef<any, IProps>(({ onSubmit, volunteering
           I{"'"}m currently working in this company
         </Checkbox>
       </Form.Item>
-      <Form.Item
-        wrapperCol={{ span: 24 }}
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-        required={false}
-        name='notes'
-      >
+      <Form.Item wrapperCol={{ span: 24 }} name='notes'>
         <TextArea rows={5} placeholder='Additional information (optional)' />
       </Form.Item>
     </Form>

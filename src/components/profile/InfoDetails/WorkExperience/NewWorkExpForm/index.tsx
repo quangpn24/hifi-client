@@ -65,7 +65,6 @@ const NewWorkExpForm = React.forwardRef<any, IProps>(({ onSubmit, workExp, formT
             required: true,
           },
         ]}
-        required={false}
       >
         <Input placeholder='Job title' />
       </Form.Item>
@@ -78,7 +77,6 @@ const NewWorkExpForm = React.forwardRef<any, IProps>(({ onSubmit, workExp, formT
             required: true,
           },
         ]}
-        required={false}
       >
         <Input placeholder='Company' />
       </Form.Item>
@@ -90,7 +88,6 @@ const NewWorkExpForm = React.forwardRef<any, IProps>(({ onSubmit, workExp, formT
             required: true,
           },
         ]}
-        required={false}
       >
         <MonthYearSelect />
       </Form.Item>

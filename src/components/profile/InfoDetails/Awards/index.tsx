@@ -123,7 +123,7 @@ const AwardsSection: React.FC<Props> = ({ awards: data }: Props) => {
         </div>
       </HrefContainer>
       <Modal
-        title={selectedAward ? 'EDIT EDUCATION' : ' ADD EDUCATION'}
+        title={selectedAward ? 'EDIT AWARD' : ' ADD AWARD'}
         visible={visible}
         onOk={handleOk}
         onCancel={handleCancel}
