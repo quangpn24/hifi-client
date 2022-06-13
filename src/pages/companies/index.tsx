@@ -38,7 +38,7 @@ export default Companies;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
-    const res = await companyApi.getCompanies();
+    const res = await companyApi.getCompanies(queryParams);
     return {
       props: {
         companies: res.data.data,

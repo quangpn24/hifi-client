@@ -191,9 +191,7 @@ const Jobs = (props: Props) => {
       <Row className='mt-10' justify='center'>
         {posts?.map((e) => (
           <Col span={24} className='mb-4' key={`${e._id}`}>
-            <Card>
-              <JobCardItem data={e} />
-            </Card>
+            <JobCardItem data={e} />
           </Col>
         ))}
         {posts && posts.length > 0 && (

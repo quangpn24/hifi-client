@@ -15,6 +15,8 @@ import React from 'react';
 import { useAppDispatch } from 'redux/hooks';
 import { authActions } from 'redux/reducers/authSlice';
 import routeHelper from 'utils/routeHelper';
+import Cookies from 'universal-cookie';
+
 const Content = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -29,6 +31,8 @@ const Content = () => {
         router.replace('/auth/login' + '?redirect_url=' + router.pathname);
       }
       dispatch(authActions.logout());
+      const cookies = new Cookies();
+      cookies.remove('accessToken', { path: '/' });
     } catch (error) {
       console.log('handleLogout Error: ', error);
     }

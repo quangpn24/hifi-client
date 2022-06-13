@@ -1,19 +1,16 @@
-import { Menu, Space } from 'antd';
-import Image from 'next/image';
-import React from 'react';
-import { CalculatorIcon } from '@heroicons/react/solid';
-import StatusSideBar from 'components/application/StatusSideBar';
+import { Card } from 'antd';
 import ApplicationList from 'components/application/ApplicationList';
+import StatusSideBar from 'components/application/StatusSideBar';
 type Props = {};
 
 const ApplicationsPage = (props: Props) => {
   return (
     <div className='p-8'>
       <h1>My Applications</h1>
-      <div className='flex min-h-screen max-h-32 bg-white rounded-md py-4'>
+      <Card className='min-h-screen bg-white rounded-md py-4' bodyStyle={{ display: 'flex' }}>
         <StatusSideBar />
         <ApplicationList />
-      </div>
+      </Card>
     </div>
   );
 };

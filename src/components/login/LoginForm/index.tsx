@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'redux/hooks';
 import { authActions } from 'redux/reducers/authSlice';
 import { selectUser } from 'redux/selectors';
+import Cookies from 'universal-cookie';
 
 const defaultFormValue = {
   email: '',
@@ -27,8 +28,13 @@ const LoginForm = () => {
     if (!error && user) {
       try {
         const result = await dispatch(authActions.login(user));
-        await unwrapResult(result);
+        const res = await unwrapResult(result);
         message.success('Login successfully!');
+        const accessToken = res?.accessToken;
+        if (accessToken) {
+          const cookies = new Cookies();
+          cookies.set('accessToken', accessToken, { path: '/' });
+        }
 
         const url = (router.query.redirect_url as string) ?? '/';
         router.push(url);
